@@ -5,7 +5,7 @@ public class UserForm {
 	
 	private String password;
 	
-	private int gender;
+	private String gender;
 
 	public String getUsername() {
 		return username;
@@ -23,11 +23,11 @@ public class UserForm {
 		this.password = password;
 	}
 
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	

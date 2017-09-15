@@ -3,7 +3,6 @@ package edu.unsw.minifacebook.DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import edu.unsw.minifacebook.bean.UserBean;
 
 @Repository
-public class UserDAO {
+public class PostDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -40,13 +39,8 @@ public class UserDAO {
 		CriteriaQuery<UserBean> query = builder.createQuery(UserBean.class);
 		Root<UserBean> root = query.from(UserBean.class);
 		query.select(root).where(builder.equal(root.get("username"), username));
-		UserBean userBean = null;
 		Query q = this.getCurrentSession().createQuery(query);
-		try {
-			 userBean = (UserBean) q.getSingleResult();
-		}catch(NoResultException nre) {
-			nre.printStackTrace();
-		}
+		UserBean userBean = (UserBean) q.getSingleResult();
 		return userBean;
 	}
 }

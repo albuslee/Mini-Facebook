@@ -13,21 +13,21 @@ import javax.persistence.Table;
 public class UserBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int userid;
 
-	@Column
+	@Column(nullable=false, unique= true)
 	private String username;
 	@Column
 	private String password;
 	@Column
 	private String gender;
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int id) {
+		this.userid = id;
 	}
 
 	public String getUsername() {

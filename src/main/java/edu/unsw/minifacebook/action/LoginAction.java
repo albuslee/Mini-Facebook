@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.unsw.minifacebook.forms.UserForm;
 import edu.unsw.minifacebook.service.UserService;
 
-public class RegisterAction extends ActionSupport {
+public class LoginAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
 	private UserForm userform;
@@ -25,7 +25,7 @@ public class RegisterAction extends ActionSupport {
 	
 	public String execute() {
 		try {
-			boolean result = userService.register(userform);
+			boolean result = userService.login(userform);
 			if(result) {
 				return SUCCESS;
 			}else

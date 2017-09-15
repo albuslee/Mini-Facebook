@@ -20,7 +20,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/test" />
+		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/mini_facebook" />
 		<property name="user" value="root" />
 		<property name="password" value="root" />
 	</bean>

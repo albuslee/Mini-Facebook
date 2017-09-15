@@ -14,9 +14,23 @@ public class UserService {
 	@Autowired
 	private UserDAO userDao;
 	
-	public void register(UserForm userForm) throws HibernateException{
-		UserBean user =new UserBean();
-		BeanUtils.copyProperties(userForm, user);
-		userDao.saveObject(user);
+	public boolean register(UserForm userForm) throws HibernateException{
+		UserBean userBean =new UserBean();
+		BeanUtils.copyProperties(userForm, userBean);
+		if(userDao.ifUsernameExisted(userBean.getUsername())){
+			return false;
+		}else {
+			userDao.saveObject(userBean);
+			return true;
+		}
+	}
+	
+	public boolean login(UserForm userForm) throws HibernateException{
+		UserBean userBean = 
+		userDao.getUserByUsername(userForm.getUsername());
+		if(userBean.getPassword().equals(userForm.getPassword())) {
+			return true;
+		}
+		return false;
 	}
 }
