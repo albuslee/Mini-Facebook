@@ -21,5 +21,9 @@ org.mariadb.jdbc.Driver
 		<property name="format_sql">true</property>
 		<mapping class = "edu.unsw.minifacebook.bean.UserBean" />
 		<mapping class = "edu.unsw.minifacebook.bean.PostBean" />
+		<mapping class = "edu.unsw.minifacebook.bean.CommentBean" />
+		<mapping class = "edu.unsw.minifacebook.bean.FriendBean" />
+		<mapping class = "edu.unsw.minifacebook.bean.NotificationBean" />
+		
 	</session-factory>
 </hibernate-configuration>

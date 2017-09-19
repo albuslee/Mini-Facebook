@@ -8,5 +8,9 @@
 </head>
 <body>
 
+<%
+//TODO: render all post passed from back-end, including comments
+%>
+
 </body>
 </html>
