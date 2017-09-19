@@ -6,6 +6,8 @@ public class UserForm {
 	private String password;
 	
 	private String gender;
+	
+	private String email;
 
 	public String getUsername() {
 		return username;
@@ -29,6 +31,14 @@ public class UserForm {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

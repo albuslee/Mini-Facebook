@@ -8,15 +8,10 @@
 <title>User Register Page</title>
 </head>
 <body>
-
-    <s:form action="register">
+    <s:form action="login">
         <s:textfield name="userform.username" label="Username"></s:textfield>
         <s:password name="userform.password" label="Password"></s:password>
-        <s:select list="#{'M':'Male','F':'Female'}" listKey="key" listValue="value"
-            name="userform.gender" label="Gender" value="M"></s:select>
-        <s:textfield name="userform.email" label="email"></s:textfield>
-        <s:submit value="Register"></s:submit>
+        <s:submit value="Sign In"></s:submit>
     </s:form>
-
 </body>
 </html>

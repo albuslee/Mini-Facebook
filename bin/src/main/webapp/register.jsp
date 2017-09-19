@@ -14,7 +14,6 @@
         <s:password name="userform.password" label="Password"></s:password>
         <s:select list="#{'M':'Male','F':'Female'}" listKey="key" listValue="value"
             name="userform.gender" label="Gender" value="M"></s:select>
-        <s:textfield name="userform.email" label="email"></s:textfield>
         <s:submit value="Register"></s:submit>
     </s:form>
 
