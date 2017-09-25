@@ -19,7 +19,7 @@ public class UserService {
 	public boolean register(UserForm userForm) throws HibernateException{
 		UserBean userBean =new UserBean();
 		userForm.setValidateCode(MD5Util.getMD5String(userForm.getUsername()));
-		Emailer.sendMail(userForm.getEmail(),"verify your Email","http://localhost:8080/mini_facebook/verifyFail.jsp?username="+userForm.getUsername()+"code="+userForm.getValidateCode());
+		Emailer.sendMail(userForm.getEmail(),"verify your Email","http://localhost:8080/mini_facebook/verify?username="+userForm.getUsername()+"&code="+userForm.getValidateCode());
 		BeanUtils.copyProperties(userForm, userBean);
 		if(userDao.ifUsernameExisted(userBean.getUsername())){
 			return false;

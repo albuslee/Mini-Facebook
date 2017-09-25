@@ -2,6 +2,7 @@ package edu.unsw.minifacebook.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.unsw.minifacebook.forms.UserForm;
@@ -27,6 +28,7 @@ public class LoginAction extends ActionSupport {
 		try {
 			boolean result = userService.login(userform);
 			if(result) {
+				ActionContext.getContext().getSession().put("username", userform.getUsername());
 				return SUCCESS;
 			}else
 				return ERROR;
