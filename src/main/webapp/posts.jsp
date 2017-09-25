@@ -6,9 +6,49 @@
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <title>Posts</title>
+    <style>
+    	#navbar-main ul li{
+    	 font-size:18px;
+    	}
+    	#navbar-main ul{
+    	 padding-left:40px;
+    	}
+    </style>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+	    <div class="navbar-header">
+	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
+	    </div>
+
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="post.jsp">Home</a>
+            </li>
+            <li>
+              <a href="profile.jsp">Profile</a>
+            </li>
+          </ul>
+		   <form class="navbar-form navbar-right">
+				<div class="input-group">
+                   <input type="text" class="form-control" placeholder="freindSearch">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">search</button>
+                    </span>
+                  </div>
+		   </form>
+		   <ul class="nav navbar-nav navbar-right">
+        		<li><a href="login.jsp">login</a></li>
+        		<!---can use dropdown write login form-->
+            </ul>
+        </div>
+   </nav>
+  
 
 	<%
 		List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");

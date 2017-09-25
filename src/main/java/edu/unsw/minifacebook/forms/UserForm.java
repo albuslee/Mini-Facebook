@@ -1,5 +1,8 @@
 package edu.unsw.minifacebook.forms;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 
 public class UserForm {
@@ -14,6 +17,20 @@ public class UserForm {
 	private Boolean state;
 	
 	private String validateCode;
+	
+	private Date registTime;
+	
+	public Date getRegistTime() {
+		return registTime;
+	}
+
+	public void setRegistTime() {
+		Date regTime=new Date();
+        Calendar cl = Calendar.getInstance();  
+        cl.setTime(regTime);  
+        cl.add(Calendar.DATE , 1);
+        this.registTime=cl.getTime();
+	}
 	
 	public Boolean getState() {
 		return state;
