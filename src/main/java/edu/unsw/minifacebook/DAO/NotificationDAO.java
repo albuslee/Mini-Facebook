@@ -20,7 +20,7 @@ import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 import java.util.Date;
-import java.text.SimpleDateFormat;
+
 @Repository
 public class NotificationDAO {
 	@Autowired
@@ -37,12 +37,12 @@ public class NotificationDAO {
 	public NotificationBean generate_Notification(int id, String commented_record) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//System.out.println(dateFormat.format(N_date));
 		NotificationBean notificationbean = null;
 		notificationbean.setId(id);
 		notificationbean.setcommented_record(commented_record);
-		notificationbean.setcomment_time(dateFormat.format(N_date));
+		notificationbean.setcomment_time(N_date);
 		notificationbean.setnotification_status("unread");
 		
 

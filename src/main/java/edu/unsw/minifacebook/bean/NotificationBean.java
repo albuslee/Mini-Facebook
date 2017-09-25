@@ -1,11 +1,15 @@
 package edu.unsw.minifacebook.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "Notification")
@@ -14,11 +18,13 @@ public class NotificationBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
+	//@Column
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "commented_record", referencedColumnName="userid",unique=true)
 	private String commented_record;
 	
 	@Column
-	private String comment_time;
+	private Date comment_time;
 	
 	@Column
 	private String notification_status;
@@ -39,11 +45,11 @@ public class NotificationBean {
 		this.commented_record = commented_record;
 	}
 
-	public String getcomment_time() {
+	public Date getcomment_time() {
 		return comment_time;
 	}
 
-	public void setcomment_time(String comment_time) {
+	public void setcomment_time(Date comment_time) {
 		this.comment_time = comment_time;
 	}
 	
