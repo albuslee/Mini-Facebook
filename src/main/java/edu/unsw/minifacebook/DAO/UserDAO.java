@@ -49,4 +49,10 @@ public class UserDAO {
 		}
 		return userBean;
 	}
+	
+	public UserBean getUserByUserid(Integer userId) {
+		UserBean userBean = null;
+		userBean = this.getCurrentSession().get(UserBean.class, userId);
+		return userBean;
+	}
 }
