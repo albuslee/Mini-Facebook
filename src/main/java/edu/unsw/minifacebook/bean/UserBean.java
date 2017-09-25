@@ -23,6 +23,26 @@ public class UserBean {
 	private String gender;
 	@Column
 	private String email;
+	@Column
+	private Boolean state;
+	@Column
+	private String validateCode;
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
 
 	public String getEmail() {
 		return email;

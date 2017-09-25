@@ -17,6 +17,5 @@
         <s:textfield name="userform.email" label="email"></s:textfield>
         <s:submit value="Register"></s:submit>
     </s:form>
-
 </body>
 </html>

@@ -1,5 +1,7 @@
 package edu.unsw.minifacebook.forms;
 
+import javax.persistence.Column;
+
 public class UserForm {
 	private String username;
 	
@@ -8,6 +10,27 @@ public class UserForm {
 	private String gender;
 	
 	private String email;
+	
+	private Boolean state;
+	
+	private String validateCode;
+	
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
+
 
 	public String getUsername() {
 		return username;
