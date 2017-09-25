@@ -44,7 +44,7 @@ public class PostService {
 		return postsList;
 	}
 	
-	public void createNewPost() {
-		
+	public void createNewPost(PostBean postBean) {
+		postDao.saveObject(postBean);
 	}
 }

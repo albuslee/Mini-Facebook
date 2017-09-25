@@ -18,12 +18,12 @@ public class FriendBean {
 
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="firstuser",referencedColumnName="firstid",unique=true) 
+	@JoinColumn(name="firstuser",referencedColumnName="userid",unique=true) 
 	private UserBean firstUser;
 	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="seconduser",referencedColumnName="secondid",unique=true) 
+	@JoinColumn(name="seconduser",referencedColumnName="userid",unique=true) 
 	private UserBean secoundUser;
 
 

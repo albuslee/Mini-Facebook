@@ -6,6 +6,7 @@
     <title>Home Of Assignment1</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -31,5 +32,9 @@
         </div>
    </nav>
 	<div><jsp:include page="register.jsp"></jsp:include></div>
+=======
+<jsp:include page="login.jsp"></jsp:include>
+<jsp:include page="register.jsp"></jsp:include>
+>>>>>>> 7ef125b60699970f15071aef508d47d43fcec51c
 </body>
 </html>
