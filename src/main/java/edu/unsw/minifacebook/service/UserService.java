@@ -1,5 +1,7 @@
 package edu.unsw.minifacebook.service;
 
+import java.util.Date;
+
 import org.hibernate.HibernateException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class UserService {
 		userForm.setValidateCode(MD5Util.getMD5String(userForm.getUsername()));
 		Emailer.sendMail(userForm.getEmail(),"verify your Email","http://localhost:8080/mini_facebook/verify?username="+userForm.getUsername()+"&code="+userForm.getValidateCode());
 		BeanUtils.copyProperties(userForm, userBean);
+		userBean.setRegistTime();
 		if(userDao.ifUsernameExisted(userBean.getUsername())){
 			return false;
 		}else {
@@ -30,9 +33,10 @@ public class UserService {
 	}
 	
 	public boolean verification(String usr,String code) throws HibernateException{
-		UserBean userBean = 
-		userDao.getUserByUsername(usr);
-		if(userBean.getValidateCode().equals(code)) {
+		UserBean userBean =userDao.getUserByUsername(usr);
+		Date currentTime=new Date();
+		if(userBean.getValidateCode().equals(code) && currentTime.before(userBean.getRegistTime())) {
+			userBean.setState(true);
 			return true;
 		}
 		return false;
