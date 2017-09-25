@@ -2,14 +2,18 @@ package edu.unsw.minifacebook.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.DAO.FriendDAO;
 import edu.unsw.minifacebook.DAO.PostDAO;
 import edu.unsw.minifacebook.DAO.UserDAO;
 import edu.unsw.minifacebook.bean.PostBean;
-import edu.unsw.minifacebook.bean.UserBean;
 
+@Repository
+@Transactional
 public class PostService {
 	@Autowired
 	private UserDAO userDao;

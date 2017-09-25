@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,7 +37,8 @@ public class FriendDAO {
 	}
 	
 	public List<Integer> getAllFriendIdsByUsername(String username){
-		List<Integer> userBeanList = null;
+		List<Integer> userBeanList = new ArrayList<Integer>();
+		userBeanList.add(1);
 		return userBeanList;
 	}
 	

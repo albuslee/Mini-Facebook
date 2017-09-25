@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class UserBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userid;
+	private Integer userid;
 
 	@Column(nullable=false, unique= true)
 	private String username;
@@ -32,11 +32,11 @@ public class UserBean {
 		this.email = email;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userid;
 	}
 
-	public void setUserId(int id) {
+	public void setUserId(Integer id) {
 		this.userid = id;
 	}
 

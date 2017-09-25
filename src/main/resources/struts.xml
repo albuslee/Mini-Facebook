@@ -16,7 +16,7 @@
 			<result name="success" type="redirect">loadposts.action</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		<action name="loadposts" class="edu.unsw.minifacebook.action.LoadPostsAction">
+		<action name="loadposts" class="edu.unsw.minifacebook.action.LoadPostAction">
 			<result name="input">/login.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>

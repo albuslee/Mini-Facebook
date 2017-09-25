@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -35,8 +36,8 @@ public class PostDAO {
 		List<PostBean> postList = null;
 
 		
-		Query query2 = sessionFactory.getCurrentSession().createQuery
-				("from Post p where p.creator in (:ids)").setParameterList("ids", userList);
+		Query query2 = getCurrentSession().createQuery
+				("from PostBean where creator.id in (:ids)").setParameterList("ids", userList);
 		
 		postList = query2.getResultList();
 		
