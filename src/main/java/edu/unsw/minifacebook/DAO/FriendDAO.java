@@ -15,12 +15,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.unsw.minifacebook.bean.FriendBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
 @Repository
 public class FriendDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private UserDAO userDao;
 	
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
@@ -30,29 +34,52 @@ public class FriendDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
+	public void addFriends(UserBean userBean1, UserBean userBean2) {
+		if(userBean1.getUserId() > userBean2.getUserId()) {
+			UserBean temp = userBean1;
+			userBean1 = userBean2;
+			userBean2 = temp;
+		}
+		FriendBean friendBean = new FriendBean();
+		friendBean.setFirstUser(userBean1);
+		friendBean.setSecoundUser(userBean2);
+		this.getCurrentSession().save(friendBean);
+		
+	}
+	
 
-	public List<UserBean> getAllFriendsByUsername(String username){
+	public List<UserBean> getAllFriendsByUserid(Integer userId){
 		List<UserBean> userBeanList = null;
+		List<Integer> userIdList = this.getAllFriendIdsByUserid(userId);
+		for(int i = 0; i < userIdList.size(); i++) {
+			UserBean userBean = userDao.getUserByUserid(userIdList.get(i));
+			userBeanList.add(userBean);
+		}
 		return userBeanList;
 	}
 	
 	public List<Integer> getAllFriendIdsByUsername(String username){
 		List<Integer> userBeanList = new ArrayList<Integer>();
-		userBeanList.add(1);
+		
+//		Query query2 = getCurrentSession().createQuery
+//				("from Friend where firstuser.id = (:id)").setParameter("id", username);
+//		
+//		postList = query2.getResultList();
+//		userBeanList.add(1);
 		return userBeanList;
 	}
 	
-//	public boolean ifUsernameExisted(String username) {
-//		return this.getUserByUsername(username) != null;
-//	}
-//	
-//	public UserBean getUserByUsername(String username) {
-//		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-//		CriteriaQuery<UserBean> query = builder.createQuery(UserBean.class);
-//		Root<UserBean> root = query.from(UserBean.class);
-//		query.select(root).where(builder.equal(root.get("username"), username));
-//		Query q = this.getCurrentSession().createQuery(query);
-//		UserBean userBean = (UserBean) q.getSingleResult();
-//		return userBean;
-//	}
+	
+	
+	public List<Integer> getAllFriendIdsByUserid(Integer userId){
+		List<Integer> userIdList = new ArrayList<Integer>();
+		Query query1 = getCurrentSession().createQuery
+				("select firstuser.id from Friend where seconduser.id = (:id)").setParameter("id", userId);
+		Query query2 = getCurrentSession().createQuery
+				("select seconduser.id from Friend where firstuser.id = (:id)").setParameter("id", userId);
+		userIdList = query1.getResultList();
+		List<Integer> tempList2 = query2.getResultList();
+		userIdList.addAll(tempList2);
+		return userIdList;
+	}
 }
