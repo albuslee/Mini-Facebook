@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/main.css">
 <title>User Register Page</title>
 </head>
 <body>
 
 
-	<div id="pagelet_bluebar" data-referrer="pagelet_bluebar">
-		<div id="blueBarDOMInspector">
+
 			<div class="_53jh">
 				<div class="loggedout_menubar_container">
 					<div class="clearfix loggedout_menubar">
@@ -35,10 +35,10 @@
 											<td class="html7magic"><label for="pass">Password</label></td>
 										</tr>
 										<tr>
-											<td><s:textfield name="userform.username"
-													label="Username"></s:textfield></td>
-											<td><s:password name="userform.password"
-													label="Password"></s:password></td>
+											<td><s:textfield class="inputtext" id="email" tabindex="1" data-testid="royal_email" type="emai" name="userform.username"
+													></s:textfield></td>
+											<td><s:password class="inputtext" id="pass" tabindex="2" data-testid="royal_pass" type="password" name="userform.password"
+													></s:password></td>
 											<td><label class="uiButton uiButtonConfirm"
 												id="loginbutton" for="u_0_5"><input value="Log In"
 													tabindex="4" data-testid="royal_login_button" id="u_0_5"
@@ -80,8 +80,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
 </body>
 </html>
