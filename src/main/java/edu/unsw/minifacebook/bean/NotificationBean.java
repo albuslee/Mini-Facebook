@@ -18,7 +18,10 @@ public class NotificationBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//@Column
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "commented_by", referencedColumnName="userid",unique=true)
+	private UserBean commented_by;
+
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "commented_record", referencedColumnName="userid",unique=true)
 	private String commented_record;
