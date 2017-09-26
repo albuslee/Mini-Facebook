@@ -20,7 +20,7 @@ public class DetailBean {
 	@Column
 	private String name;
 	@Column
-	private String passWord;
+	private String password;
 	@Column
 	private String email;
 	@Column
@@ -46,10 +46,10 @@ public class DetailBean {
 		this.name = name;
 	}
 	public String getPassWord() {
-		return passWord;
+		return password;
 	}
 	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+		this.password = passWord;
 	}
 	public String getEmail() {
 		return email;

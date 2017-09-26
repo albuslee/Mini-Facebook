@@ -9,9 +9,6 @@
 <title>User Register Page</title>
 </head>
 <body>
-
-
-
 			<div class="_53jh">
 				<div class="loggedout_menubar_container">
 					<div class="clearfix loggedout_menubar">

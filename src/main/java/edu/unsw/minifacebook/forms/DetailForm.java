@@ -10,9 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class DetailForm {
-	private String userName;
+	private String username;
 	private String name;
-	private String passWord;
+	private String password;
 	private String email;
 	private String gender;
 	private String age;
@@ -21,10 +21,10 @@ public class DetailForm {
 	private String major;
 	
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 	public String getName() {
 		return name;
@@ -33,10 +33,10 @@ public class DetailForm {
 		this.name = name;
 	}
 	public String getPassWord() {
-		return passWord;
+		return password;
 	}
 	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+		this.password = passWord;
 	}
 	public String getEmail() {
 		return email;

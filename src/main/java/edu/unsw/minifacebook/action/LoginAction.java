@@ -30,7 +30,6 @@ public class LoginAction extends ActionSupport {
 			DetailBean detailBean = userService.login(userform);
 			if (detailBean != null) {
 				ActionContext.getContext().getSession().put("detailbean", detailBean);
-
 				return SUCCESS;
 			} else
 				return ERROR;
