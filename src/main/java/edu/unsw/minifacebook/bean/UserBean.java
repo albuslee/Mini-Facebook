@@ -1,5 +1,8 @@
 package edu.unsw.minifacebook.bean;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +26,40 @@ public class UserBean {
 	private String gender;
 	@Column
 	private String email;
+	@Column
+	private Boolean state;
+	@Column
+	private String validateCode;
+	@Column
+	private Date registTime;
+
+	public Date getRegistTime() {
+		return registTime;
+	}
+
+	public void setRegistTime() {
+		Date regTime=new Date();
+        Calendar cl = Calendar.getInstance();  
+        cl.setTime(regTime);  
+        cl.add(Calendar.DATE , 1);
+        this.registTime=cl.getTime();
+	}
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
 
 	public String getEmail() {
 		return email;

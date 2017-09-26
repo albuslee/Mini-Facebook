@@ -14,7 +14,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.service.PostService;
 
-//load all friends' posts and comments
 public class PostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 	private static final long serialVersionUID = 1L;
 

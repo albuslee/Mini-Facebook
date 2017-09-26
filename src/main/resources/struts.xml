@@ -23,6 +23,11 @@
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		<action name="verify" class="edu.unsw.minifacebook.action.VerifyAction">
+			<result name="input">/login.jsp</result>
+			<result name="success">/login.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
 	</package>
 
 
