@@ -86,7 +86,8 @@ public class imageUploadAction extends ActionSupport {
                 detailbean.setPhoto(imageResource);
                 detailDao.updateObject(detailbean);
                 System.out.println(uploadFileFileName);   
-                System.out.println(filePath.getParentFile());   
+                System.out.println(filePath.getParentFile()); 
+                ActionContext.getContext().getSession().put("detailbean", detailbean);
                 //将文件保存到硬盘上,Struts2会帮我们自动删除临时文件  
                 try {  
                     FileUtils.copyFile(uploadFile, filePath);  
