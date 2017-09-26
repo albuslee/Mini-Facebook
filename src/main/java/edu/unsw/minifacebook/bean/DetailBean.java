@@ -18,7 +18,7 @@ public class DetailBean {
 	@Column
 	private String username;
 	@Column
-	private String name;
+	private String name=" ";
 	@Column
 	private String password;
 	@Column
@@ -26,14 +26,14 @@ public class DetailBean {
 	@Column
 	private String gender;
 	@Column
-	private String age;
+	private String age=" ";
 	@Column
-	private String birthday;
+	private String birthday=" ";
 	@Column  
-	private String photo;  
+	private String photo=" ";  
 	@Column  
-	private String major;
-	public String getUsername() {
+	private String major=" ";
+	public String getUsername(){
 		return username;
 	}
 	public void setUsername(String userName) {

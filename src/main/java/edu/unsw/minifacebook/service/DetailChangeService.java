@@ -1,12 +1,20 @@
 package edu.unsw.minifacebook.service;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.HibernateException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.opensymphony.xwork2.ActionContext;
+
+import edu.unsw.minifacebook.DAO.DetailDAO;
 import edu.unsw.minifacebook.DAO.UserDAO;
+import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.UserBean;
+import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.forms.UserForm;
 import edu.unsw.minifacebook.util.Emailer;
 import edu.unsw.minifacebook.util.MD5Util;
@@ -14,19 +22,13 @@ import edu.unsw.minifacebook.util.MD5Util;
 @Service
 public class DetailChangeService {
 	@Autowired
-	private UserDAO userDao;
+	private DetailDAO detailDao;
 	
-	public boolean register(UserForm userForm) throws HibernateException{
-		UserBean userBean =new UserBean();
-		userForm.setValidateCode(MD5Util.getMD5String(userForm.getUsername()));
-		Emailer.sendMail(userForm.getEmail(),"verify your Email","http://localhost:8080/mini_facebook/verify?username="+userForm.getUsername()+"&code="+userForm.getValidateCode());
-		BeanUtils.copyProperties(userForm, userBean);
-		userBean.setRegistTime();
-		if(userDao.ifUsernameExisted(userBean.getUsername())){
-			return false;
-		}else {
-			userDao.saveObject(userBean);
-			return true;
+	public boolean nomalchange(DetailForm detailForm) throws HibernateException{
+		HttpServletRequest request = (HttpServletRequest)ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+		DetailBean detailBean =(DetailBean)request.getSession().getAttribute("detailbean");
+		BeanUtils.copyProperties(detailForm, detailBean);
+		detailDao.updateObject(detailBean);
+		return true;
 		}
 	}
-}

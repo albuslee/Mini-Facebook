@@ -4,9 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>  
-<%@ page import="edu.unsw.minifacebook.bean.DetailBean" %>>
+<%@ page import="edu.unsw.minifacebook.bean.DetailBean" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
-<title>无刷新上传图片</title>  
+<title>profile</title>  
   
   
 <script type="text/javascript">  
@@ -29,18 +29,10 @@
         $("#bt_image").attr("src", imgUrl + "?fileName=" + fileName);  
     };  
 </script>  
-<title>Profile</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <title>Home</title>
     <style>
-    	#navbar-main ul li{
-    	 font-size:18px;
-    	}
-    	#navbar-main ul{
-    	 padding-left:5%;
-    	}
     	#detailForm{
     	 width:80%;
     	 margin:2% 2% 2% 2%;
@@ -55,73 +47,59 @@
     	}
     </style>
 </head>
+<div><jsp:include page="headerreg.jsp"></jsp:include></div>
 <body>
-	<nav class="navbar navbar-default">
-	    <div class="navbar-header">
-	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
-	    </div>
-
-        <div class="navbar-collapse collapse" id="navbar-main" >
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="post.jsp">Home</a>
-            </li>
-            <li>
-              <a href="profile.jsp">Profile</a>
-            </li>
-          </ul>
-		   <form style="float:right" class="form-inline navbar-form">
-				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">search</button>
-                    </span>
-                  </div>
-		   </form>
-        </div>
-   </nav>
    <%
      DetailBean detail=(DetailBean)request.getSession().getAttribute("detailbean");
-     String User=(String)request.getSession().getAttribute("username") ;
+     String User=detail.getUsername() ;
      String imgsource=detail.getPhoto();
-     if (imgsource==null){imgsource="/image/UNSW_0.png";}%>
-   <%=User %>
+     String name=detail.getName();
+     String age=detail.getAge();
+     String birthday=detail.getBirthday();
+     String major=detail.getMajor();
+     String gender=detail.getGender();
+     if (name==null){name=" ";}
+     if (age==null){age=" ";}
+     if (birthday==null){birthday="1990-04-01";}
+     if (major==null){major=" ";}
+     if (imgsource==null){imgsource="image/UNSW_0.png";}%>
+   
 <div id="photo">
-<img src="<%=imgsource%>">
+<img src="<%=imgsource%>" width="100%">
 <form action="uploadImage" enctype="multipart/form-data" method="post"> 
      <input type="file" name="uploadFile" />  
      <input type="submit" value="submit">  
 </form>
 </div>  
 <div id="detailForm">
-<form class="form-horizontal">
+<s:form class="form-horizontal" action="detailchange">
   <div class="form-group">
     <label class="col-sm-2 control-label" >UserName</label>
     <div class="col-sm-3">
-      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="UserName" disabled>
+      <input class="form-control" type="text" placeholder="<%=User%>" disabled>
     </div>
   </div>
    <div class="form-group">
     <label class="col-sm-2 control-label" >Name</label>
     <div class="col-sm-3">
-      <s:textfield class="form-control" type="text" name="detailform.Name" placeholder="Name"></s:textfield>
+      <s:textfield class="form-control" type="name" name="detailform.name" placeholder="<%=name%>"></s:textfield>
     </div>
   </div>
      <div class="form-group">
     <label class="col-sm-2 control-label" >Age</label>
     <div class="col-sm-2">
-      <s:textfield class="form-control" type="text" id="detailform.Age" placeholder="Age"></s:textfield>    </div>
+      <s:textfield class="form-control" type="age" name="detailform.age" placeholder="<%=age%>"></s:textfield>    </div>
   </div>
      <div class="form-group">
     <label class="col-sm-2 control-label" >Birthday</label>
     <div class="col-sm-2">
-      <s:textfield class="form-control" type="text" id="formGroupInputSmall" placeholder="1990-01-01"></s:textfield>
+      <s:textfield class="form-control" placeholder="<%=birthday %>"></s:textfield>
     </div>
   </div>
      <div class="form-group">
     <label class="col-sm-2 control-label" >Major</label>
     <div class="col-sm-6">
-      <s:textfield class="form-control" type="text" id="formGroupInputSmall" placeholder="Major"></s:textfield>
+      <s:textfield class="form-control" type="text" id="formGroupInputSmall" placeholder="<%=major%>"></s:textfield>
     </div>
   </div>
      <div class="form-group">
@@ -131,6 +109,9 @@
             name="userform.gender" label="Gender" value="M"></s:select>
     </div>
   </div>
+  <s:submit value="submit"></s:submit>
+  </s:form>
+  <form>
 	<div class="panel-group col-sm-9" id="accordion">
 	<div class="panel panel-default">
 		<div class="panel-heading">

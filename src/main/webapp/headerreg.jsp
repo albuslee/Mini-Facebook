@@ -1,17 +1,20 @@
-<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <title>Home</title>
     <style>
     	#navbar-main ul li{
     	 font-size:18px;
     	}
     	#navbar-main ul{
-    	 padding-left:50%;
+    	 padding-left:5%;
     	}
-    </style>
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -38,6 +41,3 @@
 		   </form>
         </div>
    </nav>
-	<div><jsp:include page="register.jsp"></jsp:include></div>
-</body>
-</html>

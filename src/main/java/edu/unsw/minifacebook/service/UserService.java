@@ -28,6 +28,7 @@ public class UserService {
 	public boolean register(UserForm userForm) throws HibernateException{
 		UserBean userBean =new UserBean();
 		DetailBean detailBean =new DetailBean();
+		userForm.setPassword(MD5Util.getMD5String(userForm.getPassword()));
 		userForm.setValidateCode(MD5Util.getMD5String(userForm.getUsername()));
 		Emailer.sendMail(userForm.getEmail(),"verify your Email","http://localhost:8080/mini_facebook/verify?username="+userForm.getUsername()+"&code="+userForm.getValidateCode());
 		BeanUtils.copyProperties(userForm, userBean);
@@ -57,7 +58,7 @@ public class UserService {
 	public DetailBean login(UserForm userForm) throws HibernateException{
 		UserBean userBean = 
 		userDao.getUserByUsername(userForm.getUsername());
-		if(userBean.getPassword().equals(userForm.getPassword())) {
+		if(userBean.getPassword().equals(MD5Util.getMD5String(userForm.getPassword()))) {
 			return detailDao.getUserByUsername(userForm.getUsername());
 		}
 		return null;

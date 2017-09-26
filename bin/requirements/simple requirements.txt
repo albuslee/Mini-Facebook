@@ -1,0 +1,16 @@
+1.user
+login
+register(email verfification)
+2.friend
+search user to add
+get friend list
+3.Post
+Add post
+get all posts
+get friend's post
+4.Comment
+add comment and sub-comment
+display cacade comment
+5.Notification
+generate notification when reply to someone
+ajax pop up notification

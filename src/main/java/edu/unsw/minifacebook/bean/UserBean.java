@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import edu.unsw.minifacebook.util.MD5Util;
+
 @Entity
 @Table(name = "User")
 public class UserBean {

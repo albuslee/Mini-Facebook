@@ -36,7 +36,12 @@
 		</action>
 		<action name="uploadImage" class="edu.unsw.minifacebook.action.imageUploadAction">
 			<result name="input">/profile.jsp</result>
-			<result name="success">/login.jsp</result>
+			<result name="success">/profile.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+		<action name="detailchange" class="edu.unsw.minifacebook.action.DetailChangeAction">
+			<result name="input">/profile.jsp</result>
+			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
 		
