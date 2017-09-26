@@ -43,12 +43,12 @@
 	float: left;
 }
 
-#accordion {
+#accordion1 {
 	
 }
 </style>
-</head>
 <div><jsp:include page="headerreg.jsp"></jsp:include></div>
+</head>
 <body>
 	<%
 		DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
@@ -109,48 +109,52 @@
 				<div class="col-sm-2">
 					<s:select class="form-control" list="#{'M':'Male','F':'Female'}"
 						listKey="key" listValue="value" name="detailform.gender"
-						label="Gender" value="F"></s:select>
+						label="Gender" value='M'></s:select>
 				</div>
 			</div>
 			<s:submit value="submit" class="btn btn-primary" style="margin-left:33%"></s:submit>
 		</s:form>
-		<form>
-			<div class="panel-group col-sm-9" id="accordion">
+			<div class="panel-group col-sm-9" id="accordion1">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion"
-								href="#collapseOne"> Change Password or Email (need
+							<a data-toggle="collapse" data-parent="#accordion1"
+								href="#collapseOne1"> Change Password or Email (need
 								verification) </a>
 						</h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse">
+					<div id="collapseOne1" class="panel-collapse collapse">
 						<div class="panel-body">
-							<div class="form-group">
-								<label class="col-sm-2 control-label">PassWord</label>
-								<div class="col-sm-4">
-									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#myModal">change password</button>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">Email</label>
-									<div class="col-sm-8">
-										<s:textfield class="form-control" type="text"
-											id="detailform.Email" placeholder="Email"></s:textfield>
-									</div>
-								</div>
-							</div>
+							<button type="button" class="btn" data-toggle="modal" data-target="#myModal1">change password</button>
+							<button type="button" class="btn" data-toggle="modal" data-target="#myModal2">change email</button>
 						</div>
 					</div>
-				</div>
-		</form>
+			    </div>
+			</div>
 	</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">change password</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">change Email</h4>
       </div>
       <div class="modal-body">
         ...
