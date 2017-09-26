@@ -14,7 +14,7 @@ public class UserForm {
 	
 	private String email;
 	
-	private Boolean state;
+	private int state;
 	
 	private String validateCode;
 	
@@ -32,11 +32,11 @@ public class UserForm {
         this.registTime=cl.getTime();
 	}
 	
-	public Boolean getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(Boolean state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
