@@ -14,7 +14,7 @@ public class UserForm {
 	
 	private String email;
 	
-	private int state;
+	private int state=0;
 	
 	private String validateCode;
 	

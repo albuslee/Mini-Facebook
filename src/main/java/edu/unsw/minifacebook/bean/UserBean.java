@@ -27,7 +27,7 @@ public class UserBean {
 	@Column
 	private String email;
 	@Column
-	private int state;
+	private Integer state = 0;
 	@Column
 	private String validateCode;
 	@Column
@@ -45,11 +45,11 @@ public class UserBean {
         this.registTime=cl.getTime();
 	}
 
-	public int getState() {
+	public Integer getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 

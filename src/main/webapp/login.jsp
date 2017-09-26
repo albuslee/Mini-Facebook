@@ -40,9 +40,15 @@
 											<td><s:password class="inputtext" id="pass" tabindex="2" data-testid="royal_pass" type="password" name="userform.password"
 													></s:password></td>
 											<td><label class="uiButton uiButtonConfirm"
-												id="loginbutton" for="u_0_5"><input value="Log In"
+												id="loginbutton" for="u_0_5">
+												
+												<s:submit value="Log In"
 													tabindex="4" data-testid="royal_login_button" id="u_0_5"
-													type="submit"></label></td>
+													type="submit"></s:submit>
+												
+										
+													
+													</label></td>
 										</tr>
 										<tr>
 											<td class="login_form_label_field"></td>

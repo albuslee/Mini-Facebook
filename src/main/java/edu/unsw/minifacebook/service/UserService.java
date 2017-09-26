@@ -54,12 +54,12 @@ public class UserService {
 	}
 
 	
-	public boolean login(UserForm userForm) throws HibernateException{
+	public DetailBean login(UserForm userForm) throws HibernateException{
 		UserBean userBean = 
 		userDao.getUserByUsername(userForm.getUsername());
 		if(userBean.getPassword().equals(userForm.getPassword())) {
-			return true;
+			return detailDao.getUserByUsername(userForm.getUsername());
 		}
-		return false;
+		return null;
 	}
 }
