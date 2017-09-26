@@ -56,7 +56,7 @@
      if (imgsource==null){imgsource="image/UNSW_0.png";}%>
    
 <div id="photo">
-<img src="<%=imgsource%>">
+<img src="<%=imgsource%>" width="100%">
 <form action="uploadImage" enctype="multipart/form-data" method="post"> 
      <input type="file" name="uploadFile" />  
      <input type="submit" value="submit">  

@@ -3,21 +3,28 @@ import java.io.File;
 import java.io.IOException;  
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
-import java.util.UUID;  
-  
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FileUtils;  
-import org.apache.struts2.ServletActionContext;  
+import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;  
-import org.springframework.stereotype.Controller;  
-  
+import org.springframework.stereotype.Controller;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import edu.unsw.minifacebook.DAO.DetailDAO;
 import edu.unsw.minifacebook.bean.DetailBean;  
   
 @Controller("brandAction")  
 @Scope("prototype")  
 public class imageUploadAction extends ActionSupport {  
-  
+	@Autowired
+	private DetailDAO detailDao;
+	
     private static final long serialVersionUID = 1L;  
       
     //此属性对应于表单中文件字段的名称    
@@ -73,9 +80,11 @@ public class imageUploadAction extends ActionSupport {
                     //如果不存在，则递归创建此路径   
                     filePath.getParentFile().mkdirs();  
                 }  
-                String imageResource="/image/"+dateTime+uploadFileFileName;
-                DetailBean detailbean=new DetailBean();
+                String imageResource="image"+dateTime+"/"+uploadFileFileName;
+                HttpServletRequest request = (HttpServletRequest)ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST); 
+                DetailBean detailbean=(DetailBean) request.getSession().getAttribute("detailbean");
                 detailbean.setPhoto(imageResource);
+                detailDao.updateObject(detailbean);
                 System.out.println(uploadFileFileName);   
                 System.out.println(filePath.getParentFile());   
                 //将文件保存到硬盘上,Struts2会帮我们自动删除临时文件  
