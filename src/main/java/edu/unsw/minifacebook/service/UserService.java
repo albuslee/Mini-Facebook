@@ -2,6 +2,8 @@ package edu.unsw.minifacebook.service;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.HibernateException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import edu.unsw.minifacebook.util.Emailer;
 import edu.unsw.minifacebook.util.MD5Util;; 
 
 @Service
+@Transactional
 public class UserService {
 	@Autowired
 	private UserDAO userDao;

@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,11 @@ public class UserDAO {
 	}
 	
 	public void updateObject(Object obj) throws HibernateException{
-		this.getCurrentSession().saveOrUpdate(obj);
+		Session session = this.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.update(obj);
+		tx.commit();
+		session.close();
 	}
 	
 	
