@@ -30,6 +30,10 @@ public class UserDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
+	public void updateObject(Object obj) throws HibernateException{
+		this.getCurrentSession().saveOrUpdate(obj);
+	}
+	
 	
 	public boolean ifUsernameExisted(String username) {
 		return this.getUserByUsername(username) != null;

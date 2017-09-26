@@ -79,6 +79,8 @@
 		   </form>
         </div>
    </nav>
+   <%String User=(String)request.getSession().getAttribute("username") ;%>
+   <%=User %>
 <div id="photo">
 <form action="uploadImage" enctype="multipart/form-data" method="post"> 
      <input type="file" name="uploadFile" />  
@@ -147,7 +149,7 @@
 			  </div>
 			</div>
 		</div>
-	</div>
+	</div></div>
 </form>
 </div>
 </body>

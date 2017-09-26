@@ -10,57 +10,57 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class DetailForm {
-	private String UserName;
-	private String Name;
-	private String PassWord;
-	private String Email;
-	private String Gender;
-	private String Age;
-	private String Birthday;
+	private String userName;
+	private String name;
+	private String passWord;
+	private String email;
+	private String gender;
+	private String age;
+	private String birthday;
 	private String photo;  
-	private String Major;
+	private String major;
 	
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 	public String getPassWord() {
-		return PassWord;
+		return passWord;
 	}
 	public void setPassWord(String passWord) {
-		PassWord = passWord;
+		this.passWord = passWord;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 	public String getGender() {
-		return Gender;
+		return gender;
 	}
 	public void setGender(String gender) {
-		Gender = gender;
+		this.gender = gender;
 	}
 	public String getAge() {
-		return Age;
+		return age;
 	}
 	public void setAge(String age) {
-		Age = age;
+		this.age = age;
 	}
 	public String getBirthday() {
-		return Birthday;
+		return birthday;
 	}
 	public void setBirthday(String birthday) {
-		Birthday = birthday;
+		this.birthday = birthday;
 	}
 	public String getPhoto() {
 		return photo;
@@ -69,9 +69,9 @@ public class DetailForm {
 		this.photo = photo;
 	}
 	public String getMajor() {
-		return Major;
+		return major;
 	}
 	public void setMajor(String major) {
-		Major = major;
-	} 
+		this.major = major;
+	}  
 }

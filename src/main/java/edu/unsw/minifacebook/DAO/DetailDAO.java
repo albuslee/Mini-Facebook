@@ -1,8 +1,5 @@
 package edu.unsw.minifacebook.DAO;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
 @Repository
@@ -35,24 +33,19 @@ public class DetailDAO {
 		return this.getUserByUsername(username) != null;
 	}
 	
-	public UserBean getUserByUsername(String username) {
+	public DetailBean getUserByUsername(String username) {
 		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<UserBean> query = builder.createQuery(UserBean.class);
-		Root<UserBean> root = query.from(UserBean.class);
+		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);
+		Root<DetailBean> root = query.from(DetailBean.class);
 		query.select(root).where(builder.equal(root.get("username"), username));
-		UserBean userBean = null;
+		DetailBean detailBean = null;
 		Query q = this.getCurrentSession().createQuery(query);
 		try {
-			 userBean = (UserBean) q.getSingleResult();
+			detailBean = (DetailBean) q.getSingleResult();
 		}catch(NoResultException nre) {
 			nre.printStackTrace();
 		}
-		return userBean;
+		return detailBean;
 	}
 	
-	public UserBean getUserByUserid(Integer userId) {
-		UserBean userBean = null;
-		userBean = this.getCurrentSession().get(UserBean.class, userId);
-		return userBean;
-	}
 }

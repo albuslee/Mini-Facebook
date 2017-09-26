@@ -16,64 +16,64 @@ public class DetailBean {
 	private int id;
 
 	@Column
-	private String UserName;
+	private String userName;
 	@Column
-	private String Name;
+	private String name;
 	@Column
-	private String PassWord;
+	private String passWord;
 	@Column
-	private String Email;
+	private String email;
 	@Column
-	private String Gender;
+	private String gender;
 	@Column
-	private String Age;
+	private String age;
 	@Column
-	private String Birthday;
+	private String birthday;
 	@Column  
 	private String photo;  
 	@Column  
-	private String Major;
+	private String major;
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 	public String getPassWord() {
-		return PassWord;
+		return passWord;
 	}
 	public void setPassWord(String passWord) {
-		PassWord = passWord;
+		this.passWord = passWord;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 	public String getGender() {
-		return Gender;
+		return gender;
 	}
 	public void setGender(String gender) {
-		Gender = gender;
+		this.gender = gender;
 	}
 	public String getAge() {
-		return Age;
+		return age;
 	}
 	public void setAge(String age) {
-		Age = age;
+		this.age = age;
 	}
 	public String getBirthday() {
-		return Birthday;
+		return birthday;
 	}
 	public void setBirthday(String birthday) {
-		Birthday = birthday;
+		this.birthday = birthday;
 	}
 	public String getPhoto() {
 		return photo;
@@ -82,10 +82,10 @@ public class DetailBean {
 		this.photo = photo;
 	}
 	public String getMajor() {
-		return Major;
+		return major;
 	}
 	public void setMajor(String major) {
-		Major = major;
+		this.major = major;
 	}  
 	  
 }
