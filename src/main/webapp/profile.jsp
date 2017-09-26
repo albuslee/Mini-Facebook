@@ -72,7 +72,7 @@
 </form>
 </div>  
 <div id="detailForm">
-<form class="form-horizontal" action="detailchange">
+<s:form class="form-horizontal" action="detailchange">
   <div class="form-group">
     <label class="col-sm-2 control-label" >UserName</label>
     <div class="col-sm-3">
@@ -109,8 +109,8 @@
             name="userform.gender" label="Gender" value="M"></s:select>
     </div>
   </div>
-  <s:submit value="submit"  type="submit"></s:submit>
-  </form>
+  <s:submit value="submit"></s:submit>
+  </s:form>
   <form>
 	<div class="panel-group col-sm-9" id="accordion">
 	<div class="panel panel-default">
