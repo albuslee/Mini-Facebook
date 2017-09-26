@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>  
+<%@ page import="edu.unsw.minifacebook.bean.DetailBean" %>>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
 <title>无刷新上传图片</title>  
   
@@ -79,9 +80,14 @@
 		   </form>
         </div>
    </nav>
-   <%String User=(String)request.getSession().getAttribute("username") ;%>
+   <%
+     DetailBean detail=(DetailBean)request.getSession().getAttribute("detailbean");
+     String User=(String)request.getSession().getAttribute("username") ;
+     String imgsource=detail.getPhoto();
+     if (imgsource==null){imgsource="/image/UNSW_0.png";}%>
    <%=User %>
 <div id="photo">
+<img src="<%=imgsource %>">
 <form action="uploadImage" enctype="multipart/form-data" method="post"> 
      <input type="file" name="uploadFile" />  
      <input type="submit" value="submit">  

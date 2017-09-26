@@ -36,12 +36,7 @@ public class LoginAction extends ActionSupport {
 			if(result) {
 				DetailBean detailBean = 
 						detailDao.getUserByUsername(userform.getUsername());
-				ActionContext.getContext().getSession().put("username", userform.getUsername());
-				ActionContext.getContext().getSession().put("age", detailBean.getAge());
-				ActionContext.getContext().getSession().put("name", detailBean.getName());
-				ActionContext.getContext().getSession().put("birthday", detailBean.getBirthday());
-				ActionContext.getContext().getSession().put("major", detailBean.getMajor());
-				ActionContext.getContext().getSession().put("gender", detailBean.getGender());
+				ActionContext.getContext().getSession().put("detailbean",detailBean);
 				return SUCCESS;
 			}else
 				return ERROR;
