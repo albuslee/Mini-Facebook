@@ -25,6 +25,6 @@ org.mariadb.jdbc.Driver
 		<mapping class = "edu.unsw.minifacebook.bean.FriendBean" />
 		<mapping class = "edu.unsw.minifacebook.bean.NotificationBean" />
 		<mapping class = "edu.unsw.minifacebook.bean.DetailBean" />
-		
+		<mapping class = "edu.unsw.minifacebook.bean.LikeBean" />
 	</session-factory>
 </hibernate-configuration>

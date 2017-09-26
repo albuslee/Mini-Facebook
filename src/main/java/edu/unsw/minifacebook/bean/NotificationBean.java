@@ -21,9 +21,8 @@ public class NotificationBean {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "commented_by", referencedColumnName="userid",unique=true)
 	private UserBean commented_by;
-
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "commented_record", referencedColumnName="userid",unique=true)
+	
+	@Column
 	private String commented_record;
 	
 	@Column

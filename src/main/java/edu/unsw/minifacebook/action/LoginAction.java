@@ -15,10 +15,10 @@ import edu.unsw.minifacebook.service.UserService;
 
 public class LoginAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	
+
 	private UserForm userform;
 	private DetailDAO detailDao;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -29,7 +29,7 @@ public class LoginAction extends ActionSupport {
 	public void setUserform(UserForm userform) {
 		this.userform = userform;
 	}
-	
+
 	public String execute() {
 		try {
 			boolean result = userService.login(userform);
@@ -38,13 +38,12 @@ public class LoginAction extends ActionSupport {
 						detailDao.getUserByUsername(userform.getUsername());
 				ActionContext.getContext().getSession().put("detailbean",detailBean);
 				return SUCCESS;
-			}else
+			} else
 				return ERROR;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ERROR;
 		}
 	}
-	
 
 }

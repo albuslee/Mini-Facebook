@@ -11,12 +11,20 @@
 			<result name="success">/success.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		<action name="login" class="edu.unsw.minifacebook.action.LoginAction">
+		<action name="login" class="edu.unsw.minifacebook.action.LoginAction"
+			method="execute">
 			<result name="input">/login.jsp</result>
-			<result name="success" type="redirect">loadposts.action</result>
+			<result name="success" type="redirect">loadposts</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		<action name="loadposts" class="edu.unsw.minifacebook.action.LoadPostAction">
+
+		<action name="loadposts" class="edu.unsw.minifacebook.action.PostAction" method="loadposts">
+			<result name="input">/login.jsp</result>
+			<result name="success">/posts.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+		
+		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction" method="addposts">
 			<result name="input">/login.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>

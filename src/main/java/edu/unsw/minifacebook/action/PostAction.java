@@ -14,9 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.service.PostService;
 
-//load all friends' posts and comments
-public class LoadPostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
-
+public class PostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 	private static final long serialVersionUID = 1L;
 
 	private Map<String, Object> request;
@@ -26,8 +24,8 @@ public class LoadPostAction extends ActionSupport implements RequestAware, Sessi
 
 	@Autowired
 	private PostService postServices;
-
-	public String execute() {
+	
+	public String loadposts() {
 		try {
 			String currentUsername = (String) ActionContext.getContext().getSession().get("username");
 			List<PostBean> postList = postServices.loadFriendPosts(currentUsername);
@@ -38,6 +36,10 @@ public class LoadPostAction extends ActionSupport implements RequestAware, Sessi
 			e.printStackTrace();
 			return ERROR;
 		}
+	}
+	
+	public void addPosts(PostBean postBean) {
+		
 	}
 
 	public void setApplication(Map<String, Object> application) {

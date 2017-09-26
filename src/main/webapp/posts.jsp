@@ -5,12 +5,23 @@
 <head>
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Posts</title>
+<script type="text/javascript">
+    var filebrowserUploadUrl = '/upload/';
+</script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="ckeditor/config.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <title>Posts</title>
-    <style>
+    <style type = "text/css">
+    	#wd
+	{
+		width:600px;
+	}
     	#navbar-main ul li{
     	 font-size:18px;
     	}
@@ -18,6 +29,7 @@
     	 padding-left:40px;
     	}
     </style>
+
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -49,6 +61,16 @@
         </div>
    </nav>
   
+
+<div id = "wd">
+<form action = "test.php" name = "sub" method = "post">
+<textarea name="editor" cols="300" rows="8">Input your post</textarea>
+<input type = "submit" name = "sub"  value = "Post" />
+</form>
+</div>
+<script type="text/javascript">
+CKEDITOR.replace( 'editor');
+</script>
 
 	<%
 		List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
