@@ -33,10 +33,10 @@ public class DetailBean {
 	private String photo;  
 	@Column  
 	private String major;
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.username = userName;
 	}
 	public String getName() {
@@ -45,10 +45,10 @@ public class DetailBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPassWord() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassWord(String passWord) {
+	public void setPassword(String passWord) {
 		this.password = passWord;
 	}
 	public String getEmail() {
