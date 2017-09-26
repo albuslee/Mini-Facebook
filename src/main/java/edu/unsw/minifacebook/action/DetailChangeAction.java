@@ -16,11 +16,11 @@ public class DetailChangeAction extends ActionSupport{
 	
 	private DetailForm detailform;
 	
-	public UserForm getUserform() {
-		return getUserform();
+	public DetailForm getDetailform() {
+		return detailform;
 	}
 	
-	public void setUserform(DetailForm detailform) {
+	public void setDetailform(DetailForm detailform) {
 		this.detailform = detailform;
 	}
 	

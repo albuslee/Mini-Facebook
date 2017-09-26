@@ -11,11 +11,9 @@
   
 <script type="text/javascript">  
     $(function() {  
-        //当点击"选择按钮"时,调用该函数  
         $("#bt_select").click(function() {  
             $("#imageFile").click();  
         });  
-        //如果图片改变，该form就提交  
         $("#imageFile").bind("change", function() {  
             if ($(this).val()) {  
                 $("#uploadImageForm").submit();  
@@ -58,10 +56,10 @@
      String birthday=detail.getBirthday();
      String major=detail.getMajor();
      String gender=detail.getGender();
-     if (name==null){name=" ";}
-     if (age==null){age=" ";}
-     if (birthday==null){birthday="1990-04-01";}
-     if (major==null){major=" ";}
+     //if (name==null){name=" ";}
+     //if (age==null){age=" ";}
+     //if (birthday==null){birthday="1990-04-01";}
+     //if (major==null){major=" ";}
      if (imgsource==null){imgsource="image/UNSW_0.png";}%>
    
 <div id="photo">
@@ -109,7 +107,7 @@
             name="userform.gender" label="Gender" value="M"></s:select>
     </div>
   </div>
-  <s:submit value="submit"></s:submit>
+  <s:submit value="submit" class="btn btn-primary"></s:submit>
   </s:form>
   <form>
 	<div class="panel-group col-sm-9" id="accordion">
@@ -126,8 +124,8 @@
 			<div class="panel-body">
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label" >PassWord</label>
-			    <div class="col-sm-8">
-			      <s:textfield class="form-control" type="text" id="detailform.Age" placeholder="PassWord"></s:textfield>    </div>
+			    <div class="col-sm-4">
+			      <button class="btn">change password</button>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label" >Email</label>
