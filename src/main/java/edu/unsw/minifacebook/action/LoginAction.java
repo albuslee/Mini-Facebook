@@ -15,10 +15,10 @@ import edu.unsw.minifacebook.service.UserService;
 
 public class LoginAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	
+
 	private UserForm userform;
 	private DetailDAO detailDao;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -29,31 +29,21 @@ public class LoginAction extends ActionSupport {
 	public void setUserform(UserForm userform) {
 		this.userform = userform;
 	}
-	
+
 	public String execute() {
 		try {
 			boolean result = userService.login(userform);
-			if(result) {
-<<<<<<< HEAD
-				ActionContext.getContext().getSession().put("currentuser", userform.getUsername());
-=======
-				DetailBean detailBean = 
-						detailDao.getUserByUsername(userform.getUsername());
-				ActionContext.getContext().getSession().put("username", userform.getUsername());
-				ActionContext.getContext().getSession().put("age", detailBean.getAge());
-				ActionContext.getContext().getSession().put("name", detailBean.getName());
-				ActionContext.getContext().getSession().put("birthday", detailBean.getBirthday());
-				ActionContext.getContext().getSession().put("major", detailBean.getMajor());
-				ActionContext.getContext().getSession().put("gender", detailBean.getGender());
->>>>>>> 2854ffa47746fbfd1c523957d5869b67aed8da40
+			if (result) {
+				DetailBean detailBean = detailDao.getUserByUsername(userform.getUsername());
+				ActionContext.getContext().getSession().put("detailbean", detailBean);
+
 				return SUCCESS;
-			}else
+			} else
 				return ERROR;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ERROR;
 		}
 	}
-	
 
 }

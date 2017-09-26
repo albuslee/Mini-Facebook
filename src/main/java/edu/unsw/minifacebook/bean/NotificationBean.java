@@ -24,7 +24,7 @@ public class NotificationBean {
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "commented_record", referencedColumnName="userid",unique=true)
-	private String commented_record;
+	private UserBean commented_record;
 	
 	@Column
 	private Date comment_time;
@@ -40,11 +40,11 @@ public class NotificationBean {
 		this.id = id;
 	}
 
-	public String getcommented_record() {
+	public UserBean getcommented_record() {
 		return commented_record;
 	}
 
-	public void setcommented_record(String commented_record) {
+	public void setcommented_record(UserBean commented_record) {
 		this.commented_record = commented_record;
 	}
 
