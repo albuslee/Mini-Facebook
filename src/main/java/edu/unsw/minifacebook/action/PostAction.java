@@ -37,6 +37,10 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 			return ERROR;
 		}
 	}
+	
+	public void addPosts(PostBean postBean) {
+		
+	}
 
 	public void setApplication(Map<String, Object> application) {
 		this.application = application;
