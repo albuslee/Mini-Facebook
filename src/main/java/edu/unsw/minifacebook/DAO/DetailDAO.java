@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,13 @@ public class DetailDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
+	public void updateObject(Object obj) throws HibernateException{
+		Session session = this.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.update(obj);
+		tx.commit();
+		session.close();
+	}
 	
 	public boolean ifUsernameExisted(String username) {
 		return this.getUserByUsername(username) != null;

@@ -2,3 +2,5 @@
 .classpath  
 .settings/
 .DS_Store
+*.class
+/src/

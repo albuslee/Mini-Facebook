@@ -10,6 +10,7 @@
 <body>
 
   <h1>SUCCESS</h1>
+  <h1>Please verify the email<h1>
 
 </body>
 </html>

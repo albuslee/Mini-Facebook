@@ -82,10 +82,10 @@
    </nav>
    <%
      DetailBean detail=(DetailBean)request.getSession().getAttribute("detailbean");
-     String User=(String)request.getSession().getAttribute("username") ;
+     String User=detail.getUsername() ;
      String imgsource=detail.getPhoto();
-     if (imgsource==null){imgsource="/image/UNSW_0.png";}%>
-   <%=User %>
+     if (imgsource==null){imgsource="image/UNSW_0.png";}%>
+   
 <div id="photo">
 <img src="<%=imgsource%>">
 <form action="uploadImage" enctype="multipart/form-data" method="post"> 
@@ -98,7 +98,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label" >UserName</label>
     <div class="col-sm-3">
-      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="UserName" disabled>
+      <input class="form-control" type="text" placeholder="<%=User %>" disabled>
     </div>
   </div>
    <div class="form-group">
