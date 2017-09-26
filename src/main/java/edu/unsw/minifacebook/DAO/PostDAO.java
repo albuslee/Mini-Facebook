@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,7 +35,10 @@ public class PostDAO {
 
 	public List<PostBean> getPostsByUserlist(List<Integer> userList) {
 		List<PostBean> postList = null;
-
+		if(userList == null || userList.isEmpty()) {
+			userList = new ArrayList<Integer>();
+			userList.add(1);
+		}
 		
 		Query query2 = getCurrentSession().createQuery
 				("from PostBean where creator.id in (:ids)").setParameterList("ids", userList);
@@ -45,17 +49,5 @@ public class PostDAO {
 		return postList;
 	}
 
-	// public boolean ifUsernameExisted(String username) {
-	// return this.getUserByUsername(username) != null;
-	// }
-	//
-	// public UserBean getUserByUsername(String username) {
-	// CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-	// CriteriaQuery<UserBean> query = builder.createQuery(UserBean.class);
-	// Root<UserBean> root = query.from(UserBean.class);
-	// query.select(root).where(builder.equal(root.get("username"), username));
-	// Query q = this.getCurrentSession().createQuery(query);
-	// UserBean userBean = (UserBean) q.getSingleResult();
-	// return userBean;
-	// }
+
 }

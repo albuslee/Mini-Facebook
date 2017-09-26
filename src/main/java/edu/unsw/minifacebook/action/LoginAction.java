@@ -28,7 +28,7 @@ public class LoginAction extends ActionSupport {
 		try {
 			boolean result = userService.login(userform);
 			if(result) {
-				ActionContext.getContext().getSession().put("username", userform.getUsername());
+				ActionContext.getContext().getSession().put("currentuser", userform.getUsername());
 				return SUCCESS;
 			}else
 				return ERROR;
