@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.unsw.minifacebook.bean.LikeBean;
+import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
 public class LikeDAO {
@@ -22,11 +23,11 @@ public class LikeDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
-	public void addLikes(UserBean like_from, UserBean like_to, int thumb) {
+	public void addLikes(UserBean like_from, PostBean post) {
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLikeFrom(like_from);
-		likeBean.setLikeTo(like_to);
-		likeBean.setThumb(thumb);
+		likeBean.setPostId(post);
+		likeBean.setThumb(1);
 		this.getCurrentSession().save(likeBean);
 	}
 	

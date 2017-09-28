@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -30,14 +31,14 @@
               <a href="profile.jsp">Profile</a>
             </li>
           </ul>
-		   <form style="float:right" class="form-inline navbar-form">
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
+                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">search</button>
+                     <s:submit value="button" class="btn btn-default"></s:submit>
                     </span>
                   </div>
-		   </form>
+		   </s:form>
         </div>
    </nav>
  </head>

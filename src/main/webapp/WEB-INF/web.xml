@@ -24,6 +24,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+<<<<<<< HEAD
 	<servlet>
 		<servlet-name>EmailVerificationServlet</servlet-name>
 		<display-name>EmailVerificationServlet</display-name>
@@ -64,4 +65,6 @@
 		<servlet-name>NotificationForm</servlet-name>
 		<url-pattern>/NotificationForm</url-pattern>
 	</servlet-mapping>
+=======
+>>>>>>> f186dfdc49b6a54765b96b79bd358bcd87589c0e
 </web-app>

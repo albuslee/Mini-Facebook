@@ -44,6 +44,51 @@
             font-size: 50px;
         }
     </style>
+        <script>  
+            function check2pwd() {  
+                    if(input1.value != input2.value) {  
+                        alert("not the same password!")  
+                        input1.value = "";  
+                        input2.value = "";  
+                    }  
+            }  
+            var xmlHttp=null;
+            
+            function showHint()
+            {
+            	var username= document.getElementById("username").value;
+            if (username==null)
+              { 
+              document.getElementById("showRight").innerHTML="";
+              return;
+              }
+            try
+              {// Firefox, Opera 8.0+, Safari, IE7
+              xmlHttp=new XMLHttpRequest();
+              }
+            catch(e)
+              {// Old IE
+              try
+                {
+                xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+              catch(e)
+                {
+                alert ("Your browser does not support XMLHTTP!");
+                return;  
+                }
+              }
+            var url="mini_facebook/checkSQL?username=" + username;
+            xmlHttp.open("GET",url,true);
+            xmlHttp.send();
+            xmlHttp.onreadystatechange=function(){
+            	if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                	alert(xmlHttp.responseText);
+                document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
+            }
+            alert("send");
+            }
+        </script>  
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -70,8 +115,10 @@
    <script src="index.js"></script>
    <div id="formSize">
     <s:form action="register" class="form-horizontal">
-        <s:textfield name="userform.username" label="Username" class="form-control" placeholder="Username"></s:textfield>
-        <s:password name="userform.password" label="Password" class="form-control" placeholder="password"></s:password>
+        <s:textfield name="userform.username" onblur="showHint();" id="username" label="Username" class="form-control" placeholder="Username"></s:textfield>
+        <div id="showRight"></div>
+        <s:password name="userform.password" label="Password" id="input1" class="form-control" placeholder="password"></s:password>
+        <input label="Password" class="form-control" placeholder="password confirm" id="input2" onblur="check2pwd()" ></td></tr>
         <s:select class="form-control" list="#{'M':'Male','F':'Female'}" listKey="key" listValue="value" 
             name="userform.gender" label="Gender" value="M"></s:select>
         <s:textfield name="userform.email" label="email" class="form-control" placeholder="Email"></s:textfield>

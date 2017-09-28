@@ -47,14 +47,14 @@
               <a href="profile.jsp">Profile</a>
             </li>
           </ul>
-		   <form class="navbar-form navbar-right">
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
+                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">search</button>
+                     <s:submit value="button" class="btn btn-default"></s:submit>
                     </span>
                   </div>
-		   </form>
+		   </s:form>
 		   <ul class="nav navbar-nav navbar-right">
         		<li><a href="login.jsp">login</a></li>
         		<!---can use dropdown write login form-->
@@ -86,6 +86,36 @@ CKEDITOR.replace( 'postform.description');
 				<%=postBean.getDescription()%>
 			</td>
 		</tr>
+		<tr>
+			
+		
+		<%	int a=0;
+			int post = postBean.getId();
+		%>
+		<td>
+		<button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='like<%=post%>'>
+	          <span class="glyphicon glyphicon-thumbs-up"></span> Like
+	          <span class="badge" id='like_num<%=post%>'><%=a %></span>
+	    </button>
+	    </td>
+	    <td>
+	    <button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='dislike<%=post%>'>
+	          <span class="glyphicon glyphicon-thumbs-down"></span> Dislike
+	    </button>
+	    </td>
+		</tr>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+		</script>
+    		<script>
+        $("#like<%=post%>").toggle(
+            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);},
+            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);
+        });
+        $("#dislike<%=post%>").toggle(
+            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);},
+            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);
+        });
+		</script>
 		<%
 			}
 		%>

@@ -9,24 +9,7 @@
 <title>profile</title>
 
 
-<script type="text/javascript">
-	$(function() {
-		$("#bt_select").click(function() {
-			$("#imageFile").click();
-		});
-		$("#imageFile").bind("change", function() {
-			if ($(this).val()) {
-				$("#uploadImageForm").submit();
-			}
-		});
 
-	});
-
-	window.uploadCallback = function(fileName) {
-		var imgUrl = $("#showImageUrl").val();
-		$("#bt_image").attr("src", imgUrl + "?fileName=" + fileName);
-	};
-</script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -42,11 +25,17 @@
 	margin: 2% 2% 2% 2%;
 	float: left;
 }
-
+.form-control{
+    margin: 2% 2% 2% 2%;
+}
+.inmodal{
+    margin: 2% 2% 2% 9.6%;
+}
 #accordion1 {
 	
 }
 </style>
+
 <div><jsp:include page="headerreg.jsp"></jsp:include></div>
 </head>
 <body>
@@ -139,13 +128,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">change password</h4>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
+      <s:form action="changepassword" class="form-inline">
+        <div class="modal-body" style="width:80%">
+        <div class="row">
+        <s:textfield onkeyup="showHint(this.value)" id="example1" label="password" class="form-control inmodal col-sm-6" placeholder="Old Password"></s:textfield>
+        <div id="showRight"></div>
+        </div>
+        <div class="row">
+        <s:password name="userform.password" label="Password" id="input1" class="form-control inmodal" placeholder="new Password"></s:password>
+        <div id="showRight"></div>
+        </div>
+        <input label="Password" class="form-control" placeholder="password confirm" id="input2" onblur="check2pwd()" ></td></tr>
+        </div>
+        <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <s:submit value="Save" class="btn btn-primary"></s:submit>
+        </div>
+        </s:form>
     </div>
   </div>
 </div>
@@ -156,15 +155,31 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">change Email</h4>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
+        <s:form action="changepassword" class="form-horizontal">
+        <div class="modal-body" style="width:50%">
+        <row>
+        <s:textfield name="userform.username" label="Username" class="form-control col-sm-6" placeholder="Old Password"></s:textfield>
+        <div class="col-sm-6" id="showRight"></div>
+        </row>
+        <s:password name="userform.password" label="Password" id="input1" class="form-control" placeholder="new Password"></s:password>
+        <input label="Password" class="form-control" placeholder="password confirm" id="input2" onblur="check2pwd()" ></td></tr>
+        </div>
+        <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <s:submit value="Save" class="btn btn-primary"></s:submit>
+        </div>
+        </s:form>
     </div>
   </div>
 </div>
 </body>
+<script type="text/javascript">
+function check2pwd() {  
+    if(input1.value != input2.value) {  
+        alert("not the same password!")  
+        input1.value = "";  
+        input2.value = "";  
+    }  
+}  
+</script>
 </html>

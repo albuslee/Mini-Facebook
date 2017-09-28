@@ -11,6 +11,19 @@
 			<result name="success">/success.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		<action name="searchFriends" class="edu.unsw.minifacebook.action.FriendAction"
+			method="execute">
+			<result name="input">/index.jsp</result>
+			<result name="success">/getFriends.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+		<action name="sendFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
+			method="sendFriendRequest">
+			<result name="input">/index.jsp</result>
+			<result name="success">/getFriends.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+
 		<action name="login" class="edu.unsw.minifacebook.action.LoginAction"
 			method="execute">
 			<result name="input">/login.jsp</result>
@@ -18,24 +31,32 @@
 			<result name="error">/fail.jsp</result>
 		</action>
 
-		<action name="loadposts" class="edu.unsw.minifacebook.action.PostAction" method="loadposts">
+		<action name="loadposts" class="edu.unsw.minifacebook.action.PostAction"
+			method="loadposts">
 			<result name="input">/login.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		
-		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction" method="addposts">
+
+		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction"
+			method="addposts">
 			<result name="input">/posts.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		
+
 		<action name="verify" class="edu.unsw.minifacebook.action.VerifyAction">
 			<result name="input">/login.jsp</result>
 			<result name="success">/login.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		<action name="uploadImage" class="edu.unsw.minifacebook.action.imageUploadAction">
+		<action name="uploadImage" class="edu.unsw.minifacebook.action.ImageUploadAction">
+			<result name="input">/profile.jsp</result>
+			<result name="success">/profile.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+		<action name="uploadpostimage" class="edu.unsw.minifacebook.action.PostAction"
+			method="uploadpostimage">
 			<result name="input">/profile.jsp</result>
 			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
@@ -45,7 +66,17 @@
 			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		
+		<action name="searchuser" class="edu.unsw.minifacebook.action.DetailChangeAction"
+			method="searchUser">
+			<result name="input">/headerreg.jsp</result>
+			<result name="success">/SearchResult.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+	    <action name="checkSQL" class="edu.unsw.minifacebook.action.CheckSQLAction">
+			<result name="input">/register.jsp</result>
+			<result name="success">/register.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
 	</package>
 
 

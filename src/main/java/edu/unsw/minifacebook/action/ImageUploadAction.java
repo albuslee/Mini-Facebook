@@ -21,7 +21,7 @@ import edu.unsw.minifacebook.bean.DetailBean;
   
 @Controller("brandAction")  
 @Scope("prototype")  
-public class imageUploadAction extends ActionSupport {  
+public class ImageUploadAction extends ActionSupport {  
 	@Autowired
 	private DetailDAO detailDao;
 	
