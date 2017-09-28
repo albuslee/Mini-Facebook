@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Like")
+@Table(name = "Likes")
 public class LikeBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +20,13 @@ public class LikeBean {
 	
 	// Like from USER
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Like_from", referencedColumnName = "userid", unique = true)
+	@JoinColumn(name = "Like_from", referencedColumnName = "userid")
 	private UserBean like_from;
 	
-	// Like to USER
+	// which post
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Like_to", referencedColumnName = "userid", unique = true)
-	private UserBean like_to;
+	@JoinColumn(name = "Post", referencedColumnName = "id")
+	private PostBean post;
 	
 	@Column(name = "THUMB")
 	private int thumb;
@@ -39,8 +39,8 @@ public class LikeBean {
 		this.like_from = like_from;
 	}
 
-	public void setLikeTo(UserBean like_to) {
-		this.like_to = like_to;
+	public void setPostId(PostBean post) {
+		this.post = post;
 	}
 
 	public void setThumb(int thumb) {
@@ -55,8 +55,8 @@ public class LikeBean {
 		return like_from;
 	}
 
-	public UserBean getLikeTo() {
-		return like_to;
+	public PostBean getPostId() {
+		return post;
 	}
 
 	public int getThumb() {

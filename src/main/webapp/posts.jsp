@@ -86,6 +86,36 @@ CKEDITOR.replace( 'postform.description');
 				<%=postBean.getDescription()%>
 			</td>
 		</tr>
+		<tr>
+			
+		
+		<%	int a=0;
+			int post = postBean.getId();
+		%>
+		<td>
+		<button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='like<%=post%>'>
+	          <span class="glyphicon glyphicon-thumbs-up"></span> Like
+	          <span class="badge" id='like_num<%=post%>'><%=a %></span>
+	    </button>
+	    </td>
+	    <td>
+	    <button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='dislike<%=post%>'>
+	          <span class="glyphicon glyphicon-thumbs-down"></span> Dislike
+	    </button>
+	    </td>
+		</tr>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+		</script>
+    		<script>
+        $("#like<%=post%>").toggle(
+            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);},
+            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);
+        });
+        $("#dislike<%=post%>").toggle(
+            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);},
+            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);
+        });
+		</script>
 		<%
 			}
 		%>
