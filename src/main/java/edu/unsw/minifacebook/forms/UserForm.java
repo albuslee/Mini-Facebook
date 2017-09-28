@@ -3,8 +3,6 @@ package edu.unsw.minifacebook.forms;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.persistence.Column;
-
 public class UserForm {
 	private String username;
 	
