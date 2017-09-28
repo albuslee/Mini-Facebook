@@ -12,6 +12,10 @@
 	<%
 		ArrayList<DetailBean> friendList = new ArrayList<DetailBean>();
 		friendList =(ArrayList<DetailBean>)request.getSession().getAttribute("friendlist");
+		for(int i = 0; i < friendList.size(); i ++){
+			DetailBean detailBean = friendList.get(i);
+			out.println(detailBean.getName());
+		}
 		
 		
 		

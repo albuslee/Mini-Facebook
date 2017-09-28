@@ -31,7 +31,7 @@ public class SearchFriendsAction extends ActionSupport{
 	public String execute() {
 		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
 		try {
-			list = friendService.searchFriends(detailform);
+			list = friendService.searchFriendsByName(detailform);
 			if (list != null) {
 				ActionContext.getContext().getSession().put("friendlist", list);
 				return SUCCESS;
