@@ -47,14 +47,14 @@
               <a href="profile.jsp">Profile</a>
             </li>
           </ul>
-		   <form class="navbar-form navbar-right">
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
+                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">search</button>
+                     <s:submit value="button" class="btn btn-default"></s:submit>
                     </span>
                   </div>
-		   </form>
+		   </s:form>
 		   <ul class="nav navbar-nav navbar-right">
         		<li><a href="login.jsp">login</a></li>
         		<!---can use dropdown write login form-->

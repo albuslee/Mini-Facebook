@@ -1,6 +1,7 @@
 package edu.unsw.minifacebook.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.spi.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.service.FriendService;
 
-public class SearchFriendsAction extends ActionSupport{
+public class FriendAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	
 	private DetailForm detailform;
@@ -29,7 +30,7 @@ public class SearchFriendsAction extends ActionSupport{
 	}
 	
 	public String execute() {
-		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+		List<DetailBean> list = new ArrayList<DetailBean>();
 		try {
 			list = friendService.searchFriends(detailform);
 			if (list != null) {
@@ -42,6 +43,11 @@ public class SearchFriendsAction extends ActionSupport{
 				e.printStackTrace();
 				return ERROR;
 			}
+	}
+	
+	public String sendFriendRequest() {
+		
+		return SUCCESS;
 	}
 
 }

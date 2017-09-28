@@ -1,6 +1,7 @@
 package edu.unsw.minifacebook.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -59,7 +60,7 @@ public class DetailDAO {
 	}
 	
 	
-	public ArrayList getFriendByname(String name) {
+	public List<DetailBean> getDetailByname(String name) {
 	
 		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
 		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);

@@ -1,5 +1,11 @@
 package edu.unsw.minifacebook.action;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -36,5 +42,15 @@ public class DetailChangeAction extends ActionSupport{
 			e.printStackTrace();
 			return ERROR;
 		}
+	}
+	
+	public String searchUser() {
+        HttpServletResponse response = ServletActionContext.getResponse();  
+        HttpServletRequest request = ServletActionContext.getRequest();  
+		List<DetailBean> detailList = detailchange.searchUser(detailform);
+		ActionContext ctx = ActionContext.getContext();
+
+		ctx.put("detailList", detailList); 
+		return SUCCESS;
 	}
 }
