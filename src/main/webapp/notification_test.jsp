@@ -101,7 +101,7 @@
 	        border:10px solid #CCC;
 	        border-color:transparent transparent #FFF;
 	        margin-top:-20px;
-	        margin-left:400px;
+	        margin-left:10px;
 	    }
 	    h3 {
 	        display:block;
@@ -117,10 +117,9 @@
 </head>
 <body>
 	<%
-	UserBean userBean = new UserBean();
-	userBean.setUserId(1);
-	NotificationDAO notificationDao = new NotificationDAO();
-	List<NotificationBean> notificationlist = notificationDao.getNotificationByUserBean(userBean);
+	
+	List<NotificationBean> notificationlist = (List<NotificationBean>)session.getAttribute("notificationList");
+	
 	
 	%>
 	<nav class="navbar navbar-default">
