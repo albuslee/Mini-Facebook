@@ -15,7 +15,7 @@ public class DetailBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column
+	@Column(nullable=false, unique= true)
 	private String username;
 	@Column
 	private String name=" ";
@@ -33,6 +33,7 @@ public class DetailBean {
 	private String photo=" ";  
 	@Column  
 	private String major=" ";
+	
 	public String getUsername(){
 		return username;
 	}

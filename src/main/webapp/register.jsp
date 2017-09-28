@@ -17,7 +17,7 @@
     	}
     	#formSize{
     	  position: absolute;
-    	  top:20%;
+    	  top:30%;
     	  left:38%;
     	  width:20%;
     	}
@@ -27,6 +27,22 @@
     	.btn-block{
     	  margin: 2% 2% 2% 2%;
     	}
+    	html{height: 100%}
+        body{margin: 0;height: 100%;
+            background: 8a8680;}
+        canvas{display: block;width: 100%;height: 100%;}
+        .text{
+            width: 100%;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            line-height: 100%;
+            top: 0;
+            position: absolute;
+            top: 50%;
+            font-size: 50px;
+        }
     </style>
 </head>
 <body>
@@ -38,7 +54,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="post.jsp">Home</a>
+              <a href="posts.jsp">Home</a>
             </li>
             <li>
               <a href="profile.jsp">Profile</a>
@@ -50,6 +66,8 @@
             </ul>
         </div>
    </nav>
+   <canvas id="canvas"></canvas>
+   <script src="index.js"></script>
    <div id="formSize">
     <s:form action="register" class="form-horizontal">
         <s:textfield name="userform.username" label="Username" class="form-control" placeholder="Username"></s:textfield>
@@ -61,5 +79,5 @@
     </s:form>
    </div>
 </body>
-<!-- https://codepen.io/VincentGarreau/pen/pnlso -->
+<!-- cherryblog.site/  -->
 </html>
