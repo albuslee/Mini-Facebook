@@ -58,7 +58,7 @@ public class UserService {
 	public DetailBean login(UserForm userForm) throws HibernateException{
 		UserBean userBean = 
 		userDao.getUserByUsername(userForm.getUsername());
-		if(userBean.getPassword().equals(MD5Util.getMD5String(userForm.getPassword()))) {
+		if(userBean.getPassword().equals(MD5Util.getMD5String(userForm.getPassword())) && userBean.getState()==1) {
 			return detailDao.getUserByUsername(userForm.getUsername());
 		}
 		return null;

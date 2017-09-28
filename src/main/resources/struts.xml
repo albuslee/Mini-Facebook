@@ -73,6 +73,12 @@
 			<result name="error">/fail.jsp</result>
 		</action>
 
+	    <action name="checkSQL" class="edu.unsw.minifacebook.action.CheckSQLAction">
+			<result name="input">/register.jsp</result>
+			<result name="success">/register.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+
 	</package>
 
 
