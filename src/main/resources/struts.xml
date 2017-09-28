@@ -11,6 +11,12 @@
 			<result name="success">/success.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		<action name = "searchFriends" class = "edu.unsw.minifacebook.action.SearchFriendsAction" method = "execute">
+			<result name = "input">/index.jsp</result>
+			<result name = "success">/getFriends.jsp</result>
+			<result name = "error">/fail.jsp</result>
+		</action>
+			
 		<action name="login" class="edu.unsw.minifacebook.action.LoginAction"
 			method="execute">
 			<result name="input">/login.jsp</result>
@@ -25,10 +31,11 @@
 		</action>
 		
 		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction" method="addposts">
-			<result name="input">/login.jsp</result>
+			<result name="input">/posts.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		
 		<action name="verify" class="edu.unsw.minifacebook.action.VerifyAction">
 			<result name="input">/login.jsp</result>
 			<result name="success">/login.jsp</result>

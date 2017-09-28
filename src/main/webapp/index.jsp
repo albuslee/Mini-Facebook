@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,15 +29,26 @@
               <a href="profile.jsp">Profile</a>
             </li>
           </ul>
-		   <form style="float:right" class="form-inline navbar-form">
+		   <s:form action = "searchFriends" style="float:right" class="form-inline navbar-form">
 				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
+                   <s:textfield name = "detailform.name" label = "name" placeholder="friendSearch"> </s:textfield>
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">search</button>
                     </span>
                   </div>
-		   </form>
+		   </s:form>
         </div>
+         
+<%--            <div id="formSize">
+    <s:form action="register" class="form-horizontal">
+        <s:textfield name="userform.username" label="Username" class="form-control" placeholder="Username"></s:textfield>
+        <s:password name="userform.password" label="Password" class="form-control" placeholder="password"></s:password>
+        <s:select class="form-control" list="#{'M':'Male','F':'Female'}" listKey="key" listValue="value" 
+            name="userform.gender" label="Gender" value="M"></s:select>
+        <s:textfield name="userform.email" label="email" class="form-control" placeholder="Email"></s:textfield>
+        <s:submit value="Register" class="btn btn-primary btn-block"></s:submit>
+    </s:form>
+   </div> --%>
    </nav>
 	<div><jsp:include page="register.jsp"></jsp:include></div>
 </body>
