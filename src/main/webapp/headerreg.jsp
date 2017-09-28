@@ -16,7 +16,6 @@
     	 padding-left:5%;
     	}
 </style>
-
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -35,10 +34,9 @@
 				<div class="input-group">
                    <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
                     <span class="input-group-btn">
-                     <s:submit value="button" class="btn btn-default"></s:submit>
+                     <s:submit value="search" class="btn btn-default"></s:submit>
                     </span>
                   </div>
 		   </s:form>
         </div>
    </nav>
- </head>

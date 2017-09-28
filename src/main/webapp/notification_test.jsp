@@ -5,7 +5,10 @@
 <html>
 <head>
 	<%@ page import="java.util.List"%>
-	<%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
+	<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
+	<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
+	<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
+	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -98,7 +101,7 @@
 	        border:10px solid #CCC;
 	        border-color:transparent transparent #FFF;
 	        margin-top:-20px;
-	        margin-left:400px;
+	        margin-left:10px;
 	    }
 	    h3 {
 	        display:block;
@@ -114,7 +117,10 @@
 </head>
 <body>
 	<%
-	List<NotificationBean> notificationlist = request.getSession().getAttribute("notificationList");
+	
+	List<NotificationBean> notificationlist = (List<NotificationBean>)session.getAttribute("notificationList");
+	
+	
 	%>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
@@ -140,11 +146,13 @@
 	                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
 	                <div id="notifications">
 	                    <h3>Notifications</h3>
-	                    
-	                    6666<br>
-	                    7777<br>
 	                    <%out.println("hahaha"); %><br>
 	                    <%="qwer" %><br>
+	                    <%
+	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
+	                    	    out.println(notificationlist.get(i));
+	                    	}
+	                    %>
 	                    <div style="height:300px;"></div>
 	                    
 	                </div>
