@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,115 +15,140 @@
 </script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="ckeditor/config.js"></script>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <title>Posts</title>
-    <style type = "text/css">
-    	#wd
-	{
-		width:600px;
-	}
-    	#navbar-main ul li{
-    	 font-size:18px;
-    	}
-    	#navbar-main ul{
-    	 padding-left:40px;
-    	}
-    </style>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<title>Posts</title>
+<style type="text/css">
 
+#navbar-main ul li {
+	font-size: 18px;
+}
+
+#navbar-main ul {
+	padding-left: 40px;
+}
+
+#photo {
+	width: 150px;
+	height: 150px;
+	margin: 2% 2% 2% 2%;
+	float: left;
+}
+
+.commentAvatarImage {
+	width: 100%;
+	height: 100%;
+	line-height: 0; /* remove line-height */
+	display: inline-block; /* circle wraps image */
+	border-radius: 50%; /* relative value */
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	transition: linear 0.25s;
+}
+.postimg{
+	width: 32px;
+	height: 32px;
+	line-height: 0; /* remove line-height */
+	display: inline-block; /* circle wraps image */
+	border-radius: 50%; /* relative value */
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	transition: linear 0.25s;
+}
+</style>
+<jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-	    <div class="navbar-header">
-	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
-	    </div>
+	<div class="row">
+	<div class="col-lg-1"></div>
+		<div class="col-lg-2">
+			<%
+				DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
+				String imgsource = detail.getPhoto();
+				String User = detail.getUsername();
+				if (imgsource == null) {
+					imgsource = "image/UNSW_0.png";
+				}
+			%>
 
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="post.jsp">Home</a>
-            </li>
-            <li>
-              <a href="profile.jsp">Profile</a>
-            </li>
-          </ul>
-		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
-				<div class="input-group">
-                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
-                    <span class="input-group-btn">
-                     <s:submit value="button" class="btn btn-default"></s:submit>
-                    </span>
-                  </div>
-		   </s:form>
-		   <ul class="nav navbar-nav navbar-right">
-        		<li><a href="login.jsp">login</a></li>
-        		<!---can use dropdown write login form-->
-            </ul>
-        </div>
-   </nav>
-  
-
-<div id = "wd">
-<s:form action = "addposts">
-<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
-        <s:submit value="Submit" class="btn btn-primary"></s:submit>
-</s:form>
-</div>
-<script type="text/javascript">
+			<div id="photo">
+				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
+				<div style="text-align:center" ><%=User%></div>
+			</div>
+		</div>
+		<div id="wd" class="col-lg-8">
+			<s:form action="addposts">
+				<s:textarea name="postform.description" cols="300" rows="8"
+					placeholder="Input your post"></s:textarea>
+				<s:submit value="Submit" class="btn btn-primary"></s:submit>
+			</s:form>
+		</div>
+	</div>
+	<div class="row">
+		<script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
 
-	<%
-		List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
-		if (postlist != null) {
-	%>
-	<table>
 		<%
-			for (PostBean postBean : postlist) {
+			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
+			if (postlist != null) {
 		%>
-		<tr>
-			<td>
-				<%=postBean.getDescription()%>
-			</td>
-		</tr>
-		<tr>
-			
-		
-		<%	int a=0;
-			int post = postBean.getId();
-		%>
-		<td>
-		<button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='like<%=post%>'>
-	          <span class="glyphicon glyphicon-thumbs-up"></span> Like
-	          <span class="badge" id='like_num<%=post%>'><%=a %></span>
-	    </button>
-	    </td>
-	    <td>
-	    <button type="button" class="btn btn-default btn-sm" onclick="btnClick(this)" id='dislike<%=post%>'>
-	          <span class="glyphicon glyphicon-thumbs-down"></span> Dislike
-	    </button>
-	    </td>
-		</tr>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-8">
+		<div class="list-group">
+			<%
+				for (PostBean postBean : postlist) {
+			%>
+			<img class="postimg col-sm-1" src="<%=postBean%>">
+			<a href="#" class="list-group-item col-sm-11">
+				<%=postBean.getDescription()%></a>
+
+
+				<%
+					int a = 0;
+							int post = postBean.getId();
+				%>
+			<table>
+			<tr>
+				<td>
+					<button type="button" class="btn btn-default btn-sm"
+						onclick="btnClick(this)" id='like<%=post%>'>
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like <span
+							class="badge" id='like_num<%=post%>'><%=a%></span>
+					</button>
+				</td>
+				<td>
+					<button type="button" class="btn btn-default btn-sm"
+						onclick="btnClick(this)" id='dislike<%=post%>'>
+						<span class="glyphicon glyphicon-thumbs-down"></span> Dislike
+					</button>
+				</td>
+			</tr>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
 		</script>
-    		<script>
+			<script>
         $("#like<%=post%>").toggle(
-            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);},
-            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);
+            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);},
+            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
         });
         $("#dislike<%=post%>").toggle(
-            function(){$("#like_num<%=post%>").html(<%=a=a-1%>);},
-            function(){$("#like_num<%=post%>").html(<%=a=a+1%>);
-        });
-		</script>
+            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
+            function(){$("#like_num<%=post%>
+				").html(
+			<%=a = a + 1%>
+				);
+				});
+			</script>
+			<%
+				}
+			%>
+		</table>
+		</div>
 		<%
 			}
 		%>
-	</table>
-	<%
-		}
-	%>
-
+	</div>
 </body>
 </html>
