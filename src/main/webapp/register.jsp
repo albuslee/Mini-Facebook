@@ -53,12 +53,13 @@
                     }  
             }  
             var xmlHttp=null;
-            var username= document.getElementById("username");
+            
             function showHint()
             {
-            if (str.length==0)
+            	var username= document.getElementById("username").value;
+            if (username==null)
               { 
-              document.getElementById("txtHint").innerHTML="";
+              document.getElementById("showRight").innerHTML="";
               return;
               }
             try
@@ -77,10 +78,15 @@
                 return;  
                 }
               }
-            var url="checkSQL?username=" + username;
+            var url="mini_facebook/checkSQL?username=" + username;
             xmlHttp.open("GET",url,true);
             xmlHttp.send();
-            document.getElementById("showRight").innerHTML=xmlHttp.responseText;
+            xmlHttp.onreadystatechange=function(){
+            	if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                	alert(xmlHttp.responseText);
+                document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
+            }
+            alert("send");
             }
         </script>  
 </head>
@@ -109,7 +115,7 @@
    <script src="index.js"></script>
    <div id="formSize">
     <s:form action="register" class="form-horizontal">
-        <s:textfield name="userform.username" id="username" label="Username" class="form-control" placeholder="Username"></s:textfield>
+        <s:textfield name="userform.username" onblur="showHint();" id="username" label="Username" class="form-control" placeholder="Username"></s:textfield>
         <div id="showRight"></div>
         <s:password name="userform.password" label="Password" id="input1" class="form-control" placeholder="password"></s:password>
         <input label="Password" class="form-control" placeholder="password confirm" id="input2" onblur="check2pwd()" ></td></tr>
