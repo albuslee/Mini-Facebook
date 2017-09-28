@@ -22,7 +22,7 @@ public class PostBean {
 	private String description;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="creator",referencedColumnName="userid",unique=true) 
+	@JoinColumn(name="creator",referencedColumnName="userid") 
 	private UserBean creator;
 
 	public int getId() {

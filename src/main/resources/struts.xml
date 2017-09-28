@@ -31,10 +31,11 @@
 		</action>
 		
 		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction" method="addposts">
-			<result name="input">/login.jsp</result>
+			<result name="input">/posts.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		
 		<action name="verify" class="edu.unsw.minifacebook.action.VerifyAction">
 			<result name="input">/login.jsp</result>
 			<result name="success">/login.jsp</result>
