@@ -34,11 +34,47 @@
                    <s:textfield name = "detailform.name" label = "name" placeholder="friendSearch"> </s:textfield>
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">search</button>
+                      <br/>
+                      <br/>
+                      <br/>
+                      
+                     
+              
                     </span>
                   </div>
 		   </s:form>
+		   <br/>
+		   <br/>
+		               <form  action ="advancedSearch.jsp" >
+                      <input type = "submit" value = "AdvancedSearch">
+                      </form>
+               
+               
         </div>
          
+<!--          <div align= "center">  
+	<form  action ="results.jsp" >
+	agency <br/>
+	<input type = "text" name = "agency"/>
+	<br/>
+	headline <br/>
+	<input type = "text" name = "headline"/>
+	<br/>
+	date(year-month-dayTxx:xx:xx) <br/>
+	<input type = "text" name = "date"/>
+	<br/>
+	city <br/>
+	<input type = "text" name = "city"/>
+	<br/>
+	content <br/>
+	<input type = "text" name = "content"/>
+	<br/>
+	<input type = "submit" value = "search">
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/> -->
 <%--            <div id="formSize">
     <s:form action="register" class="form-horizontal">
         <s:textfield name="userform.username" label="Username" class="form-control" placeholder="Username"></s:textfield>

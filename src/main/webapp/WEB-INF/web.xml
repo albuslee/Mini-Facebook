@@ -24,4 +24,44 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<servlet>
+		<servlet-name>EmailVerificationServlet</servlet-name>
+		<display-name>EmailVerificationServlet</display-name>
+		<description></description>
+		<servlet-class>edu.unsw.minifacebook.service.EmailVerificationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>verifyCode</servlet-name>
+		<display-name>verifyCode</display-name>
+		<description></description>
+		<servlet-class>edu.unsw.minifacebook.action.verifyCode</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NotificationService</servlet-name>
+		<display-name>NotificationService</display-name>
+		<description></description>
+		<servlet-class>edu.unsw.minifacebook.service.NotificationService</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NotificationForm</servlet-name>
+		<display-name>NotificationForm</display-name>
+		<description></description>
+		<servlet-class>edu.unsw.minifacebook.forms.NotificationForm</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmailVerificationServlet</servlet-name>
+		<url-pattern>/EmailVerificationServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>verifyCode</servlet-name>
+		<url-pattern>/verifyCode</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NotificationService</servlet-name>
+		<url-pattern>/NotificationService</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NotificationForm</servlet-name>
+		<url-pattern>/NotificationForm</url-pattern>
+	</servlet-mapping>
 </web-app>

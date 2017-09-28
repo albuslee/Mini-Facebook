@@ -1,6 +1,7 @@
 package edu.unsw.minifacebook.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -26,19 +27,30 @@ public class FriendService {
 	
 	
 	
-	public ArrayList<DetailBean> searchFriends(DetailForm detailForm) throws HibernateError{
-		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
-		
-		list = detailDAO.getFriendByname(detailForm.getName());
+	public List<DetailBean> searchFriendsByName(DetailForm detailForm) throws HibernateError{
+		List<DetailBean> list = new ArrayList<DetailBean>();
+		if (detailForm.getName() != null) {
+			list = detailDAO.getFriendByname(detailForm.getName());	
+		}
+		else if (detailForm.getBirthday() != null) {
+			list = detailDAO.getFriendByBirthDay(detailForm.getBirthday());
+		}
+		else if(detailForm.getGender() != null) {
+			list = detailDAO.getFriendByGender(detailForm.getGender());
+		}
+		else if(detailForm.getMajor() != null) {
+			list = detailDAO.getFriendByMajor(detailForm.getMajor());
+		}
 		if (list != null) {
 			return list;
-		}
-		
+		}	
 		else {
 			return null;
 		}
+
 		
 	}
+
 	
 
 }
