@@ -3,7 +3,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -79,18 +78,17 @@
                 }
               }
             var url="mini_facebook/checkSQL?username=" + username;
-            xmlHttp.open("GET",url,true);
+            xmlHttp.open("POST",url,true);
             xmlHttp.send();
             xmlHttp.onreadystatechange=function(){
             	if (xmlhttp.readyState==4 && xmlhttp.status==200){
-                	alert(xmlHttp.responseText);
+                	
                 document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
             }
+            alert(xmlHttp.responseText);
             alert("send");
             }
         </script>  
-</head>
-<body>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -125,6 +123,5 @@
         <s:submit value="Register" class="btn btn-primary btn-block"></s:submit>
     </s:form>
    </div>
-</body>
 <!-- cherryblog.site/  -->
 </html>

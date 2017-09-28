@@ -33,9 +33,7 @@
 		   <form style="float:right" class="form-inline navbar-form">
 				<div class="input-group">
                    <input type="text" class="form-control" placeholder="freindSearch">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">search</button>
-                    </span>
+                   <div class="btn btn-default input-group-addon" type="button">search</div>
                   </div>
 		   </form>
         </div>
