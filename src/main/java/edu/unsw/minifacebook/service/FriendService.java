@@ -27,16 +27,30 @@ public class FriendService {
 	
 	
 	
-	public List<DetailBean> searchFriends(DetailForm detailForm) throws HibernateError{
-		List<DetailBean> list = detailDAO.getDetailByname(detailForm.getName());
+	public ArrayList<DetailBean> searchFriendsByName(DetailForm detailForm) throws HibernateError{
+		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+		if (detailForm.getName() != null) {
+			list = detailDAO.getFriendByname(detailForm.getName());	
+		}
+		else if (detailForm.getBirthday() != null) {
+			list = detailDAO.getFriendByBirthDay(detailForm.getBirthday());
+		}
+		else if(detailForm.getGender() != null) {
+			list = detailDAO.getFriendByGender(detailForm.getGender());
+		}
+		else if(detailForm.getMajor() != null) {
+			list = detailDAO.getFriendByMajor(detailForm.getMajor());
+		}
 		if (list != null) {
 			return list;
 		}	
 		else {
 			return null;
 		}
+
 		
 	}
+
 	
 
 }

@@ -60,6 +60,7 @@ public class DetailDAO {
 	}
 	
 	
+
 	public List<DetailBean> getDetailByname(String name) {
 	
 		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
@@ -74,6 +75,55 @@ public class DetailDAO {
 			nre.printStackTrace();
 		}
 		return list;
+	}
+	
+	public ArrayList<DetailBean> getFriendByGender(String gender){
+		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
+		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);
+		Root<DetailBean> root = query.from(DetailBean.class);
+		query.select(root).where(builder.equal(root.get("gender"), gender));
+		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+		Query q = this.getCurrentSession().createQuery(query);
+		try {
+			list = (ArrayList<DetailBean>) q.getResultList();
+		}catch(NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return list;
+		
+	}
+	
+	public ArrayList<DetailBean> getFriendByBirthDay(String birthday){
+		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
+		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);
+		Root<DetailBean> root = query.from(DetailBean.class);
+		query.select(root).where(builder.equal(root.get("birthday"), birthday));
+		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+		Query q = this.getCurrentSession().createQuery(query);
+		try {
+			list = (ArrayList<DetailBean>) q.getResultList();
+		}catch(NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return list;
+		
+	}
+	
+	
+	public ArrayList<DetailBean> getFriendByMajor(String major){
+		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
+		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);
+		Root<DetailBean> root = query.from(DetailBean.class);
+		query.select(root).where(builder.equal(root.get("major"),major));
+		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+		Query q = this.getCurrentSession().createQuery(query);
+		try {
+			list = (ArrayList<DetailBean>) q.getResultList();
+		}catch(NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return list;
+		
 	}
 	
 	
