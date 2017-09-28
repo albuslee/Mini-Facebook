@@ -34,18 +34,25 @@ public class NotificationDAO {
 		this.getCurrentSession().save(obj);
 	}
 
-	public NotificationBean generate_Notification(int id, String commented_record) {
+	public List<NotificationBean> getNotificationByUserBean(UserBean userBean) {
+		List<NotificationBean> notificationList = null;
+		
+		Query query1 = getCurrentSession().createQuery
+				("from NotificationBean where userBean.id = (:ids)").setParameter("ids", userBean.getUserId());
+		
+		notificationList = query1.getResultList();
+		
+		return notificationList;
+	}
+	
+	public void insertNotificationByUserBean(UserBean userBean, String commented_record) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);
-		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//System.out.println(dateFormat.format(N_date));
 		NotificationBean notificationbean = null;
-		notificationbean.setId(id);
+		notificationbean.setuserBean(userBean);
 		notificationbean.setcommented_record(commented_record);
 		notificationbean.setcomment_time(N_date);
 		notificationbean.setnotification_status("unread");
-		
-
-		return notificationbean;
+		return;
 	}
 }

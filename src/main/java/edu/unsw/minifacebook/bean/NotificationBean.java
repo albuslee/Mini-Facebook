@@ -19,8 +19,8 @@ public class NotificationBean {
 	private int id;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "commented_by", referencedColumnName="userid",unique=true)
-	private UserBean commented_by;
+	@JoinColumn(name = "userBean", referencedColumnName="userid",unique=true)
+	private UserBean userBean;
 	
 	@Column
 	private String commented_record;
@@ -39,6 +39,14 @@ public class NotificationBean {
 		this.id = id;
 	}
 
+	public UserBean getuserBean() {
+		return userBean;
+	}
+
+	public void setuserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+	
 	public String getcommented_record() {
 		return commented_record;
 	}
