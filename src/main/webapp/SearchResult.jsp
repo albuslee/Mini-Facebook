@@ -8,12 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script>
-	function sendAjaxRequest() {
-		var username = document.getElementById("username").value;
-		if (username == null) {
-			document.getElementById("showRight").innerHTML = "";
-			return;
-		}
+	function sendAjaxRequest(event) {
+		var username = event.target.id;
+		alert(username);
+
 		try {// Firefox, Opera 8.0+, Safari, IE7
 			xmlHttp = new XMLHttpRequest();
 		} catch (e) {// Old IE
@@ -24,7 +22,7 @@
 				return;
 			}
 		}
-		var url = "mini_facebook/checkSQL?username=" + username;
+		var url = "mini_facebook/sendFriendRequest?username=" + username;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send();
 		xmlHttp.onreadystatechange = function() {
@@ -33,7 +31,7 @@
 				document.getElementById("showRight").innerHTML = xmlHttp.responseText;
 			}
 		}
-		alert("send");
+		//alert("send");
 	}
 </script>
 </head>
@@ -45,9 +43,11 @@
 		if (detailList != null && !detailList.isEmpty()) {
 			for (DetailBean detailBean : detailList) {
 	%>
+	<div>
 	<img src="<%=detailBean.getPhoto()%>"></img><%=detailBean.getName()%>
 	<%=detailBean.getGender()%>
-	<button onclick="sendAjaxRequest">Add Friend</button>
+	<button id="<%=detailBean.getUsername()%>" onclick="sendAjaxRequest(event)">Add Friend</button>
+	</div>
 	<br>
 	<%
 		}

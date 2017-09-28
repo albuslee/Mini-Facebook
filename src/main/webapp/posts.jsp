@@ -49,7 +49,7 @@
           </ul>
 		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
+                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="friendSearch"></s:textfield>
                     <span class="input-group-btn">
                      <s:submit value="button" class="btn btn-default"></s:submit>
                     </span>

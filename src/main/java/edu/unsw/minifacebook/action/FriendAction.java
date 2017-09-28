@@ -3,7 +3,11 @@ package edu.unsw.minifacebook.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.spi.ErrorCode;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -46,7 +50,9 @@ public class FriendAction extends ActionSupport{
 	}
 	
 	public String sendFriendRequest() {
-		
+        HttpServletResponse response = ServletActionContext.getResponse();  
+        HttpServletRequest request = ServletActionContext.getRequest(); 
+        String username = request.getParameter("username");
 		return SUCCESS;
 	}
 
