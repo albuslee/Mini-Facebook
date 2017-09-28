@@ -27,8 +27,8 @@ public class FriendService {
 	
 	
 	
-	public ArrayList<DetailBean> searchFriendsByName(DetailForm detailForm) throws HibernateError{
-		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
+	public List<DetailBean> searchFriendsByName(DetailForm detailForm) throws HibernateError{
+		List<DetailBean> list = new ArrayList<DetailBean>();
 		if (detailForm.getName() != null) {
 			list = detailDAO.getFriendByname(detailForm.getName());	
 		}
