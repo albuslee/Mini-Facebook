@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function(config) {
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 
 	config.image_previewText = ' '; 
-	config.filebrowserImageUploadUrl = "ImgUpload.action";
+	config.filebrowserImageUploadUrl = "uploadpostimage";
 	config.toolbarGroups = [ {
 		name : 'clipboard',
 		groups : [ 'clipboard', 'undo' ]
