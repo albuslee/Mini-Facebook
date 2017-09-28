@@ -31,8 +31,8 @@
 									<td class="html7magic"><label for="pass">Password</label></td>
 								</tr>
 								<tr>
-									<td><s:textfield class="inputtext" id="email" tabindex="1"
-											data-testid="royal_email" type="emai"
+									<td><s:textfield class="inputtext" id="username" tabindex="1"
+											data-testid="royal_email" type="username"
 											name="userform.username"></s:textfield></td>
 									<td><s:password class="inputtext" id="pass" tabindex="2"
 											data-testid="royal_pass" type="password"
