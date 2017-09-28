@@ -85,6 +85,9 @@ CKEDITOR.replace( 'editor');
 				<%=postBean.getDescription()%>
 			</td>
 		</tr>
+		<tr>
+			<td><script type="text/javascript" src="http://100widgets.com/js_data.php?id=259"></script></td>
+		</tr>
 		<%
 			}
 		%>
