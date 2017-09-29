@@ -7,14 +7,11 @@
 <head>
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
-<<<<<<< HEAD
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
-=======
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
->>>>>>> 98d6ea13ceca9cbb6deebb2ef9a5321a5975cd3a
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Posts</title>
@@ -192,12 +189,9 @@ CKEDITOR.replace( 'postform.description');
 			<a href="#" class="list-group-item col-sm-11">
 				<%=postBean.getDescription()%>
 
-
-<<<<<<< HEAD
 			<%
 				int a = 0;
 				int post = postBean.getId();
-				LikeBean likeBean = new LikeBean();
 			%>
 			<button type="button" class="btn btn-default btn-sm"
 				onclick="btnClick(this)" id='like<%=post%>'>
@@ -213,7 +207,7 @@ CKEDITOR.replace( 'postform.description');
 			</script>
 			<script>
 			function addLike(){
-				<% likeBean.setLikeFrom(userBean); %>
+				<% //likeBean.setLikeFrom(userBean); %>
 			}
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
@@ -225,39 +219,6 @@ CKEDITOR.replace( 'postform.description');
 	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);}
 	            );
 			});
-=======
-				<%
-					int a = 0;
-							int post = postBean.getId();
-				%>
-			<table>
-			<tr>
-				<td>
-					<button type="button" class="btn btn-default btn-sm"
-						onclick="btnClick(this)" id='like<%=post%>'>
-						<span class="glyphicon glyphicon-thumbs-up"></span> Like <span
-							class="badge" id='like_num<%=post%>'><%=a%></span>
-					</button>
-				</td>
-				<td>
-					<button type="button" class="btn btn-default btn-sm"
-						onclick="btnClick(this)" id='dislike<%=post%>'>
-						<span class="glyphicon glyphicon-thumbs-down"></span> Dislike
-					</button>
-				</td>
-			</tr>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        $("#like<%=post%>").toggle(
-            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);},
-            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
-        });
-        $("#dislike<%=post%>").toggle(
-            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
-            function(){$("#like_num<%=post%>").html(
-			<%=a = a + 1%>
-				);
-				});
->>>>>>> 98d6ea13ceca9cbb6deebb2ef9a5321a5975cd3a
 			</script>
 			<%
 				}
