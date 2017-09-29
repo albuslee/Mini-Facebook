@@ -77,38 +77,18 @@
                 return;  
                 }
               }
-            var url="mini_facebook/checkSQL?username=" + username;
+            var url="checkSQL?username=" + username;
             xmlHttp.open("POST",url,true);
             xmlHttp.send();
             xmlHttp.onreadystatechange=function(){
-            	if (xmlhttp.readyState==4 && xmlhttp.status==200){
-                	
-                document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
+            	setTimeout(function(){ 
+            		if (xmlHttp.readyState==4 && xmlHttp.status==200){
+                        document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
+                }, 200);
             }
-            alert(xmlHttp.responseText);
-            alert("send");
             }
         </script>  
-	<nav class="navbar navbar-default">
-	    <div class="navbar-header">
-	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
-	    </div>
-
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="posts.jsp">Home</a>
-            </li>
-            <li>
-              <a href="profile.jsp">Profile</a>
-            </li>
-          </ul>
-		   <ul class="nav navbar-nav navbar-right">
-        		<li><a href="login.jsp">login</a></li>
-        		<!---can use dropdown write login form-->
-            </ul>
-        </div>
-   </nav>
+<jsp:include page="headerreg.jsp"></jsp:include>
    <canvas id="canvas"></canvas>
    <script src="index.js"></script>
    <div id="formSize">

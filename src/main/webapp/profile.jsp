@@ -15,7 +15,7 @@
 <script src="js/bootstrap.min.js"></script>
 <style>
 #detailForm {
-	width: 80%;
+	width: 60%;
 	margin: 2% 2% 2% 2%;
 	float: right;
 }
@@ -23,7 +23,7 @@
 #photo {
 	width: 150px;
 	height: 150px;
-	margin: 2% 2% 2% 2%;
+	margin: 2% 2% 2% 15%;
 	float: left;
 }
 
@@ -73,45 +73,45 @@
 				value="submit">
 		</form>
 	</div>
-	<div id="detailForm">
+	<div id="detailForm" >
 		<s:form class="form-horizontal" action="detailchange">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">UserName</label>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<input class="form-control" type="text" value="<%=User%>" disabled>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Name</label>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					<s:textfield class="form-control" name="detailform.name"
 						placeholder="<%=name2%>"></s:textfield>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Age</label>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					<s:textfield class="form-control" name="detailform.age"
 						placeholder="<%=age%>"></s:textfield>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Birthday</label>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					<s:textfield class="form-control" name="detailform.birthday"
 						placeholder="<%=birthday%>"></s:textfield>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Major</label>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<s:textfield class="form-control" name="detailform.major"
 						placeholder="<%=major%>"></s:textfield>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Gender</label>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					<s:select class="form-control" list="#{'M':'Male','F':'Female'}"
 						listKey="key" listValue="value" name="detailform.gender"
 						label="Gender" value='M'></s:select>

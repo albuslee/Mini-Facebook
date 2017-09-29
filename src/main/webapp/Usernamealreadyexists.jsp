@@ -1,0 +1,1 @@
+<div style="text-align:center;color:red;">Username already exists!</div>

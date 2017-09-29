@@ -7,6 +7,11 @@
 <head>
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
+<%@ page import="java.util.List"%>
+<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
+<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
+<%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
+<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Posts</title>
@@ -18,7 +23,6 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<title>Posts</title>
 <style type="text/css">
 
 #navbar-main ul li {
@@ -77,20 +81,17 @@
 				<div style="text-align:center" ><%=User%></div>
 			</div>
 		</div>
-		<div id="wd" class="col-lg-8">
-			<s:form action="addposts">
-				<s:textarea name="postform.description" cols="300" rows="8"
-					placeholder="Input your post"></s:textarea>
-				<s:submit value="Submit" class="btn btn-primary"></s:submit>
-			</s:form>
-		</div>
-	</div>
-	<div class="row">
-		<script type="text/javascript">
+		<div id = "wd" class="col-lg-8">
+<s:form action = "addposts">
+<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
+        <s:submit value="Submit" class="btn btn-primary"></s:submit>
+</s:form>
+</div>
+<script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
 
-		<%
+		<%  DetailDAO detaildao=new DetailDAO();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -99,8 +100,10 @@ CKEDITOR.replace( 'postform.description');
 		<div class="list-group">
 			<%
 				for (PostBean postBean : postlist) {
+					DetailBean detailbean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
+					String imgsrc=detailbean.getPhoto();
 			%>
-			<img class="postimg col-sm-1" src="<%=postBean%>">
+			<img class="postimg col-sm-1" src="<%=imgsrc%>">
 			<a href="#" class="list-group-item col-sm-11">
 				<%=postBean.getDescription()%></a>
 
@@ -135,8 +138,7 @@ CKEDITOR.replace( 'postform.description');
         });
         $("#dislike<%=post%>").toggle(
             function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
-            function(){$("#like_num<%=post%>
-				").html(
+            function(){$("#like_num<%=post%>").html(
 			<%=a = a + 1%>
 				);
 				});
@@ -150,5 +152,38 @@ CKEDITOR.replace( 'postform.description');
 			}
 		%>
 	</div>
+<script>
+    $(document).ready(function () {
+        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+        $('#noti_Counter')
+            .css({ opacity: 0 })
+            .text('7')              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .css({ top: '-10px' })
+            .animate({ top: '-2px', opacity: 1 }, 500);
+        $('#noti_Button').click(function () {
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications').fadeToggle('fast', 'linear', function () {
+                if ($('#notifications').is(':hidden')) {
+                    $('#noti_Button').css('background-color', '#2E467C');
+                }
+                else $('#noti_Button').css('background-color', '#FFF');        // CHANGE BACKGROUND COLOR OF THE BUTTON.
+            });
+            $('#noti_Counter').fadeOut('slow');                 // HIDE THE COUNTER.
+            return false;
+        });
+        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+        $(document).click(function () {
+            $('#notifications').hide();
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+            if ($('#noti_Counter').is(':hidden')) {
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                $('#noti_Button').css('background-color', '#2E467C');
+            }
+        });
+        $('#notifications').click(function () {
+            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+        });
+    });
+</script>
 </body>
 </html>

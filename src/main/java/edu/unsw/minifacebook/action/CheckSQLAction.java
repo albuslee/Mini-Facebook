@@ -20,21 +20,27 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.unsw.minifacebook.DAO.DetailDAO;
-import edu.unsw.minifacebook.bean.DetailBean;  
+import edu.unsw.minifacebook.bean.DetailBean;
+import edu.unsw.minifacebook.service.UserService;  
  
 public class CheckSQLAction extends ActionSupport{
+	@Autowired
+	private UserService userService;
 	
 	public String execute() {
 		HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE);   
 		HttpServletRequest request = (HttpServletRequest)ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST); 
 		String user=request.getParameter("username");
-	    String responseText ="    usernme exists!"; 
+		String responseText;
+		if(userService.checkexist(user)){
+	    responseText =SUCCESS; }
+		else{responseText =ERROR;}
 	    try {
 			response.getWriter().println(responseText);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-	    return "success";
+	    return responseText;
 	}
 }  
