@@ -209,10 +209,7 @@ CKEDITOR.replace( 'postform.description');
 					</button>
 				</td>
 			</tr>
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
-		</script>
-			<script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
         $("#like<%=post%>").toggle(
             function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);},
             function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
