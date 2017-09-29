@@ -8,7 +8,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
-<%@ page import="java.util.List"%>
+<%@ page import="edu.unsw.minifacebook.service.LikeService"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
@@ -192,6 +192,7 @@ CKEDITOR.replace( 'postform.description');
 			<%
 				int a = 0;
 				int post = postBean.getId();
+				UserBean userBean = postBean.getCreator();
 			%>
 			<button type="button" class="btn btn-default btn-sm"
 				onclick="btnClick(this)" id='like<%=post%>'>
@@ -206,9 +207,6 @@ CKEDITOR.replace( 'postform.description');
 				src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
 			</script>
 			<script>
-			function addLike(){
-				<% //likeBean.setLikeFrom(userBean); %>
-			}
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
 	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);},
