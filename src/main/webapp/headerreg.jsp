@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -16,7 +17,8 @@
     	 padding-left:5%;
     	}
 </style>
-<% if(request.getSession()!=null){%>
+<%DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
+if(detail!=null){%>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -41,7 +43,7 @@
 		   </s:form>
         </div>
    </nav>
-  <%}else{ %>
+<%}else{ %>
    	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -50,8 +52,9 @@
         <div class="navbar-collapse collapse" id="navbar-main">
 		   <ul class="nav navbar-nav navbar-right">
         		<li><a href="login.jsp">login</a></li>
+        		<li><a href="register.jsp">registe</a></li>
         		<!---can use dropdown write login form-->
             </ul>
         </div>
    </nav>
-   <%} %>
+ <%}%>

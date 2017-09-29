@@ -7,6 +7,11 @@
 <head>
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
+<%@ page import="java.util.List"%>
+<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
+<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
+<%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
+
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
 <%@ page import="edu.unsw.minifacebook.service.LikeService"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
@@ -172,10 +177,22 @@
 </div>
 <script type="text/javascript">
 
+			<div id="photo">
+				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
+				<div style="text-align:center" ><%=User%></div>
+			</div>
+		</div>
+		<div id = "wd" class="col-lg-8">
+<s:form action = "addposts">
+<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
+        <s:submit value="Submit" class="btn btn-primary"></s:submit>
+</s:form>
+</div>
+<script type="text/javascript"
 CKEDITOR.replace( 'postform.description');
 </script>
 
-		<%
+		<%  DetailDAO detaildao=new DetailDAO();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -184,8 +201,10 @@ CKEDITOR.replace( 'postform.description');
 		<div class="list-group">
 			<%
 				for (PostBean postBean : postlist) {
+					DetailBean detailbean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
+					String imgsrc=detailbean.getPhoto();
 			%>
-			<img class="postimg col-sm-1" src="<%=postBean%>">
+			<img class="postimg col-sm-1" src="<%=imgsrc%>">
 			<a href="#" class="list-group-item col-sm-11">
 				<%=postBean.getDescription()%>
 
@@ -228,14 +247,12 @@ CKEDITOR.replace( 'postform.description');
 	</div>
 <script>
     $(document).ready(function () {
-
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
             .css({ opacity: 0 })
             .text('7')              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
             .css({ top: '-10px' })
             .animate({ top: '-2px', opacity: 1 }, 500);
-
         $('#noti_Button').click(function () {
 
             // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
@@ -245,7 +262,6 @@ CKEDITOR.replace( 'postform.description');
                 }
                 else $('#noti_Button').css('background-color', '#FFF');        // CHANGE BACKGROUND COLOR OF THE BUTTON.
             });
-
             $('#noti_Counter').fadeOut('slow');                 // HIDE THE COUNTER.
 
             return false;
@@ -261,7 +277,6 @@ CKEDITOR.replace( 'postform.description');
                 $('#noti_Button').css('background-color', '#2E467C');
             }
         });
-
         $('#notifications').click(function () {
             return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
         });

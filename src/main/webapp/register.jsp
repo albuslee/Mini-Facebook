@@ -77,21 +77,19 @@
                 return;  
                 }
               }
-            var url="mini_facebook/checkSQL?username=" + username;
+            var url="checkSQL?username=" + username;
             xmlHttp.open("POST",url,true);
             xmlHttp.send();
             await sleep(2000);
             xmlHttp.onreadystatechange=function(){
             	setTimeout(function(){ 
-            		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            		if (xmlHttp.readyState==4 && xmlHttp.status==200){
                         document.getElementById("showRight").innerHTML=xmlHttp.responseText;}
-                }, 3000);
+                }, 200);
             }
-            alert(xmlHttp.responseText);
-            alert("send");
             }
         </script>  
-
+<jsp:include page="headerreg.jsp"></jsp:include>
    <canvas id="canvas"></canvas>
    <script src="index.js"></script>
    <div id="formSize">

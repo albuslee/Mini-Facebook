@@ -44,7 +44,7 @@ public class UserDAO {
 		return this.getUserByUsername(username) != null;
 	}
 	
-	public UserBean getUserByUsername(String username) {
+	public UserBean getUserByUsername(String username){
 		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
 		CriteriaQuery<UserBean> query = builder.createQuery(UserBean.class);
 		Root<UserBean> root = query.from(UserBean.class);
