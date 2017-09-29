@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.service.FriendService;
+import edu.unsw.minifacebook.service.NotificationService;
 
 public class FriendAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
