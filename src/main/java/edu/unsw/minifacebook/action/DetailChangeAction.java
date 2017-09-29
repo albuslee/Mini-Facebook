@@ -44,9 +44,7 @@ public class DetailChangeAction extends ActionSupport{
 		}
 	}
 	
-	public String searchUser() {
-        HttpServletResponse response = ServletActionContext.getResponse();  
-        HttpServletRequest request = ServletActionContext.getRequest();  
+	public String searchUser() { 
 		List<DetailBean> detailList = detailchange.searchUser(detailform);
 		ActionContext ctx = ActionContext.getContext();
 

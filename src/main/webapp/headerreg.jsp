@@ -16,6 +16,7 @@
     	 padding-left:5%;
     	}
 </style>
+<% if(request.getSession()!=null){%>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -40,3 +41,17 @@
 		   </s:form>
         </div>
    </nav>
+  <%}else{ %>
+   	<nav class="navbar navbar-default">
+	    <div class="navbar-header">
+	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
+	    </div>
+
+        <div class="navbar-collapse collapse" id="navbar-main">
+		   <ul class="nav navbar-nav navbar-right">
+        		<li><a href="login.jsp">login</a></li>
+        		<!---can use dropdown write login form-->
+            </ul>
+        </div>
+   </nav>
+   <%} %>
