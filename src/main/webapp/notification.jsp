@@ -3,6 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<%@ page import="java.util.List"%>
+	<%@ page import="java.util.ArrayList"%>
+	
+	<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
+	<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
+	<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -156,7 +162,31 @@
 </style>
 </head>
 <body style="margin:0;padding:0;">
-    <div>
+	<% 
+	List<NotificationBean> notificationlist = new ArrayList<NotificationBean>();
+	NotificationBean nb1 = new NotificationBean();
+	NotificationBean nb2 = new NotificationBean();
+	UserBean ub1 = new UserBean();
+	UserBean ub2 = new UserBean();
+	UserBean ub3 = new UserBean();
+	ub1.setUserId(1);
+	ub2.setUserId(2);
+	ub3.setUserId(3);
+	nb1.setcommented_record("hello world");
+	nb1.setnotification_status("unread");
+	nb1.setuserBean(ub1);
+	nb1.setType("like");
+	nb1.setFrom(ub3);
+	nb2.setcommented_record("");
+	nb2.setnotification_status("unread");
+	nb2.setuserBean(ub1);
+	nb2.setType("friend");
+	nb2.setFrom(ub2);
+	notificationlist.add(nb1);
+	notificationlist.add(nb2);
+	//notificationlist.
+    %>
+	<div>
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Find Friends</a></li>
@@ -169,7 +199,31 @@
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications">
                     <h3>Notifications</h3>
-                    <div style="height:300px;"></div>
+                    <div style="height:300px;overflow:scroll">
+	                    <%out.println("test"); %><br>
+	                    <%out.println("test"); %><br>
+	                    
+	                    <%
+	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
+	                    		if (notificationlist.get(i).getType() == "like") {
+	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
+	                    			out.println("Your post " + notificationlist.get(i).getcommented_record() + " was liked by user " + notificationlist.get(i).getFrom().getUserId());
+	                    			%><br><%
+	                    		}
+	                    		else if (notificationlist.get(i).getType() == "friend") {
+	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
+	                    			out.println("Friend request come from user " + notificationlist.get(i).getFrom().getUserId());
+	                    			%><br><%
+	                    		}
+	                    	}
+	                    %>
+	                    <%out.println(""); %><br>
+	                    <%out.println(""); %><br>
+	                    <%out.println("test"); %><br>
+	                    <%out.println(""); %><br>
+	                    <%="Your post(XXXXXX) was liked by XXX" %><br>
+	                    <%="Friend request from XXX" %><input type = "submit" name = "sub"  value = "accept" /><input type = "submit" name = "sub"  value = "reject" /><br>
+	                    </div>
                     <div class="seeAll"><a href="#">See All</a></div>
                 </div>
             </li>
@@ -177,12 +231,13 @@
         </ul>
     </div>
 <script>
+	var notification_counter = <%=notificationlist.size() %> 
     $(document).ready(function () {
 
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
             .css({ opacity: 0 })
-            .text('7')              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .text(notification_counter)              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
             .css({ top: '-10px' })
             .animate({ top: '-2px', opacity: 1 }, 500);
 
