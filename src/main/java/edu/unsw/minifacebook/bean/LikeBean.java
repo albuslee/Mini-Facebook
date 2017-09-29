@@ -20,7 +20,7 @@ public class LikeBean {
 	
 	// Like from USER
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Like_from", referencedColumnName = "userid")
+	@JoinColumn(name = "Like_from", referencedColumnName = "username")
 	private UserBean like_from;
 	
 	// which post
