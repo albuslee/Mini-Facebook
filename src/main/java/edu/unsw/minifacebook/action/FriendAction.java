@@ -25,6 +25,9 @@ public class FriendAction extends ActionSupport{
 	@Autowired
 	private FriendService friendService;
 	
+	@Autowired
+	private NotificationService nservice;
+	
 	public DetailForm getDetailform() {
 		return detailform;
 	}
@@ -53,6 +56,7 @@ public class FriendAction extends ActionSupport{
         HttpServletResponse response = ServletActionContext.getResponse();  
         HttpServletRequest request = ServletActionContext.getRequest(); 
         String username = request.getParameter("username");
+        
 		return SUCCESS;
 	}
 

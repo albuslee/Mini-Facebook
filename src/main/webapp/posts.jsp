@@ -219,8 +219,7 @@ CKEDITOR.replace( 'postform.description');
         });
         $("#dislike<%=post%>").toggle(
             function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
-            function(){$("#like_num<%=post%>
-				").html(
+            function(){$("#like_num<%=post%>").html(
 			<%=a = a + 1%>
 				);
 				});

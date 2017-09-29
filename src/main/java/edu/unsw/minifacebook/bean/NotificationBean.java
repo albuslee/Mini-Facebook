@@ -19,9 +19,25 @@ public class NotificationBean {
 	private int id;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "userBean", referencedColumnName="userid",unique=true)
+	@JoinColumn(name = "userBean", referencedColumnName="userid")
 	private UserBean userBean;
 	
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "userBean", referencedColumnName="userid")
+	private UserBean from;
+	
+	@Column
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Column
 	private String commented_record;
 	

@@ -14,13 +14,11 @@
 		<action name="searchFriends" class="edu.unsw.minifacebook.action.FriendAction"
 			method="execute">
 			<result name="input">/index.jsp</result>
-			<result name="success">/getFriends.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
 		<action name="sendFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
 			method="sendFriendRequest">
 			<result name="input">/index.jsp</result>
-			<result name="success">/getFriends.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
 
