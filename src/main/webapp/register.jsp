@@ -80,6 +80,7 @@
             var url="checkSQL?username=" + username;
             xmlHttp.open("POST",url,true);
             xmlHttp.send();
+            await sleep(2000);
             xmlHttp.onreadystatechange=function(){
             	setTimeout(function(){ 
             		if (xmlHttp.readyState==4 && xmlHttp.status==200){

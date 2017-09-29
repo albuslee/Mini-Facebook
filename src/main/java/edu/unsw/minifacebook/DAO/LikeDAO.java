@@ -23,12 +23,13 @@ public class LikeDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
-	public void addLikes(UserBean like_from, PostBean post) {
+	public int addLikes(UserBean like_from, PostBean post, int thumb) {
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLikeFrom(like_from);
 		likeBean.setPostId(post);
-		likeBean.setThumb(1);
+		likeBean.setThumb(thumb);
 		this.getCurrentSession().save(likeBean);
+		return likeBean.getId();
 	}
 	
 	public void deleteLikes(int id) {
