@@ -1,5 +1,10 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,6 +49,20 @@ public class LikeDAO {
 			this.getCurrentSession().getTransaction().rollback();
 		}
 
+	}
+	
+	public int numLikes(PostBean post) {
+		List<LikeBean> likeList = new ArrayList<LikeBean>();
+		Query query1 = getCurrentSession().createQuery
+				("select * from Likes");
+		likeList = query1.getResultList();
+		int count = 0;
+		for(LikeBean l: likeList) {
+			if (l.getPostId() == post) {
+				count += l.getThumb();
+			}
+		}
+		return count;
 	}
 
 }

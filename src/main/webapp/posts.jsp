@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@ page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
-<%@ page import="java.util.List"%>
+<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
+<%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
+<%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
+
+<%@ page import="edu.unsw.minifacebook.service.LikeService"%>
+
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
-
-<%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
-<%@ page import="edu.unsw.minifacebook.service.LikeService"%>
-<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
-<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
-<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
+<%@ page import="edu.unsw.minifacebook.DAO.LikeDAO"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Posts</title>
@@ -177,7 +177,7 @@
 </div>
 <script type="text/javascript">
 
-			<div id="photo">
+		 <%-- <div id="photo">
 				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
 				<div style="text-align:center" ><%=User%></div>
 			</div>
@@ -188,7 +188,7 @@
         <s:submit value="Submit" class="btn btn-primary"></s:submit>
 </s:form>
 </div>
-<script type="text/javascript"
+<script type="text/javascript" --%>
 CKEDITOR.replace( 'postform.description');
 </script>
 
@@ -207,11 +207,13 @@ CKEDITOR.replace( 'postform.description');
 			<img class="postimg col-sm-1" src="<%=imgsrc%>">
 			<a href="#" class="list-group-item col-sm-11">
 				<%=postBean.getDescription()%>
+			
+			<% int post = postBean.getId(); %>
 
 			<%
-				int a = 0;
-				int post = postBean.getId();
 				UserBean userBean = postBean.getCreator();
+				LikeDAO likeDao = new LikeDAO();
+				int a = likeDao.numLikes(postBean);
 			%>
 			<button type="button" class="btn btn-default btn-sm"
 				onclick="btnClick(this)" id='like<%=post%>'>
@@ -228,13 +230,29 @@ CKEDITOR.replace( 'postform.description');
 			<script>
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
-	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);},
-	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);}
+	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>); 
+	            				<%-- $.post("/LikeAction", {
+	            					User: <%=userBean%>
+	            					Post: <%=postBean%>
+	            				},function(data){  
+	                
+	            }); --%> 
+	            <%	int id = likeDao.addLikes(userBean, postBean, 1);
+	            
+	            %> },
+	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
+	            <%	likeDao.deleteLikes(id);
+	            %>}
 	            );
-	        $("#dislike<%=post%>").toggle(
-	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
-	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);}
-	            );
+			$("#dislike<%=post%>").toggle(
+		            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
+		            <%	int uid = likeDao.addLikes(userBean, postBean, -1);
+		            
+		            %> },
+		            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);
+		            <%	likeDao.deleteLikes(uid);
+		            %>}
+		            );
 			});
 			</script>
 			<%
@@ -242,7 +260,7 @@ CKEDITOR.replace( 'postform.description');
 			%>
 		</div>
 		<%
-			}
+		}
 		%>
 	</div>
 <script>

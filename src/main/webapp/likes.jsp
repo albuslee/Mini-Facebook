@@ -33,16 +33,28 @@
 	</table>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
 	</script>
+	<%	int post = 1;
+		String userBean = "what";
+		String postBean = "what the fuck";
+	%>
     <script>
-        $("#like").toggle(
-            function(){$("#like_num").html(<%=a=a+1%>);},
-            function(){$("#like_num").html(<%=a=a-1%>);
-        });
-        $("#dislike").toggle(
-            function(){$("#like_num").html(<%=a=a-1%>);},
-            function(){$("#like_num").html(<%=a=a+1%>);
-        });
-	</script>
+			$(document).ready(function(){
+	        $("#like<%=post%>").toggle(
+	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>); 
+	            				$.post("/LikeAction", {
+	            					User: <%=userBean%>
+	            					Post: <%=postBean%>
+	            				},function(data){  
+	                
+	            });  },
+	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);}
+	            );
+	        $("#dislike<%=post%>").toggle(
+	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);},
+	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);}
+	            );
+			});
+			</script>
 </div>
 
 </body>
