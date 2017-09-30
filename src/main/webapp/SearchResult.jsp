@@ -57,9 +57,11 @@
 
 		if (detailList != null && !detailList.isEmpty()) {
 			for (DetailBean detailBean : detailList) {
+				String imgs=detailBean.getPhoto();
+				if(detailBean.getPhoto()==null){imgs="image/UNSW_0.png";}
 	%>
 	<li class="list-group-item row">
-	<div class="col-sm-3"><img class="friendimg" src="<%=detailBean.getPhoto()%>"></img></div>
+	<div class="col-sm-3"><img class="friendimg" src=<%=imgs%>></img></div>
 	<div class="col-sm-6"><b style="color:blue;font-size:20px;"><%=detailBean.getName()%></b><br><%=detailBean.getGender()%></div>
 	<button id="<%=detailBean.getUsername()%>" class="btn btn-primary" onclick="sendAjaxRequest(event)">Add Friend</button>
 	</li>
