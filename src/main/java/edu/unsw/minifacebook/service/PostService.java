@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.DAO.FriendDAO;
+import edu.unsw.minifacebook.DAO.LikeDAO;
 import edu.unsw.minifacebook.DAO.PostDAO;
 import edu.unsw.minifacebook.DAO.UserDAO;
 import edu.unsw.minifacebook.bean.PostBean;
@@ -26,6 +27,9 @@ public class PostService {
 	
 	@Autowired
 	private FriendDAO friendDao;
+	
+	@Autowired
+	private LikeDAO likeDAO;
 	
 	public List<PostBean> loadAllPosts(){
 		List<PostBean> allPosts = null;
@@ -46,6 +50,9 @@ public class PostService {
 		List<PostBean> postsList = null;
 		List<Integer> userList = friendDao.getAllFriendIdsByUserid(userId);
 		postsList = postDao.getPostsByUserlist(userList);
+		for(PostBean pb: postsList) {
+			pb.setLikenum(likeDAO.numLikes(pb));
+		}
 		return postsList;
 	}
 	
