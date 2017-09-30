@@ -56,10 +56,10 @@ public class FriendAction extends ActionSupport{
 	
 	public String sendFriendRequest() {
         HttpServletRequest request = ServletActionContext.getRequest(); 
-        DetailBean currentUse = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
+        DetailBean currentUser = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
         String username = request.getParameter("username");
-        if(currentUse != null) {
-        	nservice.sendAddFriendRequestNotification(username, currentUse);
+        if(currentUser != null) {
+        	nservice.sendAddFriendRequestNotification(username, currentUser);
         	return SUCCESS;
         }else {
         	return ERROR;
@@ -70,6 +70,20 @@ public class FriendAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
         DetailBean currentUser = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
         if(currentUser != null) {
+        	List<NotificationBean> notifications = nservice.loadAddFriendRequest(currentUser.getUsername());
+        	request.setAttribute("friendrequests", notifications);
+        	return SUCCESS;
+        }else {
+        	return ERROR;
+        }
+	}
+	
+	public String acceptFriendRequest() {
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+        DetailBean currentUser = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
+        String username = request.getParameter("username");
+        if(currentUser != null) {
+        	friendService.addFriends(username, currentUser.getUsername());
         	List<NotificationBean> notifications = nservice.loadAddFriendRequest(currentUser.getUsername());
         	request.setAttribute("friendrequests", notifications);
         	return SUCCESS;
