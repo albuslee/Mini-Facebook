@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -43,8 +44,26 @@ public class FriendDAO {
 		FriendBean friendBean = new FriendBean();
 		friendBean.setFirstUser(userBean1);
 		friendBean.setSecoundUser(userBean2);
-		this.getCurrentSession().save(friendBean);
+		if(!existed(userBean1.getUserId(), userBean2.getUserId()))
+			this.getCurrentSession().save(friendBean);
 		
+	}
+	
+	public boolean existed(int user1, int user2) {
+		if(user1 > user2) {
+			int temp = user1;
+			user1 = user2;
+			user2 = temp;
+		}
+		Query query1 = getCurrentSession().createQuery
+				("from FriendBean where firstuser = :user1 and seconduser = :user2").setParameter("user1", user1)
+				.setParameter("user2", user2);
+		try {
+			query1.getSingleResult();
+		}catch(NoResultException nre) {
+			return false;
+		}
+		return true;
 	}
 	
 
@@ -72,14 +91,20 @@ public class FriendDAO {
 	
 	
 	public List<Integer> getAllFriendIdsByUserid(Integer userId){
-		List<Integer> userIdList = new ArrayList<Integer>();
+		List<Integer> result = new ArrayList<Integer>();
+		List<FriendBean> friendBeanList = new ArrayList<FriendBean>();
 		Query query1 = getCurrentSession().createQuery
-				("select firstuser.id from Friend where seconduser.id = (:id)").setParameter("id", userId);
+				("from FriendBean where seconduser = (:id)").setParameter("id", userId);
 		Query query2 = getCurrentSession().createQuery
-				("select seconduser.id from Friend where firstuser.id = (:id)").setParameter("id", userId);
-		userIdList = query1.getResultList();
-		List<Integer> tempList2 = query2.getResultList();
-		userIdList.addAll(tempList2);
-		return userIdList;
+				("from FriendBean where firstuser = (:id)").setParameter("id", userId);
+		friendBeanList = query1.getResultList();
+		for(FriendBean fb: friendBeanList) {
+			result.add(fb.getFirstUser().getUserId());
+		}
+		List<FriendBean> tempList2 = query2.getResultList();
+		for(FriendBean fb: tempList2) {
+			result.add(fb.getSecoundUser().getUserId());
+		}
+		return result;
 	}
 }

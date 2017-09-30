@@ -61,7 +61,8 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 
 	public String loadposts() {
 		try {
-			String currentUsername = (String) ActionContext.getContext().getSession().get("username");
+			DetailBean db = (DetailBean) ActionContext.getContext().getSession().get("detailbean");	
+			String currentUsername = db.getUsername();
 			List<PostBean> postList = postService.loadFriendPosts(currentUsername);
 			request.put("postlist", postList);
 			return SUCCESS;
