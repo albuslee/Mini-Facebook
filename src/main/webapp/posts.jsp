@@ -111,7 +111,7 @@
 #photo {
 	width: 150px;
 	height: 150px;
-	margin: 2% 2% 2% 2%;
+	margin: 2% 2% 2% 12%;
 	float: left;
 }
 
@@ -139,56 +139,24 @@
 <jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-	    <div class="navbar-header">
-	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
-	    </div>
-
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="post.jsp">Home</a>
-            </li>
-            <li>
-              <a href="profile.jsp">Profile</a>
-            </li>
-          </ul>
-		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
-				<div class="input-group">
-                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="friendSearch"></s:textfield>
-                    <span class="input-group-btn">
-                     <s:submit value="button" class="btn btn-default"></s:submit>
-                    </span>
-                  </div>
-		   </s:form>
-		   <ul class="nav navbar-nav navbar-right">
-        		<li><a href="login.jsp">login</a></li>
-        		<!---can use dropdown write login form-->
-            </ul>
-        </div>
-   </nav>
-  
-
-<div id = "wd">
+<%  
+	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
+	String User=detailbean2.getUsername();
+	String imgsource=detailbean2.getPhoto();
+	%>
+<div class="row">
+<div id="photo" >
+<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
+				<div style="text-align:center" ><%=User%></div>
+</div>
+<div id = "wd" class="col-lg-8">
 <s:form action = "addposts">
 <s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
         <s:submit value="Submit" class="btn btn-primary"></s:submit>
 </s:form>
+</div>
 </div>
 <script type="text/javascript">
-
-		 <%-- <div id="photo">
-				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
-				<div style="text-align:center" ><%=User%></div>
-			</div>
-		</div>
-		<div id = "wd" class="col-lg-8">
-<s:form action = "addposts">
-<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
-        <s:submit value="Submit" class="btn btn-primary"></s:submit>
-</s:form>
-</div>
-<script type="text/javascript" --%>
 CKEDITOR.replace( 'postform.description');
 </script>
 
