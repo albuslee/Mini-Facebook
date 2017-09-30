@@ -5,9 +5,10 @@
 <head>
 	<%@ page import="java.util.List"%>
 	<%@ page import="java.util.ArrayList"%>
-	
+
 	<%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 	<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
+	<%@ page import="edu.unsw.minifacebook.DAO.FriendDAO"%>
 	<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -163,6 +164,7 @@
 </head>
 <body style="margin:0;padding:0;">
 	<% 
+	
 	List<NotificationBean> notificationlist = new ArrayList<NotificationBean>();
 	NotificationBean nb1 = new NotificationBean();
 	NotificationBean nb2 = new NotificationBean();
@@ -184,6 +186,8 @@
 	nb2.setFrom(ub2);
 	notificationlist.add(nb1);
 	notificationlist.add(nb2);
+	//FriendDAO fd = new FriendDAO();
+	
 	//notificationlist.
     %>
 	<div>
@@ -200,9 +204,6 @@
                 <div id="notifications">
                     <h3>Notifications</h3>
                     <div style="height:300px;overflow:scroll">
-	                    <%out.println("test"); %><br>
-	                    <%out.println("test"); %><br>
-	                    
 	                    <%
 	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
 	                    		if (notificationlist.get(i).getType() == "like") {
@@ -212,17 +213,12 @@
 	                    		}
 	                    		else if (notificationlist.get(i).getType() == "friend") {
 	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("Friend request come from user " + notificationlist.get(i).getFrom().getUserId());
-	                    			%><br><%
+	                    			out.println("Friend request comes from user " + notificationlist.get(i).getFrom().getUserId());
+	                    			%><input type = "button" value = "accept" onclick="addfriend();"/>
+	                    			<input type = "button" value = "reject" /><br><%
 	                    		}
 	                    	}
 	                    %>
-	                    <%out.println(""); %><br>
-	                    <%out.println(""); %><br>
-	                    <%out.println("test"); %><br>
-	                    <%out.println(""); %><br>
-	                    <%="Your post(XXXXXX) was liked by XXX" %><br>
-	                    <%="Friend request from XXX" %><input type = "submit" name = "sub"  value = "accept" /><input type = "submit" name = "sub"  value = "reject" /><br>
 	                    </div>
                     <div class="seeAll"><a href="#">See All</a></div>
                 </div>
@@ -272,5 +268,20 @@
         });
     });
 </script>
+<script text="javaScript">
+function addfriend(){
+	
+	alert("测试button按钮");
+	<%System.out.println("hello"); %>
+	<%
+	UserBean ubb1 = new UserBean();
+	UserBean ubb2 = new UserBean();
+	ubb1.setUserId(123);
+	ubb2.setUserId(456);
+	FriendDAO fd = new FriendDAO();
+	fd.addFriends(ubb1, ubb2); 
+	%>
+}
+</script> 
 </body>
 </html>
