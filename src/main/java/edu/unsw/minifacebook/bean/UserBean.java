@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import edu.unsw.minifacebook.util.MD5Util;
 
@@ -35,6 +36,7 @@ public class UserBean {
 	@Column
 	private Date registTime;
 	
+	@Transient
 	private DetailBean detailBean;
 
 	public Date getRegistTime() {
