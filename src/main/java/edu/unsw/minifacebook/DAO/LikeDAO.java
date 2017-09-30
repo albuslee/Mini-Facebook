@@ -23,6 +23,9 @@ public class LikeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Autowired
+	private UserDAO userDao;
+	
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
 	}
@@ -31,7 +34,12 @@ public class LikeDAO {
 		this.getCurrentSession().save(obj);
 	}
 	
-	public LikeBean addLikes(UserBean like_from, PostBean post, int thumb) {
+	public LikeBean addLikes(String username, int postid, int thumb) {
+		UserBean like_from = null;
+		like_from = userDao.getUserByUsername(username);
+		PostBean post = null;
+		post = this.getCurrentSession().get(PostBean.class, postid);
+		
 		LikeBean likeBean = new LikeBean();
 		likeBean.setLikeFrom(like_from);
 		likeBean.setPostId(post);

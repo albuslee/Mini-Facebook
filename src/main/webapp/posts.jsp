@@ -184,7 +184,6 @@ CKEDITOR.replace( 'postform.description');
 
 			<%
 				UserBean userBean = postBean.getCreator();
-				//LikeDAO likeDao = new LikeDAO();
 				int a = 0;//likeDao.numLikes(postBean);
 			%>
 			
@@ -202,6 +201,7 @@ CKEDITOR.replace( 'postform.description');
 			</script>
 			<script>
 			function addLikes(event) {
+				var postid = event;
 				try {// Firefox, Opera 8.0+, Safari, IE7
 					xmlHttp = new XMLHttpRequest();
 				} catch (e) {// Old IE
@@ -212,10 +212,10 @@ CKEDITOR.replace( 'postform.description');
 						return;
 					}
 				}
-				var url = "mini_facebook/addLikes";
+				var url = "mini_facebook/addLikes?postid=" + postid;
 				<%	
-		        		request.getSession().setAttribute("User", userBean);
-		        		request.getSession().setAttribute("Post", postBean);
+		        		request.getSession().setAttribute("User", User);
+		        		//request.getSession().setAttribute("Post", postBean);
 		        		request.getSession().setAttribute("Thumb", 1);
 		        		//LikeBean id = (LikeBean)request.getSession().getAttribute("id");
 		        %>
@@ -238,7 +238,7 @@ CKEDITOR.replace( 'postform.description');
 	            				},function(data){  
 	                
 	            }); --%> 
-	           	addLikes();
+	           	addLikes(<%=post%>);
 	             },
 	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
 	            <%	//likeDao.deleteLikes(1);

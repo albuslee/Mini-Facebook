@@ -94,8 +94,7 @@
 			<result name="error">/fail.jsp</result>
 		</action>
 		
-		<action name="addLikes" class="edu.unsw.minifacebook.action.LikeAction"
-			method="addLikes">
+		<action name="addLikes" class="edu.unsw.minifacebook.action.LikeAction" method="addLikes">
 			<result name="success">/success.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
