@@ -42,10 +42,23 @@ public class NotificationService {
 	public void sendAddFriendRequestNotification(String username, DetailBean currentUser) {
 		UserBean userBean = userDAO.getUserByUsername(username);
 		DetailBean detailBean = detailDao.getUserByUsername(username);
+		UserBean rfrom = userDAO.getUserByUsername(currentUser.getUsername());
 		NotificationBean nb = new NotificationBean();
 		nb.setType("friend");
+		nb.setFrom(rfrom);
+		nb.setuserBean(userBean);
 		
-		NotificationDao.insertNotificationByUserBean(userBean, "");
+		NotificationDao.insertNotificationByUserBean(userBean, nb);
+	}
+	
+	public List<NotificationBean> loadAddFriendRequest(String username) {
+		UserBean userBean = userDAO.getUserByUsername(username);
+		List<NotificationBean> result = NotificationDao.getFriendNotificationByUserBean(userBean);
+		for(NotificationBean request: result) {
+			DetailBean db = detailDao.getUserByUsername(request.getFrom().getUsername());
+			request.getFrom().setDetailBean(db);
+		}
+		return result;
 	}
 	
 }

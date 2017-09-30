@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.unsw.minifacebook.bean.DetailBean;
+import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.service.FriendService;
 import edu.unsw.minifacebook.service.NotificationService;
@@ -54,11 +55,27 @@ public class FriendAction extends ActionSupport{
 	}
 	
 	public String sendFriendRequest() {
-        HttpServletResponse response = ServletActionContext.getResponse();  
         HttpServletRequest request = ServletActionContext.getRequest(); 
+        DetailBean currentUse = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
         String username = request.getParameter("username");
-        
-		return SUCCESS;
+        if(currentUse != null) {
+        	nservice.sendAddFriendRequestNotification(username, currentUse);
+        	return SUCCESS;
+        }else {
+        	return ERROR;
+        }
+	}
+	
+	public String loadFriendRequest() {
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+        DetailBean currentUser = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
+        if(currentUser != null) {
+        	List<NotificationBean> notifications = nservice.loadAddFriendRequest(currentUser.getUsername());
+        	request.setAttribute("friendrequests", notifications);
+        	return SUCCESS;
+        }else {
+        	return ERROR;
+        }
 	}
 
 }

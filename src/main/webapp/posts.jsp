@@ -139,34 +139,6 @@
 <jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-	    <div class="navbar-header">
-	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
-	    </div>
-
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="post.jsp">Home</a>
-            </li>
-            <li>
-              <a href="profile.jsp">Profile</a>
-            </li>
-          </ul>
-		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
-				<div class="input-group">
-                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="friendSearch"></s:textfield>
-                    <span class="input-group-btn">
-                     <s:submit value="button" class="btn btn-default"></s:submit>
-                    </span>
-                  </div>
-		   </s:form>
-		   <ul class="nav navbar-nav navbar-right">
-        		<li><a href="login.jsp">login</a></li>
-        		<!---can use dropdown write login form-->
-            </ul>
-        </div>
-   </nav>
   
 
 <div id = "wd">

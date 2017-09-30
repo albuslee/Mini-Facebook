@@ -45,6 +45,21 @@ public class NotificationDAO {
 		return notificationList;
 	}
 	
+	public List getFriendNotificationByUserBean(UserBean userBean) {
+		
+		List<NotificationBean> notificationList = new ArrayList<NotificationBean>();
+		
+		Query query1 = getCurrentSession().createQuery
+				("from NotificationBean where userBean.id = (:id) and type=(:type)")
+				.setParameter("id", userBean.getUserId())
+				.setParameter("type", "friend");
+		
+		notificationList = query1.getResultList();
+		
+		return notificationList;
+	}
+	
+	
 	public void insertNotificationByUserBean(UserBean userBean, String commented_record) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);
@@ -55,4 +70,17 @@ public class NotificationDAO {
 		notificationbean.setnotification_status("unread");
 		return;
 	}
+	
+	
+	public void insertNotificationByUserBean(UserBean userBean, NotificationBean notificationbean) {
+		long N_time = System.currentTimeMillis();
+		Date N_date = new Date(N_time);
+		notificationbean.setuserBean(userBean);
+		notificationbean.setcomment_time(N_date);
+		notificationbean.setnotification_status("unread");
+		this.getCurrentSession().save(notificationbean);
+		return;
+	}
+	
+	
 }

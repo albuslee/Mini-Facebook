@@ -10,7 +10,6 @@
 <script>
 	function sendAjaxRequest(event) {
 		var username = event.target.id;
-		alert(username);
 
 		try {// Firefox, Opera 8.0+, Safari, IE7
 			xmlHttp = new XMLHttpRequest();
