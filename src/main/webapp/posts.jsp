@@ -111,7 +111,7 @@
 #photo {
 	width: 150px;
 	height: 150px;
-	margin: 2% 2% 2% 2%;
+	margin: 2% 2% 2% 12%;
 	float: left;
 }
 
@@ -139,28 +139,23 @@
 <jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
-  
-
+<%  
+	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
+	String User=detailbean2.getUsername();
+	String imgsource=detailbean2.getPhoto();
+	%>
+<div class="row">
+<div id="photo">
+<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
+</div>
 <div id = "wd">
 <s:form action = "addposts">
 <s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
         <s:submit value="Submit" class="btn btn-primary"></s:submit>
 </s:form>
 </div>
-<script type="text/javascript">
-
-		 <%-- <div id="photo">
-				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
-				<div style="text-align:center" ><%=User%></div>
-			</div>
-		</div>
-		<div id = "wd" class="col-lg-8">
-<s:form action = "addposts">
-<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
-        <s:submit value="Submit" class="btn btn-primary"></s:submit>
-</s:form>
 </div>
-<script type="text/javascript" --%>
+<script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
 
@@ -236,42 +231,5 @@ CKEDITOR.replace( 'postform.description');
 		}
 		%>
 	</div>
-<script>
-    $(document).ready(function () {
-        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
-        $('#noti_Counter')
-            .css({ opacity: 0 })
-            .text('7')              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-            .css({ top: '-10px' })
-            .animate({ top: '-2px', opacity: 1 }, 500);
-        $('#noti_Button').click(function () {
-
-            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
-            $('#notifications').fadeToggle('fast', 'linear', function () {
-                if ($('#notifications').is(':hidden')) {
-                    $('#noti_Button').css('background-color', '#2E467C');
-                }
-                else $('#noti_Button').css('background-color', '#FFF');        // CHANGE BACKGROUND COLOR OF THE BUTTON.
-            });
-            $('#noti_Counter').fadeOut('slow');                 // HIDE THE COUNTER.
-
-            return false;
-        });
-
-        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
-        $(document).click(function () {
-            $('#notifications').hide();
-
-            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-            if ($('#noti_Counter').is(':hidden')) {
-                // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                $('#noti_Button').css('background-color', '#2E467C');
-            }
-        });
-        $('#notifications').click(function () {
-            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
-        });
-    });
-</script>
 </body>
 </html>
