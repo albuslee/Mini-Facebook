@@ -128,18 +128,22 @@ if(detail!=null){%>
                 <div id="notifications" >
                     <h3>Notifications</h3>
                     <div style="height:300px; overflow:scroll">
-                    <h3><%="qqq" %><br>
-	                    <%
+                    <h3><%
+
+
+	                    
 	                    if (notificationlist != null) {
-	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
-	                    		if (notificationlist.get(i).getType().equals("like")) {
-	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("Your post " + notificationlist.get(i).getcommented_record() + " was liked by user " + 1 + ". ");
+	                    	for(NotificationBean fr: notificationlist){
+	                    		UserBean nfrom = fr.getFrom();
+	                    		DetailBean dBean = nfrom.getDetailBean();
+	                    		if (fr.getType().equals("like")) {
+	                    			out.println("[" + fr.getnotification_status() + "]");
+	                    			out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");
 	                    			%><br><%
 	                    		}
-	                    		else if (notificationlist.get(i).getType().equals("friend")) {
-	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("User " + 1 + " sends a friend request. ");
+	                    		else if (fr.getType().equals("friend")) {
+	                    			out.println("[" + fr.getnotification_status() + "]");
+	                    			out.println("User " + dBean.getName() + " sends a friend request. ");
 	                    			%><input type = "button" value = "accept" />
 	                    			<input type = "button" value = "reject" /><br><%
 	                    		}
@@ -216,4 +220,30 @@ if(detail!=null){%>
             return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
         });
     });
+</script>
+<script>
+	function sendAjaxRequest(event) {
+		var username = event.target.id;
+		document.getElementById(username).setAttribute("disabled","disabled");
+		try {// Firefox, Opera 8.0+, Safari, IE7
+			xmlHttp = new XMLHttpRequest();
+		} catch (e) {// Old IE
+			try {
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {
+				alert("Your browser does not support XMLHTTP!");
+				return;
+			}
+		}
+		var url = "mini_facebook/sendFriendRequest?username=" + username;
+		xmlHttp.open("GET", url, true);
+		xmlHttp.send();
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				alert(xmlHttp.responseText);
+				document.getElementById("username").setAttribute("class", "btn btn-default disable");
+			}
+		}
+		//alert("send");
+	}
 </script>

@@ -36,6 +36,10 @@ public class NotificationService {
 	public List<NotificationBean> getNotificationList(String userName) throws HibernateException{
 		UserBean userBean = userDAO.getUserByUsername(userName);
 		List<NotificationBean> notificationList = NotificationDao.getNotificationByUserBean(userBean);
+		for(NotificationBean request: notificationList) {
+			DetailBean db2 = detailDao.getUserByUsername(request.getFrom().getUsername());
+			request.getFrom().setDetailBean(db2);
+		}
 		return notificationList;
 	}
 	
