@@ -32,6 +32,9 @@ if(detail!=null){%>
             <li>
               <a href="profile.jsp">Profile</a>
             </li>
+            <li>
+              <a href="friendrequest.jsp">Friend Requests</a>
+            </li>
           </ul>
 		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
@@ -52,7 +55,7 @@ if(detail!=null){%>
         <div class="navbar-collapse collapse" id="navbar-main">
 		   <ul class="nav navbar-nav navbar-right">
         		<li><a href="login.jsp">login</a></li>
-        		<li><a href="register.jsp">registe</a></li>
+        		<li><a href="register.jsp">register</a></li>
         		<!---can use dropdown write login form-->
             </ul>
         </div>
