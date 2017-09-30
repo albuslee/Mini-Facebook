@@ -271,7 +271,7 @@
 <script text="javaScript">
 function addfriend(){
 	
-	alert("测试button按钮");
+	
 	<%System.out.println("hello"); %>
 	<%
 	UserBean ubb1 = new UserBean();
@@ -279,8 +279,9 @@ function addfriend(){
 	ubb1.setUserId(123);
 	ubb2.setUserId(456);
 	FriendDAO fd = new FriendDAO();
-	fd.addFriends(ubb1, ubb2); 
+	//fd.addFriends(ubb1, ubb2); 
 	%>
+	alert("测试button按钮");
 }
 </script> 
 </body>
