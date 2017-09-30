@@ -34,11 +34,9 @@ public class PostDAO {
 	}
 
 	public List<PostBean> getPostsByUserlist(List<Integer> userList) {
+		if(userList == null || userList.isEmpty()) return null;
+		
 		List<PostBean> postList = null;
-		if(userList == null || userList.isEmpty()) {
-			userList = new ArrayList<Integer>();
-			userList.add(1);
-		}
 		
 		Query query2 = getCurrentSession().createQuery
 				("from PostBean where creator.id in (:ids)").setParameterList("ids", userList);

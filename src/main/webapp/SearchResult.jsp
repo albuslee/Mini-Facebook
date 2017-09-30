@@ -35,11 +35,11 @@
 				return;
 			}
 		}
-		var url = "mini_facebook/acceptFriendRequest?username=" + username;
+		var url = "mini_facebook/sendFriendRequest?username=" + username;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send();
 		xmlHttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 				alert(xmlHttp.responseText);
 				document.getElementById("username").setAttribute("class", "btn btn-default disable");
 			}

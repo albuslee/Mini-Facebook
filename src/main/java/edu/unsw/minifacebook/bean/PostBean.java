@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Post")
@@ -24,6 +25,17 @@ public class PostBean {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="creator",referencedColumnName="userid") 
 	private UserBean creator;
+	
+	@Transient
+	private int likenum;
+
+	public int getLikenum() {
+		return likenum;
+	}
+
+	public void setLikenum(int likenum) {
+		this.likenum = likenum;
+	}
 
 	public int getId() {
 		return id;

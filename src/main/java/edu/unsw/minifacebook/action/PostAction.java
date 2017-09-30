@@ -61,7 +61,8 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 
 	public String loadposts() {
 		try {
-			String currentUsername = (String) ActionContext.getContext().getSession().get("username");
+			DetailBean db = (DetailBean) ActionContext.getContext().getSession().get("detailbean");	
+			String currentUsername = db.getUsername();
 			List<PostBean> postList = postService.loadFriendPosts(currentUsername);
 			request.put("postlist", postList);
 			return SUCCESS;
@@ -174,7 +175,7 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
         // 返回"图像"选项卡并显示图片  request.getContextPath()为web项目名   
         out.println("<script type=\"text/javascript\">");  
         out.println("window.parent.CKEDITOR.tools.callFunction(" + callback  
-                + ",'" + request.getContextPath() + "/postimage/" + fileName + "','')");  
+                + ",'" + "postimage/" + fileName + "','')");  
         out.println("</script>");  
         return null;  
 	}

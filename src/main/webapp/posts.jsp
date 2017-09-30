@@ -184,7 +184,10 @@ CKEDITOR.replace( 'postform.description');
 
 			<%
 				UserBean userBean = postBean.getCreator();
-				int a = 0;//likeDao.numLikes(postBean);
+
+				//LikeDAO likeDao = new LikeDAO();
+				int a = postBean.getLikenum();//likeDao.numLikes(postBean);
+
 			%>
 			
 			<button type="button" class="btn btn-default btn-sm"
