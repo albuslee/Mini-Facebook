@@ -10,43 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.LikeBean;
-import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
-import edu.unsw.minifacebook.forms.NotificationForm;
-import edu.unsw.minifacebook.forms.UserForm;
-import edu.unsw.minifacebook.service.NotificationService;
-import edu.unsw.minifacebook.service.UserService;
+import edu.unsw.minifacebook.service.FriendService;
+import edu.unsw.minifacebook.service.LikeService;
+import edu.unsw.minifacebook.DAO.LikeDAO;
 
 public class LikeAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
-
-	private UserForm userform;
-	private NotificationForm notificationForm;
-
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private NotificationService notificationService;
-
-	public UserForm getUserform() {
-		return userform;
-	}
-
-	public void setUserform(UserForm userform) {
-		this.userform = userform;
-	}
 	
-	public NotificationForm getNotificationform() {
-		return notificationForm;
-	}
-
-	public void setNotificationform(NotificationForm notificationForm) {
-		this.notificationForm = notificationForm;
-	}
+	//private LikeDAO likeDao;
+	
+	@Autowired
+	private LikeService likeService;
 
 	public String execute() {
 		try {
@@ -68,11 +46,16 @@ public class LikeAction extends ActionSupport{
 	}
 	
 	public String addLikes() {
+		//LikeDAO likeDao = container.inject(LikeDAO.class);
 		UserBean userBean=(UserBean) ActionContext.getContext().getSession().get("User");
         PostBean postBean=(PostBean) ActionContext.getContext().getSession().get("Post");
         String thumb = ActionContext.getContext().getSession().get("Thumb").toString();
         if(userBean != null) {
-        		System.out.println(thumb);
+        		System.out.println(userBean);
+        		System.out.println(postBean);
+        		//LikeDAO likeDao = new LikeDAO();
+        		int t = Integer.parseInt(thumb);
+        		likeService.addLikes(userBean, postBean, t);
         		return SUCCESS;
         }else {
         	System.out.println("FAILED");

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import edu.unsw.minifacebook.DAO.PostDAO;
 import edu.unsw.minifacebook.DAO.LikeDAO;
@@ -14,23 +15,17 @@ import edu.unsw.minifacebook.bean.LikeBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
+@Service
+@Transactional
 public class LikeService {
 	
 	@Autowired
 	private LikeDAO likeDao;
 	
-	@Autowired
-	private PostBean postBean;
-	
-	@Autowired
-	private LikeBean likeBean;
 	
 	
-	public int addLike(PostBean postBean, UserBean userBean, int thumb) {
-		likeBean.setLikeFrom(userBean);
-		likeBean.setPostId(postBean);
-		likeBean.setThumb(thumb);
-		return postBean.getId();
+	public void addLikes(UserBean userBean, PostBean postBean, int thumb) {
+		likeDao.addLikes(userBean, postBean, thumb);
 	}
 	
 	public void delLike(int postid) {

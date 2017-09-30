@@ -161,8 +161,8 @@
 <script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
-		<%  DetailDAO detaildao=new DetailDAO();
-			DetailBean detailBean = new DetailBean();
+		<%  //DetailDAO detaildao=new DetailDAO();
+			//DetailBean detailBean = new DetailBean();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -183,7 +183,7 @@ CKEDITOR.replace( 'postform.description');
 
 			<%
 				UserBean userBean = postBean.getCreator();
-				LikeDAO likeDao = new LikeDAO();
+				//LikeDAO likeDao = new LikeDAO();
 				int a = 0;//likeDao.numLikes(postBean);
 			%>
 			
