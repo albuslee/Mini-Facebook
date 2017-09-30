@@ -13,6 +13,7 @@ import edu.unsw.minifacebook.DAO.DetailDAO;
 import edu.unsw.minifacebook.DAO.FriendDAO;
 import edu.unsw.minifacebook.DAO.UserDAO;
 import edu.unsw.minifacebook.bean.DetailBean;
+import edu.unsw.minifacebook.bean.UserBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 
 @Service
@@ -50,9 +51,12 @@ public class FriendService {
 
 		
 	}
-
 	
-
+	public void addFriends(String username1, String username2) {
+		UserBean userBean1 = userDAO.getUserByUsername(username1);
+		UserBean userBean2 = userDAO.getUserByUsername(username2);
+		friendDAO.addFriends(userBean1, userBean2);
+	}
 }
 /*
 

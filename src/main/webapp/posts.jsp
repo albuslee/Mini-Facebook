@@ -119,8 +119,8 @@
 }
 
 .commentAvatarImage {
-	width: 100%;
-	height: 100%;
+	width: 150px;
+	height: 150px;
 	line-height: 0; /* remove line-height */
 	display: inline-block; /* circle wraps image */
 	border-radius: 50%; /* relative value */
@@ -147,11 +147,11 @@
 	String User=detailbean2.getUsername();
 	String imgsource=detailbean2.getPhoto();
 	%>
-<div class="row">
+<div class="row" style="width:100%">
 <div id="photo">
 <img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
 </div>
-<div id = "wd">
+<div id = "wd" class="col-lg-8">
 <s:form action = "addposts">
 <s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
         <s:submit value="Submit" class="btn btn-primary"></s:submit>
@@ -161,12 +161,12 @@
 <script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
-
 		<%  DetailDAO detaildao=new DetailDAO();
 			DetailBean detailBean = new DetailBean();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
+<div class="row" style="width:100%;height:2000px">
 		<div class="col-lg-3"></div>
 		<div class="col-lg-8">
 		<div class="list-group">
@@ -262,5 +262,6 @@ CKEDITOR.replace( 'postform.description');
 		}
 		%>
 	</div>
+</div>
 </body>
 </html>

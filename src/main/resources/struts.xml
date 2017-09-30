@@ -35,6 +35,13 @@
 			<result name="error">/fail.jsp</result>
 		</action>
 		
+		<action name="acceptFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
+			method="acceptFriendRequest">
+			<result name="input">/friendrequest.jsp</result>
+			<result name="success">/friendrequest.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+
 		<action name="login" class="edu.unsw.minifacebook.action.LoginAction"
 			method="execute">
 			<result name="input">/login.jsp</result>
