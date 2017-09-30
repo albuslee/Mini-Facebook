@@ -145,23 +145,11 @@
 	String imgsource=detailbean2.getPhoto();
 	%>
 <div class="row">
-<div id="photo" >
+<div id="photo">
 <img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
+</div>
 
 <div id = "wd">
-<s:form action = "addposts">
-<s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
-        <s:submit value="Submit" class="btn btn-primary"></s:submit>
-</s:form>
-</div>
-<script type="text/javascript">
-
-		 <%-- <div id="photo">
-				<img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
->>>>>>> bdd0206ec98b274002c5f144a4c3db1e10ebf8bf
-				<div style="text-align:center" ><%=User%></div>
-</div>
-<div id = "wd" class="col-lg-8">
 <s:form action = "addposts">
 <s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
         <s:submit value="Submit" class="btn btn-primary"></s:submit>
