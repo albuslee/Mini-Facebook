@@ -1,6 +1,7 @@
 package edu.unsw.minifacebook.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -75,6 +76,18 @@ public class UserService {
 			return detailDao.getUserByUsername(userForm.getUsername());
 		}
 		return null;
+	}
+	
+	
+	public List<UserBean> loadAllUsers(){
+		List<UserBean> result = userDao.getAllUsers();
+		if(result != null && !result.isEmpty()) {
+			for(UserBean ub: result) {
+				DetailBean db = detailDao.getUserByUsername(ub.getUsername());
+				ub.setDetailBean(db);
+			}
+		}
+		return result;
 	}
 	
 

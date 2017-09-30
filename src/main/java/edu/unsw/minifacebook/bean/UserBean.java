@@ -34,6 +34,8 @@ public class UserBean {
 	private String validateCode;
 	@Column
 	private Date registTime;
+	
+	private DetailBean detailBean;
 
 	public Date getRegistTime() {
 		return registTime;
@@ -101,5 +103,13 @@ public class UserBean {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public DetailBean getDetailBean() {
+		return detailBean;
+	}
+
+	public void setDetailBean(DetailBean detailBean) {
+		this.detailBean = detailBean;
 	}
 }
