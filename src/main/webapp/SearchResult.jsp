@@ -35,7 +35,7 @@
 				return;
 			}
 		}
-		var url = "mini_facebook/sendFriendRequest?username=" + username;
+		var url = "mini_facebook/acceptFriendRequest?username=" + username;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send();
 		xmlHttp.onreadystatechange = function() {

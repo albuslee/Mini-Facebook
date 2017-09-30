@@ -66,7 +66,7 @@
         background:#FFF;
         border:solid 1px rgba(100, 100, 100, .20);
         -webkit-box-shadow:0 3px 8px rgba(0, 0, 0, .20);
-        z-index: 0;
+        z-index: 100;
     }
     /* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
     #notifications:before {         
@@ -125,24 +125,24 @@ if(detail!=null){%>
                 <div id="noti_Button"></div>    
 
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                <div id="notifications">
+                <div id="notifications" >
                     <h3>Notifications</h3>
                     <div style="height:300px; overflow:scroll">
                     <h3><%="qqq" %><br>
 	                    <%
 	                    if (notificationlist != null) {
 	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
-	                    		//if (notificationlist.get(i).getType() == "like") {
+	                    		if (notificationlist.get(i).getType().equals("like")) {
 	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("Your post " + notificationlist.get(i).getcommented_record() + " was liked by user " + 1);
+	                    			out.println("Your post " + notificationlist.get(i).getcommented_record() + " was liked by user " + 1 + ". ");
 	                    			%><br><%
-	                    		//}
-	                    		//else if (notificationlist.get(i).getType() == "friend") {
+	                    		}
+	                    		else if (notificationlist.get(i).getType().equals("friend")) {
 	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("Friend request comes from user " + 1);
+	                    			out.println("User " + 1 + " sends a friend request. ");
 	                    			%><input type = "button" value = "accept" />
 	                    			<input type = "button" value = "reject" /><br><%
-	                    		//}
+	                    		}
 	                    	}
 	                    }
 	                %></h3>
