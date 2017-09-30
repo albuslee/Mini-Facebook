@@ -64,16 +64,14 @@
 			<button type="submit" class="btn btn-primary">search</button>
 		</form>
 	</div>
-	<!--显示搜索结果  -->
 	<div>
 		<ul class="list-group center-block" style="width: 60%">
 			<%
 				List<UserBean> userList = (List<UserBean>) request.getAttribute("allusers");
-			    DetailDAO detaildao=new DetailDAO();
-			    DetailBean detailBean = new DetailBean();
+
 				if (userList != null && !userList.isEmpty()) {
 					for (UserBean userBean : userList) {
-						detailBean = detaildao.getUserByUsername(userBean.getUsername());
+						DetailBean detailBean = userBean.getDetailBean();
 						String imgs = detailBean.getPhoto();
 						if (detailBean.getPhoto() == null) {
 							imgs = "image/UNSW_0.png";

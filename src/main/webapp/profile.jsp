@@ -54,6 +54,7 @@
 
 	<%
 		DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
+	if(detail != null){
 		String User = detail.getUsername();
 		String imgsource = detail.getPhoto();
 		String name2 = detail.getName();
@@ -198,6 +199,9 @@
 			</div>
 		</div>
 	</div>
+	<%}else
+		response.sendRedirect("login.jsp");
+		%>
 </body>
 <script type="text/javascript">
 	function check2pwd() {

@@ -39,6 +39,7 @@
 			<result name="input">/login.jsp</result>
 			<result name="success" type="redirect">loadposts</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="loadposts" class="edu.unsw.minifacebook.action.PostAction"
@@ -46,6 +47,7 @@
 			<result name="input">/login.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction"
@@ -53,52 +55,61 @@
 			<result name="input">/posts.jsp</result>
 			<result name="success">/posts.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="verify" class="edu.unsw.minifacebook.action.VerifyAction">
 			<result name="input">/login.jsp</result>
 			<result name="success">/login.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="uploadImage" class="edu.unsw.minifacebook.action.ImageUploadAction">
 			<result name="input">/profile.jsp</result>
 			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="uploadpostimage" class="edu.unsw.minifacebook.action.PostAction"
 			method="uploadpostimage">
 			<result name="input">/profile.jsp</result>
 			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="detailchange" class="edu.unsw.minifacebook.action.DetailChangeAction">
 			<result name="input">/profile.jsp</result>
 			<result name="success">/profile.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="searchuser" class="edu.unsw.minifacebook.action.DetailChangeAction"
 			method="searchUser">
 			<result name="input">/headerreg.jsp</result>
 			<result name="success">/SearchResult.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="checkSQL" class="edu.unsw.minifacebook.action.CheckSQLAction">
 			<result name="input">/register.jsp</result>
 			<result name="success">/Usernamecanuse.jsp</result>
 			<result name="error">/Usernamealreadyexists.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
-		<action name="cms" class="edu.unsw.minifacebook.action.Provisioning" method="adminlogin">
+		<action name="cms" class="edu.unsw.minifacebook.action.Provisioning"
+			method="adminlogin">
 			<result name="input">/provisioning_login.jsp</result>
 			<result name="success">/admin.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
-		
+
 		<action name="addLikes" class="edu.unsw.minifacebook.action.LikeAction"
 			method="addLikes">
 			<result name="success">/success.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 	</package>
 

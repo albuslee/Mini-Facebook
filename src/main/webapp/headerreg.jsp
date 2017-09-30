@@ -110,7 +110,7 @@ if(detail!=null){%>
         <div class="navbar-collapse collapse" id="navbar-main" >
           <ul class="nav navbar-nav">
             <li>
-              <a href="posts.jsp">Home</a>
+              <a href="loadposts">Home</a>
             </li>
             <li>
               <a href="profile.jsp">Profile</a>
