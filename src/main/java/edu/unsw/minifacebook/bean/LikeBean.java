@@ -15,7 +15,6 @@ import javax.persistence.Table;
 public class LikeBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private int id;
 	
 	// Like from USER

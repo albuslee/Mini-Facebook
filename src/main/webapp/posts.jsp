@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%> --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,13 +14,14 @@
 <%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 
+
 <%@ page import="edu.unsw.minifacebook.service.LikeService"%>
 
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
 <%@ page import="edu.unsw.minifacebook.DAO.LikeDAO"%>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <title>Posts</title>
 <script type="text/javascript">
     var filebrowserUploadUrl = '/upload/';
@@ -143,6 +146,7 @@
 	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
 	String User=detailbean2.getUsername();
 	String imgsource=detailbean2.getPhoto();
+	if (imgsource==null){imgsource = "image/UNSW_0.png";}
 	%>
 <div class="row" style="width:100%">
 <div id="photo">
@@ -158,8 +162,8 @@
 <script type="text/javascript">
 CKEDITOR.replace( 'postform.description');
 </script>
-		<%  DetailDAO detaildao=new DetailDAO();
-			DetailBean detailBean = new DetailBean();
+		<%  //DetailDAO detaildao=new DetailDAO();
+			//DetailBean detailBean = new DetailBean();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -180,13 +184,14 @@ CKEDITOR.replace( 'postform.description');
 
 			<%
 				UserBean userBean = postBean.getCreator();
-				LikeDAO likeDao = new LikeDAO();
-				int a = likeDao.numLikes(postBean);
+				//LikeDAO likeDao = new LikeDAO();
+				int a = 0;//likeDao.numLikes(postBean);
 			%>
+			
 			<button type="button" class="btn btn-default btn-sm"
 				onclick="btnClick(this)" id='like<%=post%>'>
-				<span class="glyphicon glyphicon-thumbs-up"></span> Like <span
-					class="badge" id='like_num<%=post%>'><%=a%></span>
+				<span class="glyphicon glyphicon-thumbs-up"></span> Like 
+				<span class="badge" id='like_num<%=post%>'><%=a%></span>
 			</button>
 			<button type="button" class="btn btn-default btn-sm"
 				onclick="btnClick(this)" id='dislike<%=post%>'>
@@ -196,6 +201,34 @@ CKEDITOR.replace( 'postform.description');
 				src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
 			</script>
 			<script>
+			function addLikes(event) {
+				try {// Firefox, Opera 8.0+, Safari, IE7
+					xmlHttp = new XMLHttpRequest();
+				} catch (e) {// Old IE
+					try {
+						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e) {
+						alert("Your browser does not support XMLHTTP!");
+						return;
+					}
+				}
+				var url = "mini_facebook/addLikes";
+				<%	
+		        		request.getSession().setAttribute("User", userBean);
+		        		request.getSession().setAttribute("Post", postBean);
+		        		request.getSession().setAttribute("Thumb", 1);
+		        		//LikeBean id = (LikeBean)request.getSession().getAttribute("id");
+		        %>
+				xmlHttp.open("GET", url, true);
+				xmlHttp.send();
+				xmlHttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						alert(xmlHttp.responseText);
+						document.getElementById("showRight").innerHTML = xmlHttp.responseText;
+					}
+				}
+				//alert("send");
+			}
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
 	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>); 
@@ -205,14 +238,13 @@ CKEDITOR.replace( 'postform.description');
 	            				},function(data){  
 	                
 	            }); --%> 
-	            <%	int id = likeDao.addLikes(userBean, postBean, 1);
-	            
-	            %> },
+	           	addLikes();
+	             },
 	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
-	            <%	likeDao.deleteLikes(id);
+	            <%	//likeDao.deleteLikes(1);
 	            %>}
 	            );
-			$("#dislike<%=post%>").toggle(
+			<%-- $("#dislike<%=post%>").toggle(
 		            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
 		            <%	int uid = likeDao.addLikes(userBean, postBean, -1);
 		            
@@ -220,7 +252,7 @@ CKEDITOR.replace( 'postform.description');
 		            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);
 		            <%	likeDao.deleteLikes(uid);
 		            %>}
-		            );
+		            ); --%>
 			});
 			</script>
 			<%
