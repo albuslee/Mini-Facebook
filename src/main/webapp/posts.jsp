@@ -148,7 +148,7 @@
 <div id="photo">
 <img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
 </div>
-<div id = "wd">
+<div id = "wd" class="col-lg-8">
 <s:form action = "addposts">
 <s:textarea name="postform.description" cols="300" rows="8" placeholder="Input your post"></s:textarea>
         <s:submit value="Submit" class="btn btn-primary"></s:submit>

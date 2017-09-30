@@ -7,10 +7,24 @@
 <%@page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+.friendimg{
+	width: 80px;
+	height: 80px;
+	line-height: 0; /* remove line-height */
+	display: inline-block; /* circle wraps image */
+	transition: linear 0.25s;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 <script>
 	function sendAjaxRequest(event) {
 		var username = event.target.id;
-
+		document.getElementById(username).setAttribute("disabled","disabled");
 		try {// Firefox, Opera 8.0+, Safari, IE7
 			xmlHttp = new XMLHttpRequest();
 		} catch (e) {// Old IE
@@ -27,7 +41,7 @@
 		xmlHttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				alert(xmlHttp.responseText);
-				document.getElementById("showRight").innerHTML = xmlHttp.responseText;
+				document.getElementById("username").setAttribute("class", "btn btn-default disable");
 			}
 		}
 		//alert("send");
@@ -36,22 +50,24 @@
 </head>
 <body>
 	<jsp:include page="headerreg.jsp"></jsp:include>
+<div>
+<ul class="list-group center-block"  style="width:60%">
 	<%
 		List<DetailBean> detailList = (List<DetailBean>) request.getAttribute("detailList");
 
 		if (detailList != null && !detailList.isEmpty()) {
 			for (DetailBean detailBean : detailList) {
 	%>
-	<div>
-	<img src="<%=detailBean.getPhoto()%>"></img><%=detailBean.getName()%>
-	<%=detailBean.getGender()%>
-	<button id="<%=detailBean.getUsername()%>" onclick="sendAjaxRequest(event)">Add Friend</button>
-	</div>
-	<br>
+	<li class="list-group-item row">
+	<div class="col-sm-3"><img class="friendimg" src="<%=detailBean.getPhoto()%>"></img></div>
+	<div class="col-sm-6"><b style="color:blue;font-size:20px;"><%=detailBean.getName()%></b><br><%=detailBean.getGender()%></div>
+	<button id="<%=detailBean.getUsername()%>" class="btn btn-primary" onclick="sendAjaxRequest(event)">Add Friend</button>
+	</li>
 	<%
 		}
 		}
 	%>
-
+</ul>
+</div>
 </body>
 </html>
