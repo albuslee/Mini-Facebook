@@ -143,6 +143,7 @@
 	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
 	String User=detailbean2.getUsername();
 	String imgsource=detailbean2.getPhoto();
+	if (imgsource==null){imgsource = "image/UNSW_0.png";}
 	%>
 <div class="row" style="width:100%">
 <div id="photo">
