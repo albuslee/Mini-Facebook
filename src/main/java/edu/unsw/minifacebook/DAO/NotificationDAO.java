@@ -1,7 +1,6 @@
 package edu.unsw.minifacebook.DAO;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -20,6 +19,7 @@ import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 import java.util.Date;
+import java.util.ArrayList;
 
 @Repository
 public class NotificationDAO {
@@ -35,7 +35,7 @@ public class NotificationDAO {
 	}
 
 	public List<NotificationBean> getNotificationByUserBean(UserBean userBean) {
-		List<NotificationBean> notificationList = null;
+		List<NotificationBean> notificationList = new ArrayList<NotificationBean>();
 		
 		Query query1 = getCurrentSession().createQuery
 				("from NotificationBean where userBean.id = (:ids)").setParameter("ids", userBean.getUserId());
@@ -48,7 +48,7 @@ public class NotificationDAO {
 	public void insertNotificationByUserBean(UserBean userBean, String commented_record) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);
-		NotificationBean notificationbean = null;
+		NotificationBean notificationbean = new NotificationBean();
 		notificationbean.setuserBean(userBean);
 		notificationbean.setcommented_record(commented_record);
 		notificationbean.setcomment_time(N_date);

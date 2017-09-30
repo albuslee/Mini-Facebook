@@ -193,6 +193,7 @@ CKEDITOR.replace( 'postform.description');
 </script>
 
 		<%  DetailDAO detaildao=new DetailDAO();
+			DetailBean detailBean = new DetailBean();
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -201,10 +202,10 @@ CKEDITOR.replace( 'postform.description');
 		<div class="list-group">
 			<%
 				for (PostBean postBean : postlist) {
-					DetailBean detailbean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
-					String imgsrc=detailbean.getPhoto();
+					//detailBean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
+					//String imgsrc=detailBean.getPhoto();
 			%>
-			<img class="postimg col-sm-1" src="<%=imgsrc%>">
+			<%-- <img class="postimg col-sm-1" src="<%=imgsrc%>"> --%>
 			<a href="#" class="list-group-item col-sm-11">
 				<%=postBean.getDescription()%>
 			
