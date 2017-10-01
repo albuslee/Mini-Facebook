@@ -18,12 +18,12 @@ public class NotificationBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "userBean", referencedColumnName="userid")
 	private UserBean userBean;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "nfrom", referencedColumnName="userid")
 	private UserBean from2;
 	

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -69,13 +72,14 @@ public class LikeDAO {
 	
 	public void deleteLikes(String username, int postid) {
 		LikeBean likeBean = this.getLikeBean(username, postid);
-		//int id = likeBean.getId();
+		int id = likeBean.getId();
 		try {
-			Transaction trn = this.getCurrentSession().beginTransaction();
+			this.getCurrentSession().beginTransaction();
 			//LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
 			this.getCurrentSession().delete(likeBean);
-			trn.commit();
-			this.getCurrentSession().close();
+			//this.getCurrentSession().getTransaction().commit();
+			
+			//this.getCurrentSession().close();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			this.getCurrentSession().getTransaction().rollback();
@@ -101,6 +105,17 @@ public class LikeDAO {
 		}catch(NoResultException nre) {
 			nre.printStackTrace();
 		}
+		
+//		CriteriaDelete<LikeBean> delete = builder.createCriteriaDelete(LikeBean.class);
+//
+//		// set the root class
+//		Root<LikeBean> e = delete.from(LikeBean.class);
+//
+//		// set where clause
+//		delete.where(builder.equal(e.get("like_from"), like_from), builder.equal(e.get("post"), post));
+//
+//		// perform update
+//		this.em.createQuery(delete).executeUpdate();
 		return likeBean;
 	}
 	
