@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +67,25 @@ public class DetailChangeService {
 	}
 
 	public List<DetailBean> searchUser(DetailForm detailForm) {
-		return detailDao.getDetailByname(detailForm.getName());
+		List<DetailBean> list = new ArrayList<DetailBean>();
+		if (detailForm.getName() != null) {
+			list = detailDao.getFriendByname(detailForm.getName());	
+		}
+		else if (detailForm.getBirthday() != null) {
+			list = detailDao.getFriendByBirthDay(detailForm.getBirthday());
+		}
+		else if(detailForm.getGender() != null) {
+			list = detailDao.getFriendByGender(detailForm.getGender());
+		}
+		else if(detailForm.getMajor() != null) {
+			list = detailDao.getFriendByMajor(detailForm.getMajor());
+		}
+		if (list != null) {
+			return list;
+		}	
+		else {
+			return null;
+		}
 	}
 
 }

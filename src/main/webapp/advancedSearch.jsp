@@ -18,22 +18,48 @@
     </style>
 </head>
 <body>
-<s:form action = "searchFriends" style="float:right" class="form-inline navbar-form">
+
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
+				<div class="input-group">
+                   <s:textfield name="detailform.major" type="text" class="form-control" placeholder="major"></s:textfield>
+                    <span class="input-group-btn">
+                     <s:submit value="search" class="btn btn-default"></s:submit>
+                    </span>
+                  </div>
+		   </s:form>
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
+				<div class="input-group">
+                   <s:textfield name="detailform.birthday" type="text" class="form-control" placeholder="birthday"></s:textfield>
+                    <span class="input-group-btn">
+                     <s:submit value="search" class="btn btn-default"></s:submit>
+                    </span>
+                  </div>
+		   </s:form>
+		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
+				<div class="input-group">
+                   <s:textfield name="detailform.gender" type="text" class="form-control" placeholder="gender"></s:textfield>
+                    <span class="input-group-btn">
+                     <s:submit value="search" class="btn btn-default"></s:submit>
+                    </span>
+                  </div>
+		   </s:form>
+<%-- <s:form action = "searchuser" style="float:right" class="form-inline navbar-form">
 	gender <br/>
-	<s:textfield gender = "detailform.gender" label = "gender" placeholder = " Male"></s:textfield>
+	<s:textfield gender = "detailform.gender" type = "text" placeholder = " "></s:textfield>
 	<br/>
 	Date of Birth <br/>
-	<s:textfield dob = "detailform.birthday" label = "birthday" placeholder = " 1992/12/08"></s:textfield>
+	<s:textfield dob = "detailform.birthday" type = "text" placeholder = " "></s:textfield>
 	<br/>
 	 Major <br/>
-	<s:textfield major = "detailform.major" label = "major" placeholder = "cs"></s:textfield>
+	<s:textfield major = "detailform.major" type = "text"  placeholder = ""></s:textfield>
 	<br/>
 	<br/>
 	<span class="input-group-btn">
-	<button class="btn btn-default" type="button">advancedSearch</button>
-</s:form>
+	 <s:submit value="search" class="btn btn-default"></s:submit>
+</s:form> --%>
 </body>
 </html>
+
 
 <%-- <s:form action = "searchFriends" style="float:right" class="form-inline navbar-form">
 				<div class="input-group">
