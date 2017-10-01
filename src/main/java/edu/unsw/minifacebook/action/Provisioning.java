@@ -77,8 +77,8 @@ public class Provisioning extends ActionSupport {
 			return LOGIN;
 		}
 		String username = ServletActionContext.getRequest().getParameter("useranme");
-		Map<Date,String> = us.loadUserActivity(username);
-		 ServletActionContext.getRequest().setAttribute("activity", arg1);
+		Map<Date,String> as = us.loadUserActivity(username);
+		 ServletActionContext.getRequest().setAttribute("activity", as);
 		return SUCCESS;
 
 	}
