@@ -102,6 +102,16 @@ DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean")
 String nl_size="0";
 if(detail!=null){
 	nl_size=(String) request.getSession().getAttribute("nl_size");
+	if (nl_size == null) {
+		List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
+		int nl_size_int = 0;
+		for(NotificationBean fr: notificationlist){
+			if (fr.getnotification_status().equals("unread")) {
+				nl_size_int = nl_size_int + 1;
+			}
+		}
+		nl_size = String.valueOf(nl_size_int);
+	}
 %>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
@@ -116,11 +126,11 @@ if(detail!=null){
             <li>
               <a href="profile.jsp">Profile</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="friendrequest.jsp">Friend Requests</a>
-            </li>
+            </li> -->
             <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                <div id="noti_Counter" style="margin-top:13px;"></div>    <!--SHOW NOTIFICATIONS COUNT.-->
                 
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
                 <div id="noti_Button" style="margin-top:13px;"></div>    
