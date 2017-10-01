@@ -140,7 +140,7 @@ if(detail!=null){
                     <h3>Notifications</h3>
                     <div id="showNotification" style="height:300px; overflow:scroll">
 	            	</div>
-	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
+	            	<a onclick="location='friendrequest.jsp'">See All Friend Requests</a>
                 </div>
             </li>
           </ul>
