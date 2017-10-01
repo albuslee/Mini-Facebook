@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.bean;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,7 +17,12 @@ import edu.unsw.minifacebook.util.MD5Util;
 
 @Entity
 @Table(name = "User")
-public class UserBean {
+public class UserBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;

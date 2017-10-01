@@ -60,18 +60,6 @@ public class NotificationDAO {
 	}
 	
 	
-	public void insertNotificationByUserBean(UserBean userBean, String commented_record) {
-		long N_time = System.currentTimeMillis();
-		Date N_date = new Date(N_time);
-		NotificationBean notificationbean = new NotificationBean();
-		notificationbean.setuserBean(userBean);
-		notificationbean.setcommented_record(commented_record);
-		notificationbean.setcomment_time(N_date);
-		notificationbean.setnotification_status("unread");
-		return;
-	}
-	
-	
 	public void insertNotificationByUserBean(UserBean userBean, NotificationBean notificationbean) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);

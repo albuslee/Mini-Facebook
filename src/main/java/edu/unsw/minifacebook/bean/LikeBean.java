@@ -23,7 +23,7 @@ public class LikeBean {
 	private UserBean like_from;
 	
 	// which post
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "Post", referencedColumnName = "id")
 	private PostBean post;
 	

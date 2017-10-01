@@ -95,16 +95,22 @@
     }
 
 </style>
-<div onload="autoSubmit()">
-<form id="notificationform2" action="refreshnotification"></form>
-</div>
+
 
 <%
 DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
-int nl_size = 0;
+String nl_size=(String) request.getSession().getAttribute("nl_size");
 if(detail!=null){
-	List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
-	
+	if (nl_size == null) {
+		List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
+		int nl_size_int = 0;
+		for(NotificationBean fr: notificationlist){
+			if (fr.getnotification_status().equals("unread")) {
+				nl_size_int = nl_size_int + 1;
+			}
+		}
+		nl_size = String.valueOf(nl_size_int);
+	}
 %>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
@@ -119,40 +125,22 @@ if(detail!=null){
             <li>
               <a href="profile.jsp">Profile</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="friendrequest.jsp">Friend Requests</a>
-            </li>
+            </li> -->
             <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                <div id="noti_Counter" style="margin-top:13px;"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+
                 
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button"></div>    
+                <div id="noti_Button" style="margin-top:13px;"></div>    
 
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" >
                     <h3>Notifications</h3>
-                    <div style="height:300px; overflow:scroll">
-                    <h3><%
-	                    if (notificationlist != null) {
-	                    	for(NotificationBean fr: notificationlist){
-	                    		if (fr.getnotification_status().equals("unread")) {
-	                    			nl_size = nl_size + 1;
-	                    		}
-	                    		UserBean nfrom = fr.getFrom2();
-	                    		DetailBean dBean = nfrom.getDetailBean();
-	                    		if (fr.getType().equals("like")) {
-	                    			out.println("[" + fr.getnotification_status() + "]");
-	                    			out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");%><br><%
-	                    		}
-	                    		else if (fr.getType().equals("friend")) {
-	                    			out.println("[" + fr.getnotification_status() + "]");
-	                    			out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
-	                    		}
-	                    	}
-	                    }
-	                %></h3>
+                    <div id="showNotification" style="height:300px; overflow:scroll" class="list-group">
 	            	</div>
-	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
+	            	<a onclick="location='friendrequest.jsp'">See All Friend Requests</a>
                 </div>
             </li>
           </ul>
@@ -182,10 +170,38 @@ if(detail!=null){
    </nav>
  <%}%>
 <script>
-function autoSubmit(){
-	 document.getElementById("notificationform2").submit();
+function sleepGo() {
+	setTimeout(
+			function() {
+				showNotification();
+			}, 60000);
+}
+showNotification();
+sleepGo();
+function showNotification() {
+	try {// Firefox, Opera 8.0+, Safari, IE7
+		xmlHttp = new XMLHttpRequest();
+	} catch (e) {// Old IE
+		try {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (e) {
+			alert("Your browser does not support XMLHTTP!");
+			return;
+		}
 	}
-	var notification_counter = <%=nl_size%>
+	var url = "refreshnotification";
+	xmlHttp.open("POST", url, true);
+	xmlHttp.send();
+	xmlHttp.onreadystatechange = function() {
+		setTimeout(
+				function() {
+					if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+						document.getElementById("showNotification").innerHTML = xmlHttp.responseText;
+					}
+				}, 200);
+	}}
+
+	var notification_counter =<%=nl_size%>;
     $(document).ready(function () {
 
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
