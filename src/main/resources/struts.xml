@@ -117,7 +117,7 @@
 		<action name="loadActivity" class="edu.unsw.minifacebook.action.Provisioning"
 			method="loadActivity">
 			<result name="input">/admin.jsp</result>
-			<result name="success">/admin.jsp</result>
+			<result name="success">/activity.jsp</result>
 			<result name="error">/fail.jsp</result>
 			<result name="login">/provisioning_login.jsp</result>
 		</action>

@@ -20,12 +20,12 @@ public class FriendBean {
 	private int id;
 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="firstuser",referencedColumnName="userid") 
 	private UserBean firstUser;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="seconduser",referencedColumnName="userid") 
 	private UserBean secoundUser;
 	

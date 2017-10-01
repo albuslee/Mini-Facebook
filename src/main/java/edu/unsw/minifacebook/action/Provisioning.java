@@ -76,9 +76,11 @@ public class Provisioning extends ActionSupport {
 		if (ActionContext.getContext().getSession().get("admin") == null) {
 			return LOGIN;
 		}
-		String username = ServletActionContext.getRequest().getParameter("useranme");
+		String username = ServletActionContext.getRequest().getParameter("username");
 		Map<Date,String> as = us.loadUserActivity(username);
-		 ServletActionContext.getRequest().setAttribute("activity", as);
+		DetailBean detail = us.loadUserDetail(username);
+		ServletActionContext.getRequest().setAttribute("activity", as);
+		ServletActionContext.getRequest().setAttribute("detailbean", detail);
 		return SUCCESS;
 
 	}

@@ -53,11 +53,11 @@ public class PostDAO {
 		List<PostBean> postList = null;
 		Map<Date, String> result = new HashMap<Date,String>();
 		Query query2 = getCurrentSession().createQuery
-				("from PostBean where creator.id == :id").setParameter("id", userId);
+				("from PostBean where creator.id = :id").setParameter("id", userId);
 		
 		postList = query2.getResultList();
 		for(PostBean pb: postList) {
-			result.put(pb.getPosttime(), pb.getDescription());
+			result.put(pb.getPosttime(), "writes post:" + pb.getDescription());
 		}
 		return result;
 	}
