@@ -1,7 +1,10 @@
 package edu.unsw.minifacebook.service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.unsw.minifacebook.DAO.DetailDAO;
+import edu.unsw.minifacebook.DAO.FriendDAO;
 import edu.unsw.minifacebook.DAO.UserDAO;
 import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.UserBean;
@@ -30,6 +34,8 @@ public class UserService {
 	private UserDAO userDao;
 	@Autowired
 	private DetailDAO detailDao;
+	
+	@Autowired FriendDAO friendDao;
 	
 	public boolean checkexist(String username){
 		if(userDao.ifUsernameExisted(username)){
@@ -99,5 +105,25 @@ public class UserService {
 		return result;
 	}
 	
+	
+	public boolean banUser(String username) {
+		UserBean ub = userDao.getUserByUsername(username);
+		if(ub!= null) {
+			ub.setState(-1);
+			userDao.updateObject(ub);
+		}
+		
+		return true;
+	}
+	
+	public Map<Date, String> loadUserActivity(String username) {
+		Map<Date, String> result = new HashMap<Date,String>();
+		UserBean ub = userDao.getUserByUsername(username);
+		DetailBean db = detailDao.getUserByUsername(username);
+		ub.setDetailBean(db);
+		result.put(ub.getRegistTime(), db.getName() + "joined UNSWBook");
+		result.putAll(friendDao.getFriendActivity(ub.getUserId()));
+		return result;
+	}
 
 }

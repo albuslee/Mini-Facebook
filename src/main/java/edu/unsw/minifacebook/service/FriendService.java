@@ -55,6 +55,7 @@ public class FriendService {
 	public void addFriends(String username1, String username2) {
 		UserBean userBean1 = userDAO.getUserByUsername(username1);
 		UserBean userBean2 = userDAO.getUserByUsername(username2);
+		
 		friendDAO.addFriends(userBean1, userBean2);
 	}
 }

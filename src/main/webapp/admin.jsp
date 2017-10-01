@@ -39,7 +39,7 @@
 				return;
 			}
 		}
-		var url = "mini_facebook/acceptFriendRequest?username=" + username;
+		var url = "mini_facebook/banUser?username=" + username;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send();
 		xmlHttp.onreadystatechange = function() {
@@ -65,16 +65,14 @@
 			<button type="submit" class="btn btn-primary">search</button>
 		</form>
 	</div>
-	<!--显示搜索结果  -->
 	<div>
 		<ul class="list-group center-block" style="width: 60%">
 			<%
 				List<UserBean> userList = (List<UserBean>) request.getAttribute("allusers");
-			    DetailDAO detaildao=new DetailDAO();
-			    DetailBean detailBean = new DetailBean();
+
 				if (userList != null && !userList.isEmpty()) {
 					for (UserBean userBean : userList) {
-						detailBean = detaildao.getUserByUsername(userBean.getUsername());
+						DetailBean detailBean = userBean.getDetailBean();
 						String imgs = detailBean.getPhoto();
 						if (!detailBean.getPhoto().contains("image")) {
 							imgs = "image/UNSW_0.png";
@@ -84,7 +82,7 @@
 			<li class="list-group-item row">
 			
 				<div class="col-sm-3">
-					<a href="activity.jsp"><img class="friendimg" src="<%=imgs%>"></img></a>
+					<a href="loadActivity?username=<%=detailBean.getUsername()%>"><img class="friendimg" src="<%=imgs%>"></img></a>
 				</div>
 				<div class="col-sm-6">
 					<b style="color: blue; font-size: 20px;">

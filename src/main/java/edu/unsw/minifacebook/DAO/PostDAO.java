@@ -1,7 +1,9 @@
 package edu.unsw.minifacebook.DAO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -43,8 +45,11 @@ public class PostDAO {
 		
 		postList = query2.getResultList();
 		
-
 		return postList;
+	}
+	
+	public Map<Date, String> getPostActivity(String username){
+		return null;
 	}
 
 

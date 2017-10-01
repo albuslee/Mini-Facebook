@@ -58,8 +58,9 @@ public class NotificationService {
 		nb.setType("friend");
 		nb.setFrom2(rfrom);
 		nb.setuserBean(userBean);
-		
+    	Emailer.sendMail(currentUser.getEmail(), detailBean.getName()+ " wants to add you as friend\n", "http://localhost:8080/mini_facebook/acceptFriendRequest?username="+rfrom.getUsername());
 		NotificationDao.insertNotificationByUserBean(userBean, nb);
+		
 	}
 	
 	public List<NotificationBean> loadAddFriendRequest(String username) {

@@ -1,6 +1,9 @@
 package edu.unsw.minifacebook.bean;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +28,19 @@ public class FriendBean {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="seconduser",referencedColumnName="userid") 
 	private UserBean secoundUser;
+	
+	@Column
+	private Date friendtime;
+
+
+	public Date getFriendtime() {
+		return friendtime;
+	}
+
+
+	public void setFriendtime(Date friendtime) {
+		this.friendtime = friendtime;
+	}
 
 
 	public int getId() {
