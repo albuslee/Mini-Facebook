@@ -118,11 +118,11 @@ public class FriendDAO {
 				userId);
 		friendBeanList = query1.getResultList();
 		for (FriendBean fb : friendBeanList) {
-			result.put(fb.getFriendtime(),fb.getFirstUser().getUserId().toString());
+			result.put(fb.getFriendtime(),"become friends with" + fb.getFirstUser().getUserId().toString());
 		}
 		List<FriendBean> tempList2 = query2.getResultList();
 		for (FriendBean fb : tempList2) {
-			result.put(fb.getFriendtime(),fb.getSecoundUser().getUserId().toString());
+			result.put(fb.getFriendtime(),"become friends with" + fb.getSecoundUser().getUserId().toString());
 		}
 		return result;
 	}

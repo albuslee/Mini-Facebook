@@ -2,6 +2,7 @@ package edu.unsw.minifacebook.DAO;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,8 +49,17 @@ public class PostDAO {
 		return postList;
 	}
 	
-	public Map<Date, String> getPostActivity(String username){
-		return null;
+	public Map<Date, String> getPostActivity(Integer userId){
+		List<PostBean> postList = null;
+		Map<Date, String> result = new HashMap<Date,String>();
+		Query query2 = getCurrentSession().createQuery
+				("from PostBean where creator.id == :id").setParameter("id", userId);
+		
+		postList = query2.getResultList();
+		for(PostBean pb: postList) {
+			result.put(pb.getPosttime(), pb.getDescription());
+		}
+		return result;
 	}
 
 
