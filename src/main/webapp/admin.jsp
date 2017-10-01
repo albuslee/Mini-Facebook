@@ -39,7 +39,7 @@
 				return;
 			}
 		}
-		var url = "mini_facebook/acceptFriendRequest?username=" + username;
+		var url = "mini_facebook/banUser?username=" + username;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send();
 		xmlHttp.onreadystatechange = function() {
@@ -82,7 +82,7 @@
 			<li class="list-group-item row">
 			
 				<div class="col-sm-3">
-					<a href="activity.jsp"><img class="friendimg" src="<%=imgs%>"></img></a>
+					<a href="loadActivity?username=<%=detailBean.getUsername()%>"><img class="friendimg" src="<%=imgs%>"></img></a>
 				</div>
 				<div class="col-sm-6">
 					<b style="color: blue; font-size: 20px;">

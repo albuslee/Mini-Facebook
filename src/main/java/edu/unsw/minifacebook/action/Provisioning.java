@@ -1,6 +1,8 @@
 package edu.unsw.minifacebook.action;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +29,7 @@ public class Provisioning extends ActionSupport {
 
 	@Autowired
 	private ProvisionerService ps;
-	
+
 	@Autowired
 	private UserService us;
 
@@ -43,8 +45,9 @@ public class Provisioning extends ActionSupport {
 		try {
 			if (ps.login(userform)) {
 				List<UserBean> allUsers = us.loadAllUsers();
-		        HttpServletRequest request = ServletActionContext.getRequest();  
-		        request.setAttribute("allusers", allUsers);
+				ActionContext.getContext().getSession().put("admin", userform.getUsername());
+				HttpServletRequest request = ServletActionContext.getRequest();
+				request.setAttribute("allusers", allUsers);
 				return SUCCESS;
 			}
 		} catch (Exception e) {
@@ -53,6 +56,31 @@ public class Provisioning extends ActionSupport {
 		}
 		return ERROR;
 	}
-	
+
+	public String banUser() {
+		if (ActionContext.getContext().getSession().get("admin") == null) {
+			return LOGIN;
+		}
+
+		// DetailBean detailBean = (DetailBean)
+		// ActionContext.getContext().getSession().get("detailbean");
+		String username = ServletActionContext.getRequest().getParameter("useranme");
+		if (us.banUser(username)) {
+			return SUCCESS;
+		} else
+			return ERROR;
+
+	}
+
+	public String loadActivity() {
+		if (ActionContext.getContext().getSession().get("admin") == null) {
+			return LOGIN;
+		}
+		String username = ServletActionContext.getRequest().getParameter("useranme");
+		Map<Date,String> = us.loadUserActivity(username);
+		 ServletActionContext.getRequest().setAttribute("activity", arg1);
+		return SUCCESS;
+
+	}
 
 }

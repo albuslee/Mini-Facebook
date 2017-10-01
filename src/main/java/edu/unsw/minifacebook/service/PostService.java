@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -61,6 +62,7 @@ public class PostService {
 		UserBean creator = userDao.getUserByUsername(creatorUsername);
 		BeanUtils.copyProperties(postForm, postBean);
 		postBean.setCreator(creator);
+		postBean.setPosttime(new Date());
 		postDao.saveObject(postBean);
 	}
 }

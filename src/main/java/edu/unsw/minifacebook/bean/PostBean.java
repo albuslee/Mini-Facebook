@@ -1,5 +1,7 @@
 package edu.unsw.minifacebook.bean;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,17 @@ public class PostBean {
 	@JoinColumn(name="creator",referencedColumnName="userid") 
 	private UserBean creator;
 	
+	@Column
+	private Date posttime;
+	
+	public Date getPosttime() {
+		return posttime;
+	}
+
+	public void setPosttime(Date posttime) {
+		this.posttime = posttime;
+	}
+
 	@Transient
 	private int likenum;
 
