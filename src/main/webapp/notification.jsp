@@ -35,6 +35,10 @@ if(detail!=null){
 				//out.println("[" + fr.getnotification_status() + "]");
 				out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
 			}
+			else if (fr.getType().equals("accept")) {
+				//out.println("[" + fr.getnotification_status() + "]");
+				out.println("User " + dBean.getName() + " has accepted your friend request. ");%><br><%
+			}
 		}
 	}
 }
