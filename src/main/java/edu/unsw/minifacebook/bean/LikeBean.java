@@ -18,12 +18,12 @@ public class LikeBean {
 	private int id;
 	
 	// Like from USER
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name = "Like_from", referencedColumnName = "username")
 	private UserBean like_from;
 	
 	// which post
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name = "Post", referencedColumnName = "id")
 	private PostBean post;
 	

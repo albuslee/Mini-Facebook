@@ -192,7 +192,8 @@ CKEDITOR.replace( 'postform.description');
 				UserBean userBean = postBean.getCreator();
 
 				//LikeDAO likeDao = new LikeDAO();
-				int a = postBean.getLikenum();//likeDao.numLikes(postBean);
+				String num = "0";
+				int a = postBean.getLikenum();
 
 			%>
 			<button type="button" class="btn btn-default btn-sm"
@@ -246,22 +247,31 @@ CKEDITOR.replace( 'postform.description');
 			}
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
-	            function(){
-		            	addLikes(<%=post%>, 1, 1);
-		            	$("#like_num<%=post%>").html(<%=a=a+1%>);
+	            function(){	
+	            		$("#like_num<%=post%>").html(<%=a = a + 1%>),
+	            		
+		            	addLikes(<%=post%>, 1, 1)
+		            	<%  //String n = request.getAttribute("numLikes").toString();
+		            		//a = Integer.parseInt(n);
+		            	%>
+		            
+		            	;
+		            	
 		        },
 	            function(){
+		        		$("#like_num<%=post%>").html(<%=a = a - 1%>),
 			        	addLikes(<%=post%>, 1, -1);
-			        	$("#like_num<%=post%>").html(<%=a=a-1%>);
+			        	
 		        });
 			$("#dislike<%=post%>").toggle(
-	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
-	            
-	            addLikes(<%=post%>, -1);
+	            function(){
+	            		$("#like_num<%=post%>").html(<%=a = a - 1%>),
+	            		addLikes(<%=post%>, -1, 1);
 	             },
-	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);
-	            <%	//likeDao.deleteLikes(uid);
-	            %>}
+	            function(){
+	            	 	$("#like_num<%=post%>").html(<%=a = a + 1%>),
+	            	 	addLikes(<%=post%>, -1, -1);
+	             }
 	            );
 			});
 			</script>

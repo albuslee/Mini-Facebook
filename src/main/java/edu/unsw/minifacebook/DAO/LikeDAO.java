@@ -73,17 +73,32 @@ public class LikeDAO {
 	public void deleteLikes(String username, int postid) {
 		LikeBean likeBean = this.getLikeBean(username, postid);
 		int id = likeBean.getId();
-		try {
-			this.getCurrentSession().beginTransaction();
-			//LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
-			this.getCurrentSession().delete(likeBean);
-			//this.getCurrentSession().getTransaction().commit();
-			
-			//this.getCurrentSession().close();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			this.getCurrentSession().getTransaction().rollback();
-		}
+		likeBean.setThumb(0);
+		Session session = this.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.update(likeBean);
+		tx.commit();
+		session.close();
+		
+//		String sid = String.valueOf(id);
+//		this.getCurrentSession().beginTransaction();
+//		this.getCurrentSession().createQuery("delete from edu.unsw.minifacebook.bean.LikeBean where id =" + sid).executeUpdate();
+		
+//		try {
+//			sessionFactory.openSession().beginTransaction();
+//			//LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
+//			sessionFactory.openSession().delete(likeBean);
+//			// commit only, if tx still hasn't been committed yet by Hibernate
+//			if (sessionFactory.openSession().getTransaction().getStatus().equals(TransactionStatus.ACTIVE)) { 
+//				sessionFactory.openSession().getTransaction().commit();
+//			}
+//			//this.getCurrentSession().getTransaction().commit();
+//			
+//			//this.getCurrentSession().close();
+//		} catch (HibernateException e) {
+//			e.printStackTrace();
+//			this.getCurrentSession().getTransaction().rollback();
+//		}
 
 	}
 	
@@ -119,12 +134,19 @@ public class LikeDAO {
 		return likeBean;
 	}
 	
-	public int numLikes(PostBean post) {
+	public int numLikes(int postid) {
+		PostBean post = null;
+		post = this.getCurrentSession().get(PostBean.class, postid);
+		
 		List<LikeBean> likeList = new ArrayList<LikeBean>();
+		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
+		CriteriaQuery<LikeBean> query = builder.createQuery(LikeBean.class);
+		Root<LikeBean> root = query.from(LikeBean.class);
+		query.select(root);
 		Query query1 = getCurrentSession().createQuery
-				("select * from Likes");
+				(query);
 		try {
-		likeList = query1.getResultList();
+		likeList = (List<LikeBean>)query1.getResultList();
 		}catch(NoResultException nre) {
 			nre.printStackTrace();
 		}
@@ -133,10 +155,11 @@ public class LikeDAO {
 		Iterator<LikeBean> i = likeList.iterator();
 		while(i.hasNext()) {
 			l = i.next();
-			if (l.getPostId() == post) {
+			if (l.getPostId().getId() == postid) {
 				count += l.getThumb();
 			}
 		}
+		System.out.println(count);
 		return count;
 	}
 

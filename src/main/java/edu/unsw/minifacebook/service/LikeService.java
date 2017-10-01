@@ -2,12 +2,13 @@ package edu.unsw.minifacebook.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.unsw.minifacebook.DAO.PostDAO;
 import edu.unsw.minifacebook.DAO.LikeDAO;
@@ -16,7 +17,7 @@ import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class, readOnly = false)
 public class LikeService {
 	
 	@Autowired
@@ -30,6 +31,10 @@ public class LikeService {
 	
 	public void delLike(String username, int postid) {
 		likeDao.deleteLikes(username, postid);
+	}
+	
+	public int numLikes(int postid) {
+		return likeDao.numLikes(postid);
 	}
 
 }

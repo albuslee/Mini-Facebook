@@ -76,12 +76,17 @@ public class LikeAction extends ActionSupport{
         		System.out.println(thumb);
         		int t = Integer.parseInt(thumb);
         		int d = Integer.parseInt(del);
+        		int count = 0;
         		System.out.println(del);
         		if (d == 1) {
         			likeService.addLikes(username, postid, t);
+        			count = likeService.numLikes(postid);
         		} else if (d == -1) {
         			likeService.delLike(username, postid);
+        			count = likeService.numLikes(postid);
         		}
+        		ActionContext.getContext().getSession().put("numLikes", count);
+        		System.out.println("NumLikes"+count);
         		return SUCCESS;
         }else {
         	System.out.println("FAILED");
