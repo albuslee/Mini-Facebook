@@ -100,11 +100,13 @@ public class FriendAction extends ActionSupport{
         	request.setAttribute("friendrequests", notifications);
         	
         	//add acceptfriendnotification
+        	UserBean userBean = UserDAO.getUserByUsername(username);
+        	UserBean rfrom = UserDAO.getUserByUsername(currentUser.getUsername());
         	NotificationBean nb = new NotificationBean();
     		nb.setType("accept");
-    		nb.setFrom2(UserDAO.getUserByUsername(currentUser.getUsername()));
-    		nb.setuserBean(UserDAO.getUserByUsername(username));
-    		NotificationDao.insertNotificationByUserBean(UserDAO.getUserByUsername(username), nb);
+    		nb.setFrom2(rfrom);
+    		nb.setuserBean(userBean);
+    		NotificationDao.insertNotificationByUserBean(userBean, nb);
         	
         	return SUCCESS;
         }else {
