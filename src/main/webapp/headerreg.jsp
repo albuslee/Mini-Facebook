@@ -99,9 +99,8 @@
 
 <%
 DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
-String nl_size="0";
+String nl_size=(String) request.getSession().getAttribute("nl_size");
 if(detail!=null){
-	nl_size=(String) request.getSession().getAttribute("nl_size");
 	if (nl_size == null) {
 		List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
 		int nl_size_int = 0;

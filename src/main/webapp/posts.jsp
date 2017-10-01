@@ -8,6 +8,8 @@
 <html>
 <head>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
@@ -164,6 +166,7 @@ CKEDITOR.replace( 'postform.description');
 </script>
 		<%  //DetailDAO detaildao=new DetailDAO();
 			//DetailBean detailBean = new DetailBean();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
@@ -179,7 +182,9 @@ CKEDITOR.replace( 'postform.description');
 			<%-- <img class="postimg col-sm-1" src="<%=imgsrc%>"> --%>
 			<a href="#" class="list-group-item" style="margin-left:1%"> 
 			<%=postBean.getDescription()%>
-			<%=postBean.getPosttime()%>
+			<% 
+			   Date o=postBean.getPosttime();%>
+			<%=sdf.format(o)%>
 			
 			<% int post = postBean.getId(); %>
 

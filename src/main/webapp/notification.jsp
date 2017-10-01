@@ -35,9 +35,10 @@ if(detail!=null){
 				//out.println("[" + fr.getnotification_status() + "]");
 
 				if (comment.contains("<img") && comment.contains("height") && comment.contains("width")) {
-					comment = comment.replaceAll("style=\"height:960px; width:1280px\"", "style=\"height:32px; width:32px\"");
+					comment = comment.replaceAll("style=\"height:[0-9]+px; width:[0-9]+px\"", "style=\"height:32px; width:32px\"");
 				}
-				out.println("Your post " + comment + " was liked by user " + dBean.getName() + ". ");%><br><%
+				String output="Your post " + comment + " was liked by user " + dBean.getName() + ". ";
+				%><a href="#" class="list-group-item" ><%=output%></a><%
 
 			}
 			else if (fr.getType().equals("friend")) {
