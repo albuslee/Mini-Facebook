@@ -28,11 +28,11 @@ if(detail!=null){
 			UserBean nfrom = fr.getFrom2();
 			DetailBean dBean = nfrom.getDetailBean();
 			if (fr.getType().equals("like")) {
-				out.println("[" + fr.getnotification_status() + "]");
+				//out.println("[" + fr.getnotification_status() + "]");
 				out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");%><br><%
 			}
 			else if (fr.getType().equals("friend")) {
-				out.println("[" + fr.getnotification_status() + "]");
+				//out.println("[" + fr.getnotification_status() + "]");
 				out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
 			}
 		}
