@@ -44,6 +44,9 @@ public class PostService {
 		List<Integer> userList = friendDao.getAllFriendIdsByUserid(userBean.getUserId());
 		userList.add(userBean.getUserId());
 		postsList = postDao.getPostsByUserlist(userList);
+		for(PostBean pb: postsList) {
+			pb.setLikenum(likeDAO.numLikes(pb.getId()));
+		}
 		return postsList;
 	}
 	

@@ -192,7 +192,6 @@ CKEDITOR.replace( 'postform.description');
 				UserBean userBean = postBean.getCreator();
 
 				//LikeDAO likeDao = new LikeDAO();
-				String num = "0";
 				int a = postBean.getLikenum();
 
 			%>
