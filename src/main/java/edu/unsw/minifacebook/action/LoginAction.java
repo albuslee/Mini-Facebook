@@ -48,6 +48,7 @@ public class LoginAction extends ActionSupport {
 			if (detailBean != null) {
 				ActionContext.getContext().getSession().put("detailbean", detailBean);
 				ActionContext.getContext().getSession().put("notificationList", notificationList);
+				ActionContext.getContext().getSession().put("notificationusername", userform.getUsername());
 				return SUCCESS;
 			} else
 				return ERROR;
