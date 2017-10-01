@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@page import="java.lang.String"%>
 <%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>profile</title>
@@ -61,7 +62,7 @@
 		String birthday = detail.getBirthday();
 		String major = detail.getMajor();
 		String gender = detail.getGender();
-		if (imgsource == null) {
+		if (!imgsource.contains("image")) {
 			imgsource = "image/UNSW_0.png";
 		}
 	%>

@@ -30,7 +30,7 @@ public class DetailBean {
 	@Column
 	private String birthday=" ";
 	@Column  
-	private String photo=" ";  
+	private String photo="image/UNSW_0.png";  
 	@Column  
 	private String major=" ";
 	

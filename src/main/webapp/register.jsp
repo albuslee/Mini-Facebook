@@ -74,7 +74,7 @@ canvas {
 			<div id="showRight"></div>
 			<s:password name="userform.password" label="Password" id="input1"
 				class="form-control" placeholder="password"></s:password>
-			<input label="Password" class="form-control"
+			<input label="Password" class="form-control" type="password"
 				placeholder="password confirm" id="input2" onblur="check2pwd()">
 			</td>
 			</tr>
