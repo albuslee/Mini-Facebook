@@ -8,6 +8,8 @@
 <html>
 <head>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
@@ -146,10 +148,10 @@
 	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
 	String User=detailbean2.getUsername();
 	String imgsource=detailbean2.getPhoto();
-	if (imgsource==null){imgsource = "image/UNSW_0.png";}
+	if (!imgsource.contains("image")){imgsource = "image/UNSW_0.png";}
 	%>
 <div class="row" style="width:100%">
-<div id="photo">
+<div id="photo" class="col-lg-3">
 <img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
 </div>
 <div id = "wd" class="col-lg-8">
@@ -164,21 +166,25 @@ CKEDITOR.replace( 'postform.description');
 </script>
 		<%  //DetailDAO detaildao=new DetailDAO();
 			//DetailBean detailBean = new DetailBean();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
-<div class="row" style="width:100%;height:2000px">
+<div class="row" style="width:100%">
 		<div class="col-lg-3"></div>
 		<div class="col-lg-8">
-		<div class="list-group">
+		<div class="list-group" style="width:102%">
 			<%
 				for (PostBean postBean : postlist) {
 					//detailBean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
 					//String imgsrc=detailBean.getPhoto();
 			%>
 			<%-- <img class="postimg col-sm-1" src="<%=imgsrc%>"> --%>
-			<a href="#" class="list-group-item col-sm-11">
-				<%=postBean.getDescription()%>
+			<a href="#" class="list-group-item" style="margin-left:1%"> 
+			<%=postBean.getDescription()%>
+			<% 
+			   Date o=postBean.getPosttime();%>
+			<%=sdf.format(o)%>
 			
 			<% int post = postBean.getId(); %>
 
