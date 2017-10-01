@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -51,21 +54,23 @@ public class LikeDAO {
 		this.getCurrentSession().save(likeBean);
 		
 		//add like to notification
-		NotificationBean nb = new NotificationBean();
-		nb.setType("like");
-		nb.setFrom2(like_from);
-		nb.setuserBean(post.getCreator());
-		nb.setcommented_record(post.getDescription());
-		NotificationDao.insertNotificationByUserBean(post.getCreator(), nb);
+//		NotificationBean nb = new NotificationBean();
+//		nb.setType("like");
+//		nb.setFrom2(like_from);
+//		nb.setuserBean(post.getCreator());
+//		nb.setcommented_record(post.getDescription());
+//		NotificationDao.insertNotificationByUserBean(post.getCreator(), nb);
 		
 		return likeBean;
 	}
 	
-	public void deleteLikes(int id) {
+	public void deleteLikes(String username, int postid) {
+		LikeBean likeBean = this.getLikeBean(username, postid);
+		//int id = likeBean.getId();
 		try {
 			Transaction trn = this.getCurrentSession().beginTransaction();
-			LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
-			this.getCurrentSession().delete(unlikeBean);
+			//LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
+			this.getCurrentSession().delete(likeBean);
 			trn.commit();
 			this.getCurrentSession().close();
 		} catch (HibernateException e) {
@@ -73,6 +78,27 @@ public class LikeDAO {
 			this.getCurrentSession().getTransaction().rollback();
 		}
 
+	}
+	
+	public LikeBean getLikeBean(String username, int postid) {
+		UserBean like_from = null;
+		like_from = userDao.getUserByUsername(username);
+		PostBean post = null;
+		post = this.getCurrentSession().get(PostBean.class, postid);
+		
+		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
+		CriteriaQuery<LikeBean> query = builder.createQuery(LikeBean.class);
+		Root<LikeBean> root = query.from(LikeBean.class);
+		query.select(root).where(builder.equal(root.get("like_from"), like_from), builder.equal(root.get("post"), post));
+		LikeBean likeBean = null;
+		Query q = this.getCurrentSession().createQuery(query);
+		try {
+			 likeBean = (LikeBean) q.getSingleResult();
+			 System.out.println(likeBean.getId());
+		}catch(NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return likeBean;
 	}
 	
 	public int numLikes(PostBean post) {

@@ -45,7 +45,7 @@ public class LikeAction extends ActionSupport{
 		}
 	}
 	
-	public String addLikes() {
+	public String addUnLikes() {
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String username = ActionContext.getContext().getSession().get("User").toString();
 		int postid = Integer.parseInt(request.getParameter("postid"));
@@ -56,6 +56,32 @@ public class LikeAction extends ActionSupport{
         		//LikeDAO likeDao = new LikeDAO();
         		int t = Integer.parseInt(thumb);
         		likeService.addLikes(username, postid, t);
+        		return SUCCESS;
+        }else {
+        	System.out.println("FAILED");
+        	return ERROR;
+        }
+	}
+	
+	public String addLikes() {
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		String username = ActionContext.getContext().getSession().get("User").toString();
+		int postid = Integer.parseInt(request.getParameter("postid"));
+		String thumb = request.getParameter("thumb");
+		String del = request.getParameter("del");
+        //String thumb = ActionContext.getContext().getSession().get("Thumb").toString();
+        if(username != null) {
+        		System.out.println(username);
+        		System.out.println(postid);
+        		System.out.println(thumb);
+        		int t = Integer.parseInt(thumb);
+        		int d = Integer.parseInt(del);
+        		System.out.println(del);
+        		if (d == 1) {
+        			likeService.addLikes(username, postid, t);
+        		} else if (d == -1) {
+        			likeService.delLike(username, postid);
+        		}
         		return SUCCESS;
         }else {
         	System.out.println("FAILED");

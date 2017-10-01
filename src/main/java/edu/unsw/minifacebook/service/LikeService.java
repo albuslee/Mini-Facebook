@@ -28,8 +28,8 @@ public class LikeService {
 		likeDao.addLikes(username, postid, thumb);
 	}
 	
-	public void delLike(int postid) {
-		likeDao.deleteLikes(postid);
+	public void delLike(String username, int postid) {
+		likeDao.deleteLikes(username, postid);
 	}
 
 }
