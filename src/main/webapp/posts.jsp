@@ -191,7 +191,7 @@ CKEDITOR.replace( 'postform.description');
 			%>
 			
 			<button type="button" class="btn btn-default btn-sm"
-				onclick="btnClick(this)" id='like<%=post%>'>
+				onclick="addLikes(this)" id='like<%=post%>'>
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like 
 				<span class="badge" id='like_num<%=post%>'><%=a%></span>
 			</button>

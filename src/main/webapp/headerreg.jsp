@@ -123,7 +123,7 @@ if(detail!=null){
                 <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
                 
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button"></div>    
+                <div id="noti_Button" style="margin-top:10px;"></div>    
 
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" >
