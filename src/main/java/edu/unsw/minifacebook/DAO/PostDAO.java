@@ -42,7 +42,7 @@ public class PostDAO {
 		List<PostBean> postList = null;
 		
 		Query query2 = getCurrentSession().createQuery
-				("from PostBean where creator.id in (:ids)").setParameterList("ids", userList);
+				("from PostBean where creator.id in (:ids) order by posttime desc").setParameterList("ids", userList);
 		
 		postList = query2.getResultList();
 		
