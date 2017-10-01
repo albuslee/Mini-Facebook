@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@page import="java.lang.String"%>
 <%@page import="java.util.List"%>
 <%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
 <%@page import="edu.unsw.minifacebook.bean.UserBean"%>
@@ -73,7 +74,7 @@
 					for (UserBean userBean : userList) {
 						DetailBean detailBean = userBean.getDetailBean();
 						String imgs = detailBean.getPhoto();
-						if (detailBean.getPhoto() == null) {
+						if (!detailBean.getPhoto().contains("image")) {
 							imgs = "image/UNSW_0.png";
 						}
 			%>
@@ -81,7 +82,7 @@
 			<li class="list-group-item row">
 			
 				<div class="col-sm-3">
-					<a href="activity.jsp"><img class="friendimg" src=<%=imgs%>></img></a>
+					<a href="activity.jsp"><img class="friendimg" src="<%=imgs%>"></img></a>
 				</div>
 				<div class="col-sm-6">
 					<b style="color: blue; font-size: 20px;">

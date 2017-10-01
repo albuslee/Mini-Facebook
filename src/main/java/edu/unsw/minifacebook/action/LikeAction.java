@@ -46,16 +46,16 @@ public class LikeAction extends ActionSupport{
 	}
 	
 	public String addLikes() {
-		//LikeDAO likeDao = container.inject(LikeDAO.class);
-		UserBean userBean=(UserBean) ActionContext.getContext().getSession().get("User");
-        PostBean postBean=(PostBean) ActionContext.getContext().getSession().get("Post");
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		String username = ActionContext.getContext().getSession().get("User").toString();
+		int postid = Integer.parseInt(request.getParameter("postid"));
         String thumb = ActionContext.getContext().getSession().get("Thumb").toString();
-        if(userBean != null) {
-        		System.out.println(userBean);
-        		System.out.println(postBean);
+        if(username != null) {
+        		System.out.println(username);
+        		System.out.println(postid);
         		//LikeDAO likeDao = new LikeDAO();
         		int t = Integer.parseInt(thumb);
-        		likeService.addLikes(userBean, postBean, t);
+        		likeService.addLikes(username, postid, t);
         		return SUCCESS;
         }else {
         	System.out.println("FAILED");

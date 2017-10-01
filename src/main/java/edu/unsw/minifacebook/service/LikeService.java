@@ -24,8 +24,8 @@ public class LikeService {
 	
 	
 	
-	public void addLikes(UserBean userBean, PostBean postBean, int thumb) {
-		likeDao.addLikes(userBean, postBean, thumb);
+	public void addLikes(String username, int postid, int thumb) {
+		likeDao.addLikes(username, postid, thumb);
 	}
 	
 	public void delLike(int postid) {

@@ -9,6 +9,8 @@
 	<%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 	<%@ page import="edu.unsw.minifacebook.DAO.FriendDAO"%>
 	<%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
+	
+	<%@ page import="edu.unsw.minifacebook.service.NotificationService"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -95,10 +97,13 @@
 </style>
 <% 
 	List<NotificationBean> notificationlist = (List<NotificationBean>)session.getAttribute("notificationList");
+	//String username = (String)session.getAttribute("notificationusername");
+	//NotificationService ns = new NotificationService();
+	//List<NotificationBean> notificationlist = new ArrayList();
+	//if (username != null) {
+	//	notificationlist = ns.getNotificationList(username);
+	//}
 	int nl_size = 0;
-	if (notificationlist != null) {
-		nl_size = notificationlist.size();
-	}
 %>
 <%DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
 if(detail!=null){%>
@@ -128,25 +133,27 @@ if(detail!=null){%>
                 <div id="notifications" >
                     <h3>Notifications</h3>
                     <div style="height:300px; overflow:scroll">
-                    <h3><%="qqq" %><br>
-	                    <%
+                    <h3><%
 	                    if (notificationlist != null) {
-	                    	for( int i = 0 ; i < notificationlist.size() ; i++) {
-	                    		if (notificationlist.get(i).getType().equals("like")) {
-	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("Your post " + notificationlist.get(i).getcommented_record() + " was liked by user " + 1 + ". ");
-	                    			%><br><%
+	                    	for(NotificationBean fr: notificationlist){
+	                    		if (fr.getnotification_status().equals("unread")) {
+	                    			nl_size = nl_size + 1;
 	                    		}
-	                    		else if (notificationlist.get(i).getType().equals("friend")) {
-	                    			out.println("[" + notificationlist.get(i).getnotification_status() + "]");
-	                    			out.println("User " + 1 + " sends a friend request. ");
-	                    			%><input type = "button" value = "accept" />
-	                    			<input type = "button" value = "reject" /><br><%
+	                    		UserBean nfrom = fr.getFrom();
+	                    		DetailBean dBean = nfrom.getDetailBean();
+	                    		if (fr.getType().equals("like")) {
+	                    			out.println("[" + fr.getnotification_status() + "]");
+	                    			out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");%><br><%
+	                    		}
+	                    		else if (fr.getType().equals("friend")) {
+	                    			out.println("[" + fr.getnotification_status() + "]");
+	                    			out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
 	                    		}
 	                    	}
 	                    }
 	                %></h3>
 	            	</div>
+	            	<div><a href="friendrequest.jsp">See All Friend Requests</a></div>
                 </div>
             </li>
           </ul>
@@ -216,4 +223,31 @@ if(detail!=null){%>
             return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
         });
     });
+</script>
+<script type="text/javascript">
+	function loadnotificationlist() {
+		var username = event.target.id;
+		document.getElementById(username).setAttribute("disabled","disabled");
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		
+		xmlhttp.open("GET","test1.txt",true);
+		xmlhttp.send();
+		
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+			  alert(xmlHttp.responseText);
+			  document.getElementById("username").setAttribute("class", "btn btn-default disable");
+		    }
+		  }
+	}
 </script>
