@@ -178,7 +178,8 @@ CKEDITOR.replace( 'postform.description');
 			%>
 			<%-- <img class="postimg col-sm-1" src="<%=imgsrc%>"> --%>
 			<a href="#" class="list-group-item col-sm-11">
-				<%=postBean.getDescription()%>
+			<%=postBean.getDescription()%>
+			<%=postBean.getPosttime()%>
 			
 			<% int post = postBean.getId(); %>
 

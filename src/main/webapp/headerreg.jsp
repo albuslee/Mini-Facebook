@@ -120,7 +120,7 @@ if(detail!=null){
               <a href="friendrequest.jsp">Friend Requests</a>
             </li>
             <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                <div id="noti_Counter" style="margin-top:13px;"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
                 
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
                 <div id="noti_Button" style="margin-top:13px;"></div>    
