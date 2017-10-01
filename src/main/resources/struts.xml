@@ -131,7 +131,7 @@
 		</action>
 		
 		<action name="refreshnotification" class="edu.unsw.minifacebook.action.RefreshNotification">
-			<result name="success">/success.jsp</result>
+			<result name="success">/notification.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>

@@ -95,16 +95,13 @@
     }
 
 </style>
-<div onload="autoSubmit()">
-<form id="notificationform2" action="refreshnotification"></form>
-</div>
+
 
 <%
 DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
-int nl_size = 0;
+String nl_size="0";
 if(detail!=null){
-	List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
-	
+	nl_size=(String) request.getSession().getAttribute("nl_size");
 %>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
@@ -131,26 +128,7 @@ if(detail!=null){
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" >
                     <h3>Notifications</h3>
-                    <div style="height:300px; overflow:scroll">
-                    <h3><%
-	                    if (notificationlist != null) {
-	                    	for(NotificationBean fr: notificationlist){
-	                    		if (fr.getnotification_status().equals("unread")) {
-	                    			nl_size = nl_size + 1;
-	                    		}
-	                    		UserBean nfrom = fr.getFrom2();
-	                    		DetailBean dBean = nfrom.getDetailBean();
-	                    		if (fr.getType().equals("like")) {
-	                    			out.println("[" + fr.getnotification_status() + "]");
-	                    			out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");%><br><%
-	                    		}
-	                    		else if (fr.getType().equals("friend")) {
-	                    			out.println("[" + fr.getnotification_status() + "]");
-	                    			out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
-	                    		}
-	                    	}
-	                    }
-	                %></h3>
+                    <div id="showNotification" style="height:300px; overflow:scroll">
 	            	</div>
 	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
                 </div>
@@ -182,10 +160,38 @@ if(detail!=null){
    </nav>
  <%}%>
 <script>
-function autoSubmit(){
-	 document.getElementById("notificationform2").submit();
+function sleepGo() {
+	setTimeout(
+			function() {
+				showNotification();
+			}, 60000);
+}
+showNotification();
+sleepGo();
+function showNotification() {
+	try {// Firefox, Opera 8.0+, Safari, IE7
+		xmlHttp = new XMLHttpRequest();
+	} catch (e) {// Old IE
+		try {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (e) {
+			alert("Your browser does not support XMLHTTP!");
+			return;
+		}
 	}
-	var notification_counter = <%=nl_size%>
+	var url = "refreshnotification";
+	xmlHttp.open("POST", url, true);
+	xmlHttp.send();
+	xmlHttp.onreadystatechange = function() {
+		setTimeout(
+				function() {
+					if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+						document.getElementById("showNotification").innerHTML = xmlHttp.responseText;
+					}
+				}, 200);
+	}}
+
+	var notification_counter =<%=nl_size%>;
     $(document).ready(function () {
 
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
