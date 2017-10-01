@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import edu.unsw.minifacebook.DAO.NotificationDAO;
+import edu.unsw.minifacebook.DAO.UserDAO;
 import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.NotificationBean;
+import edu.unsw.minifacebook.bean.UserBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.service.FriendService;
 import edu.unsw.minifacebook.service.NotificationService;
@@ -30,6 +33,12 @@ public class FriendAction extends ActionSupport{
 	
 	@Autowired
 	private NotificationService nservice;
+	
+	@Autowired
+	private NotificationDAO NotificationDao;
+	
+	@Autowired
+	private UserDAO UserDAO;
 	
 	public DetailForm getDetailform() {
 		return detailform;
@@ -89,6 +98,14 @@ public class FriendAction extends ActionSupport{
         	friendService.addFriends(username, currentUser.getUsername());
         	List<NotificationBean> notifications = nservice.loadAddFriendRequest(currentUser.getUsername());
         	request.setAttribute("friendrequests", notifications);
+        	
+        	//add acceptfriendnotification
+        	NotificationBean nb = new NotificationBean();
+    		nb.setType("accept");
+    		nb.setFrom2(UserDAO.getUserByUsername(currentUser.getUsername()));
+    		nb.setuserBean(UserDAO.getUserByUsername(username));
+    		NotificationDao.insertNotificationByUserBean(UserDAO.getUserByUsername(username), nb);
+        	
         	return SUCCESS;
         }else {
         	return ERROR;
