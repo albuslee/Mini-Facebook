@@ -57,7 +57,7 @@
 		<action name="addposts" class="edu.unsw.minifacebook.action.PostAction"
 			method="addposts">
 			<result name="input">/posts.jsp</result>
-			<result name="success">/posts.jsp</result>
+			<result name="success" type="redirect">loadposts</result>
 			<result name="error">/fail.jsp</result>
 			<result name="login">/login.jsp</result>
 		</action>
