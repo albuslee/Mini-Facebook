@@ -91,6 +91,15 @@ public class UserService {
 		return null;
 	}
 	
+	public UserBean getUserbean(UserForm userForm) throws HibernateException{
+		UserBean userBean = 
+		userDao.getUserByUsername(userForm.getUsername());
+		if(userBean.getPassword().equals(MD5Util.getMD5String(userForm.getPassword())) && userBean.getState()==1) {
+			return userBean;
+		}
+		return null;
+	}
+	
 	
 	public List<UserBean> loadAllUsers(){
 		List<UserBean> result = userDao.getAllUsers();

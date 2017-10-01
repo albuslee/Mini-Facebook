@@ -42,7 +42,7 @@
 	if(requests != null){
 	
 	for(NotificationBean fr: requests){
-		UserBean nfrom = fr.getFrom();
+		UserBean nfrom = fr.getFrom2();
 		DetailBean detailBean = nfrom.getDetailBean();
 		%>
 		<div>

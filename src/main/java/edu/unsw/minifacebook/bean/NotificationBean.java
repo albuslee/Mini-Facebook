@@ -25,14 +25,14 @@ public class NotificationBean {
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "nfrom", referencedColumnName="userid")
-	private UserBean from;
+	private UserBean from2;
 	
-	public UserBean getFrom() {
-		return from;
+	public UserBean getFrom2() {
+		return from2;
 	}
 
-	public void setFrom(UserBean from) {
-		this.from = from;
+	public void setFrom2(UserBean from) {
+		this.from2 = from;
 	}
 
 	@Column

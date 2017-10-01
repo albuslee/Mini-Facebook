@@ -95,18 +95,17 @@
     }
 
 </style>
-<% 
-	List<NotificationBean> notificationlist = (List<NotificationBean>)session.getAttribute("notificationList");
-	//String username = (String)session.getAttribute("notificationusername");
-	//NotificationService ns = new NotificationService();
-	//List<NotificationBean> notificationlist = new ArrayList();
-	//if (username != null) {
-	//	notificationlist = ns.getNotificationList(username);
-	//}
-	int nl_size = 0;
+<div onload="autoSubmit()">
+<form id="notificationform2" action="refreshnotification"></form>
+</div>
+
+<%
+DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
+int nl_size = 0;
+if(detail!=null){
+	List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
+	
 %>
-<%DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
-if(detail!=null){%>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
 	        <img  style="margin-top:10%;margin-left:10%" src="image/UNSW_0.png" height="35" width="82">
@@ -139,7 +138,7 @@ if(detail!=null){%>
 	                    		if (fr.getnotification_status().equals("unread")) {
 	                    			nl_size = nl_size + 1;
 	                    		}
-	                    		UserBean nfrom = fr.getFrom();
+	                    		UserBean nfrom = fr.getFrom2();
 	                    		DetailBean dBean = nfrom.getDetailBean();
 	                    		if (fr.getType().equals("like")) {
 	                    			out.println("[" + fr.getnotification_status() + "]");
@@ -153,7 +152,7 @@ if(detail!=null){%>
 	                    }
 	                %></h3>
 	            	</div>
-	            	<div><a href="friendrequest.jsp">See All Friend Requests</a></div>
+	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
                 </div>
             </li>
           </ul>
@@ -183,6 +182,9 @@ if(detail!=null){%>
    </nav>
  <%}%>
 <script>
+function autoSubmit(){
+	 document.getElementById("notificationform2").submit();
+	}
 	var notification_counter = <%=nl_size%>
     $(document).ready(function () {
 
@@ -223,31 +225,4 @@ if(detail!=null){%>
             return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
         });
     });
-</script>
-<script type="text/javascript">
-	function loadnotificationlist() {
-		var username = event.target.id;
-		document.getElementById(username).setAttribute("disabled","disabled");
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		
-		xmlhttp.open("GET","test1.txt",true);
-		xmlhttp.send();
-		
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-			  alert(xmlHttp.responseText);
-			  document.getElementById("username").setAttribute("class", "btn btn-default disable");
-		    }
-		  }
-	}
 </script>
