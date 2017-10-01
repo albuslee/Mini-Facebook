@@ -55,6 +55,7 @@ public class LikeDAO {
 		nb.setType("like");
 		nb.setFrom2(like_from);
 		nb.setuserBean(post.getCreator());
+		nb.setcommented_record(post.getDescription());
 		NotificationDao.insertNotificationByUserBean(post.getCreator(), nb);
 		
 		return likeBean;
