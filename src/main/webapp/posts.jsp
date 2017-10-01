@@ -189,9 +189,8 @@ CKEDITOR.replace( 'postform.description');
 				int a = postBean.getLikenum();//likeDao.numLikes(postBean);
 
 			%>
-			
 			<button type="button" class="btn btn-default btn-sm"
-				onclick="btnClick(this)" id='like<%=post%>'>
+				onclick="addLikes(event)" id='like<%=post%>'>
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like 
 				<span class="badge" id='like_num<%=post%>'><%=a%></span>
 			</button>

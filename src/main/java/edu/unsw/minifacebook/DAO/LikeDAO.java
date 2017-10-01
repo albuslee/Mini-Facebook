@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.bean.LikeBean;
+import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
 
@@ -25,6 +26,9 @@ public class LikeDAO {
 	
 	@Autowired
 	private UserDAO userDao;
+	
+	@Autowired
+	private NotificationDAO NotificationDao;
 	
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
@@ -45,6 +49,14 @@ public class LikeDAO {
 		likeBean.setPostId(post);
 		likeBean.setThumb(thumb);
 		this.getCurrentSession().save(likeBean);
+		
+		//add like to notification
+		NotificationBean nb = new NotificationBean();
+		nb.setType("like");
+		nb.setFrom2(like_from);
+		nb.setuserBean(post.getCreator());
+		NotificationDao.insertNotificationByUserBean(post.getCreator(), nb);
+		
 		return likeBean;
 	}
 	
