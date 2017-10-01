@@ -8,6 +8,8 @@
 <html>
 <head>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
@@ -146,10 +148,10 @@
 	DetailBean detailbean2 =(DetailBean) request.getSession().getAttribute("detailbean");
 	String User=detailbean2.getUsername();
 	String imgsource=detailbean2.getPhoto();
-	if (imgsource==null){imgsource = "image/UNSW_0.png";}
+	if (!imgsource.contains("image")){imgsource = "image/UNSW_0.png";}
 	%>
 <div class="row" style="width:100%">
-<div id="photo">
+<div id="photo" class="col-lg-3">
 <img class="commentAvatarImage" src="<%=imgsource%>" width="100%">
 </div>
 <div id = "wd" class="col-lg-8">
@@ -164,21 +166,25 @@ CKEDITOR.replace( 'postform.description');
 </script>
 		<%  //DetailDAO detaildao=new DetailDAO();
 			//DetailBean detailBean = new DetailBean();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			List<PostBean> postlist = (List<PostBean>) request.getAttribute("postlist");
 			if (postlist != null) {
 		%>
-<div class="row" style="width:100%;height:2000px">
+<div class="row" style="width:100%">
 		<div class="col-lg-3"></div>
 		<div class="col-lg-8">
-		<div class="list-group">
+		<div class="list-group" style="width:102%">
 			<%
 				for (PostBean postBean : postlist) {
 					//detailBean = detaildao.getUserByUsername(postBean.getCreator().getUsername());
 					//String imgsrc=detailBean.getPhoto();
 			%>
 			<%-- <img class="postimg col-sm-1" src="<%=imgsrc%>"> --%>
-			<a href="#" class="list-group-item col-sm-11">
-				<%=postBean.getDescription()%>
+			<a href="#" class="list-group-item" style="margin-left:1%"> 
+			<%=postBean.getDescription()%>
+			<% 
+			   Date o=postBean.getPosttime();%>
+			<%=sdf.format(o)%>
 			
 			<% int post = postBean.getId(); %>
 
@@ -190,7 +196,7 @@ CKEDITOR.replace( 'postform.description');
 
 			%>
 			<button type="button" class="btn btn-default btn-sm"
-				onclick="addLikes(this)" id='like<%=post%>'>
+				onclick="btnClick(this)" id='like<%=post%>'>
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like 
 				<span class="badge" id='like_num<%=post%>'><%=a%></span>
 			</button>
@@ -202,8 +208,10 @@ CKEDITOR.replace( 'postform.description');
 				src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
 			</script>
 			<script>
-			function addLikes(event) {
+			function addLikes(event, thumb, del) {
 				var postid = event;
+				var thumb = thumb;
+				var del = del;
 				try {// Firefox, Opera 8.0+, Safari, IE7
 					xmlHttp = new XMLHttpRequest();
 				} catch (e) {// Old IE
@@ -214,11 +222,15 @@ CKEDITOR.replace( 'postform.description');
 						return;
 					}
 				}
-				var url = "mini_facebook/addLikes?postid=" + postid;
+				if(del == 1){
+					var url = "mini_facebook/addLikes?postid=" + postid + "&thumb=" + thumb + "&del=" + del;
+				}else if (del == -1){
+					var url = "mini_facebook/addLikes?postid=" + postid + "&thumb=" + thumb + "&del=" + del;
+				}
 				<%	
 		        		request.getSession().setAttribute("User", User);
 		        		//request.getSession().setAttribute("Post", postBean);
-		        		request.getSession().setAttribute("Thumb", 1);
+		        		//request.getSession().setAttribute("Thumb", thumb);
 		        		//LikeBean id = (LikeBean)request.getSession().getAttribute("id");
 		        %>
 				xmlHttp.open("GET", url, true);
@@ -226,35 +238,31 @@ CKEDITOR.replace( 'postform.description');
 				xmlHttp.onreadystatechange = function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 						alert(xmlHttp.responseText);
-						document.getElementById("showRight").innerHTML = xmlHttp.responseText;
+						document.getElementById("likeId").innerHTML = xmlHttp.responseText;
 					}
 				}
+				xmlHttp.close();
 				//alert("send");
 			}
 			$(document).ready(function(){
 	        $("#like<%=post%>").toggle(
-	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>); 
-	            				<%-- $.post("/LikeAction", {
-	            					User: <%=userBean%>
-	            					Post: <%=postBean%>
-	            				},function(data){  
-	                
-	            }); --%> 
-	           	addLikes(<%=post%>);
-	             },
+	            function(){
+		            	addLikes(<%=post%>, 1, 1);
+		            	$("#like_num<%=post%>").html(<%=a=a+1%>);
+		        },
+	            function(){
+			        	addLikes(<%=post%>, 1, -1);
+			        	$("#like_num<%=post%>").html(<%=a=a-1%>);
+		        });
+			$("#dislike<%=post%>").toggle(
 	            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
-	            <%	//likeDao.deleteLikes(1);
+	            
+	            addLikes(<%=post%>, -1);
+	             },
+	            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);
+	            <%	//likeDao.deleteLikes(uid);
 	            %>}
 	            );
-			<%-- $("#dislike<%=post%>").toggle(
-		            function(){$("#like_num<%=post%>").html(<%=a = a - 1%>);
-		            <%	int uid = likeDao.addLikes(userBean, postBean, -1);
-		            
-		            %> },
-		            function(){$("#like_num<%=post%>").html(<%=a = a + 1%>);
-		            <%	likeDao.deleteLikes(uid);
-		            %>}
-		            ); --%>
 			});
 			</script>
 			<%

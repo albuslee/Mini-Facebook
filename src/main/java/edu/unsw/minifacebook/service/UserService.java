@@ -139,5 +139,9 @@ public class UserService {
 		result.putAll(postDao.getPostActivity(ub.getUserId()));
 		return result;
 	}
+	
+	public DetailBean loadUserDetail(String username) {
+		return detailDao.getUserByUsername(username);
+	}
 
 }

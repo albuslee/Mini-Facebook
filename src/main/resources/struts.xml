@@ -117,13 +117,20 @@
 		<action name="loadActivity" class="edu.unsw.minifacebook.action.Provisioning"
 			method="loadActivity">
 			<result name="input">/admin.jsp</result>
-			<result name="success">/admin.jsp</result>
+			<result name="success">/activity.jsp</result>
 			<result name="error">/fail.jsp</result>
 			<result name="login">/provisioning_login.jsp</result>
 		</action>
 
 		<action name="addLikes" class="edu.unsw.minifacebook.action.LikeAction"
 			method="addLikes">
+			<result name="success">/success.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="addUnLikes" class="edu.unsw.minifacebook.action.LikeAction"
+			method="addUnLikes">
 			<result name="success">/success.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>

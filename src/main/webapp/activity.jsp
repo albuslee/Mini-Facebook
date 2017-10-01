@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.Iterator"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,9 +55,9 @@
 <jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
-
 	<%
-		DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
+		DetailBean detail = (DetailBean) request.getAttribute("detailbean");
+		Map<Date,String> activity = (Map<Date,String> )request.getAttribute("activity");
 		String User = detail.getUsername();
 		String imgsource = detail.getPhoto();
 		String name2 = detail.getName();
@@ -75,8 +79,20 @@
 	</div>
 	<div id="detailForm" >
 		<ul class="list-group center-block" style="width: 60%">
-		<li class="list-group-item"><%//这里写 拿到的user的活动%></li>
+		<li class="list-group-item"><%
+    Set<Date> keySet = activity.keySet();
+    Iterator<Date> iter = keySet.iterator();
+    while (iter.hasNext()) {
+        Date key = iter.next();
+        
+        %>
+        <%=key %> : <%= activity.get(key) %>
+        <br>
+        <%
+    }
+	%></li>
 		</ul>
 	</div>
+	
 </body>
 </html>

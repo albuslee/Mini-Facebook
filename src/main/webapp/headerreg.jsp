@@ -99,9 +99,18 @@ k<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
 <%
 DetailBean detail = (DetailBean) request.getSession().getAttribute("detailbean");
-String nl_size="0";
+String nl_size=(String) request.getSession().getAttribute("nl_size");
 if(detail!=null){
-	nl_size=(String) request.getSession().getAttribute("nl_size");
+	if (nl_size == null) {
+		List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
+		int nl_size_int = 0;
+		for(NotificationBean fr: notificationlist){
+			if (fr.getnotification_status().equals("unread")) {
+				nl_size_int = nl_size_int + 1;
+			}
+		}
+		nl_size = String.valueOf(nl_size_int);
+	}
 %>
 	<nav class="navbar navbar-default">
 	    <div class="navbar-header">
@@ -116,11 +125,12 @@ if(detail!=null){
             <li>
               <a href="profile.jsp">Profile</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="friendrequest.jsp">Friend Requests</a>
-            </li>
+            </li> -->
             <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                <div id="noti_Counter" style="margin-top:13px;"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+
                 
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
                 <div id="noti_Button" style="margin-top:13px;"></div>    
@@ -128,9 +138,9 @@ if(detail!=null){
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" >
                     <h3>Notifications</h3>
-                    <div id="showNotification" style="height:300px; overflow:scroll">
+                    <div id="showNotification" style="height:300px; overflow:scroll" class="list-group">
 	            	</div>
-	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
+	            	<a onclick="location='friendrequest.jsp'">See All Friend Requests</a>
                 </div>
             </li>
           </ul>
