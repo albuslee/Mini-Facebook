@@ -10,22 +10,26 @@
 			<result name="input">/register.jsp</result>
 			<result name="success">/success.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="searchFriends" class="edu.unsw.minifacebook.action.FriendAction"
 			method="execute">
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="sendFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
 			method="sendFriendRequest">
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="loadFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
 			method="loadFriendRequest">
 			<result name="input">/friendrequest.jsp</result>
 			<result name="success">/friendrequest.jsp</result>
 			<result name="error">/fail.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="acceptFriendRequest" class="edu.unsw.minifacebook.action.FriendAction"
 			method="acceptFriendRequest">

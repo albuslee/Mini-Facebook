@@ -41,7 +41,7 @@ public class PostService {
 		List<PostBean> postsList = null;
 		UserBean userBean = userDao.getUserByUsername(username);
 		List<Integer> userList = friendDao.getAllFriendIdsByUserid(userBean.getUserId());
-
+		userList.add(userBean.getUserId());
 		postsList = postDao.getPostsByUserlist(userList);
 		return postsList;
 	}

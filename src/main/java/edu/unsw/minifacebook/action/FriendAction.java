@@ -18,6 +18,7 @@ import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.forms.DetailForm;
 import edu.unsw.minifacebook.service.FriendService;
 import edu.unsw.minifacebook.service.NotificationService;
+import edu.unsw.minifacebook.util.Emailer;
 
 public class FriendAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
@@ -58,11 +59,13 @@ public class FriendAction extends ActionSupport{
         HttpServletRequest request = ServletActionContext.getRequest(); 
         DetailBean currentUser = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
         String username = request.getParameter("username");
+        
         if(currentUser != null) {
+
         	nservice.sendAddFriendRequestNotification(username, currentUser);
         	return SUCCESS;
         }else {
-        	return ERROR;
+        	return LOGIN;
         }
 	}
 	
@@ -74,7 +77,7 @@ public class FriendAction extends ActionSupport{
         	request.setAttribute("friendrequests", notifications);
         	return SUCCESS;
         }else {
-        	return ERROR;
+        	return LOGIN;
         }
 	}
 	
