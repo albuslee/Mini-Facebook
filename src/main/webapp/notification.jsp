@@ -29,15 +29,18 @@ if(detail!=null){
 			DetailBean dBean = nfrom.getDetailBean();
 			if (fr.getType().equals("like")) {
 				//out.println("[" + fr.getnotification_status() + "]");
-				out.println("Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ");%><br><%
+				String output="Your post " + fr.getcommented_record() + " was liked by user " + dBean.getName() + ". ";
+				%><a href="#" class="list-group-item" ><%=output%></a><%
 			}
 			else if (fr.getType().equals("friend")) {
 				//out.println("[" + fr.getnotification_status() + "]");
-				out.println("User " + dBean.getName() + " sends a friend request. ");%><br><%
+				String output="User " + dBean.getName() + " sends a friend request. ";
+				%><a href="#" class="list-group-item" ><%=output%></a><%
 			}
 			else if (fr.getType().equals("accept")) {
 				//out.println("[" + fr.getnotification_status() + "]");
-				out.println("User " + dBean.getName() + " has accepted your friend request. ");%><br><%
+				String output="User " + dBean.getName() + " has accepted your friend request. ";
+				%><a href="#" class="list-group-item" ><%=output%></a><%
 			}
 		}
 	}

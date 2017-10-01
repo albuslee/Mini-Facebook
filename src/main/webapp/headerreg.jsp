@@ -139,9 +139,9 @@ if(detail!=null){
                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" >
                     <h3>Notifications</h3>
-                    <div id="showNotification" style="height:300px; overflow:scroll">
+                    <div id="showNotification" style="height:300px; overflow:scroll" class="list-group">
 	            	</div>
-	            	<a onclick="location='posts.jsp'">See All Friend Requests</a>
+	            	<a onclick="location='friendrequest.jsp'">See All Friend Requests</a>
                 </div>
             </li>
           </ul>
