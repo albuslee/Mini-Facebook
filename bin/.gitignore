@@ -3,4 +3,11 @@
 .settings/
 .DS_Store
 *.class
+/.babelrc
+/.gitignore
+/.project
+/README.md
+/gulpfile.js
+/pom.xml
+/requirements/
 /src/

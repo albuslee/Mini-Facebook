@@ -25,23 +25,17 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>EmailVerificationServlet</servlet-name>
-		<display-name>EmailVerificationServlet</display-name>
+		<servlet-name>LikeAction</servlet-name>
+		<display-name>LikeAction</display-name>
 		<description></description>
-		<servlet-class>edu.unsw.minifacebook.service.EmailVerificationServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>verifyCode</servlet-name>
-		<display-name>verifyCode</display-name>
-		<description></description>
-		<servlet-class>edu.unsw.minifacebook.action.verifyCode</servlet-class>
+		<servlet-class>edu.unsw.minifacebook.action.LikeAction</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>EmailVerificationServlet</servlet-name>
-		<url-pattern>/EmailVerificationServlet</url-pattern>
+		<servlet-name>LikeAction</servlet-name>
+		<url-pattern>/LikeAction</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>verifyCode</servlet-name>
-		<url-pattern>/verifyCode</url-pattern>
-	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>register.jsp</welcome-file>
+		<welcome-file>/register.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

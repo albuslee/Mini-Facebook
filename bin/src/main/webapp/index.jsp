@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,15 +29,62 @@
               <a href="profile.jsp">Profile</a>
             </li>
           </ul>
-		   <form style="float:right" class="form-inline navbar-form">
+		   <s:form action = "searchFriends" style="float:right" class="form-inline navbar-form">
 				<div class="input-group">
-                   <input type="text" class="form-control" placeholder="freindSearch">
+                   <s:textfield name = "detailform.name" label = "name" placeholder="friendSearch"> </s:textfield>
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">search</button>
+                      <br/>
+                      <br/>
+                      <br/>
+                      
+                     
+              
                     </span>
                   </div>
-		   </form>
+		   </s:form>
+		   <br/>
+		   <br/>
+		               <form  action ="advancedSearch.jsp" >
+                      <input type = "submit" value = "AdvancedSearch">
+                      </form>
+               
+               
         </div>
+         
+<!--          <div align= "center">  
+	<form  action ="results.jsp" >
+	agency <br/>
+	<input type = "text" name = "agency"/>
+	<br/>
+	headline <br/>
+	<input type = "text" name = "headline"/>
+	<br/>
+	date(year-month-dayTxx:xx:xx) <br/>
+	<input type = "text" name = "date"/>
+	<br/>
+	city <br/>
+	<input type = "text" name = "city"/>
+	<br/>
+	content <br/>
+	<input type = "text" name = "content"/>
+	<br/>
+	<input type = "submit" value = "search">
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/> -->
+<%--            <div id="formSize">
+    <s:form action="register" class="form-horizontal">
+        <s:textfield name="userform.username" label="Username" class="form-control" placeholder="Username"></s:textfield>
+        <s:password name="userform.password" label="Password" class="form-control" placeholder="password"></s:password>
+        <s:select class="form-control" list="#{'M':'Male','F':'Female'}" listKey="key" listValue="value" 
+            name="userform.gender" label="Gender" value="M"></s:select>
+        <s:textfield name="userform.email" label="email" class="form-control" placeholder="Email"></s:textfield>
+        <s:submit value="Register" class="btn btn-primary btn-block"></s:submit>
+    </s:form>
+   </div> --%>
    </nav>
 	<div><jsp:include page="register.jsp"></jsp:include></div>
 </body>
