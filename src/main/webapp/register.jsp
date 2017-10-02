@@ -65,9 +65,6 @@ canvas {
 </head>
 <body>
 
-		               <form  action ="advancedSearch.jsp" >
-                      <input type = "submit" value = "AdvancedSearch">
-                      </form>
 	<canvas id="canvas"></canvas>
 	<script src="index.js"></script>
 	<div id="formSize">
