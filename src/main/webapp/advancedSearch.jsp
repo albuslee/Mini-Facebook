@@ -21,7 +21,7 @@
 
 		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <s:textfield name="detailform.major" type="text" class="form-control" placeholder="major"></s:textfield>
+                   <s:textfield name="detailform.major" type="text" class="form-control" placeholder="cs"></s:textfield>
                     <span class="input-group-btn">
                      <s:submit value="search" class="btn btn-default"></s:submit>
                     </span>
@@ -29,7 +29,7 @@
 		   </s:form>
 		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <s:textfield name="detailform.birthday" type="text" class="form-control" placeholder="birthday"></s:textfield>
+                   <s:textfield name="detailform.birthday" type="text" class="form-control" placeholder="2000/12/12"></s:textfield>
                     <span class="input-group-btn">
                      <s:submit value="search" class="btn btn-default"></s:submit>
                     </span>
@@ -37,7 +37,7 @@
 		   </s:form>
 		   <s:form style="float:right" class="form-inline navbar-form" action="searchuser">
 				<div class="input-group">
-                   <s:textfield name="detailform.gender" type="text" class="form-control" placeholder="gender"></s:textfield>
+                   <s:textfield name="detailform.gender" type="text" class="form-control" placeholder="M"></s:textfield>
                     <span class="input-group-btn">
                      <s:submit value="search" class="btn btn-default"></s:submit>
                     </span>

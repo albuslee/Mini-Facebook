@@ -155,7 +155,7 @@ if(detail!=null){
 		   
 		   		       <form style="float:right" class="form-inline navbar-form"   action ="advancedSearch.jsp" >
 		   		       <div class = "input-group">
-                      <input type = "submit" value = "AdvancedSearch">
+                      <input type = "submit" value = "AdvancedSearch" class = "btn btn-default">
                       </div>
                       </form>
         </div>
