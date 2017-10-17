@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +35,46 @@ public class PostDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	private String action = "send message";
+
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
+	}
+
+	public PostBean getPostByid(int id) {
+		PostBean postBean = new PostBean();
+
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
+
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "select * from entitystore where subject='PostBean" + id + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String predicate = rs.getString("predicate");
+				String object = rs.getString("object");
+				ReflexUtil.setAttribute(postBean, predicate, object);
+			}
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return postBean;
 	}
 
 	public void saveObject(PostBean postBean) throws HibernateException {
@@ -63,9 +102,12 @@ public class PostDAO {
 			for (String inserSql : insertSqls) {
 				stmt.addBatch(inserSql);
 			}
-			sql = "insert into graph (subject,predicate,object) values ('" + 
-			"UserBean" + postBean.getCreator() + "', 'Edge" + eseq + "','"
-					+ "PostBean" + postBean.getId() + "')" ;
+			sql = "insert into entitystore(subject,predicate,object) values ('" + "Edge" + eseq
+					+ "', 'label','send message')";
+			stmt.addBatch(sql);
+
+			sql = "insert into graph (subject,predicate,object) values ('" + "UserBean" + postBean.getCreatorid()
+					+ "', 'Edge" + eseq + "','" + "PostBean" + postBean.getId() + "')";
 			stmt.addBatch(sql);
 			stmt.executeBatch();
 			conn.commit();
@@ -89,38 +131,43 @@ public class PostDAO {
 	}
 
 	public List<PostBean> getPostsByUserlist(List<Integer> userList) {
-		if(userList == null || userList.isEmpty()) return null;
-		
-		
+		if (userList == null || userList.isEmpty())
+			return null;
+
 		List<PostBean> postList = new ArrayList<PostBean>();
 
-		
+		List<Integer> postidList = new ArrayList<Integer>();
 		Session session = this.getCurrentSession();
 		SessionImpl sessionImpl = (SessionImpl) session;
 		Connection conn = sessionImpl.connection();
+		ResultSet rs = null;
 
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "select distinct(subject) from entitystore";
-			ResultSet rs = stmt.executeQuery(sql);
-			List<String> ids = new ArrayList<String>();
-			while(rs.next()){
-				ids.add(rs.getString(1));
+			for (Integer userid : userList) {
+				String sql = "select distinct(g.object) from entitystore e, graph g where e.subject = g.predicate and e.object='"
+						+ action + "'" + " and g.subject='UserBean" + userid + "'";
+				rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					String postid = rs.getString(1);
+					postid = postid.replaceAll("PostBean", "");
+					postidList.add(Integer.parseInt(postid));
+				}
 			}
-			
-			
-			for(String id: ids) {
-				PostBean postBean = new PostBean();
-				sql = "select * from entitystore where subject='" + id+ "'";
+
+			Collections.sort(postidList);
+			for (Integer postid : postidList) {
+				PostBean pb = new PostBean();
+				String sql = "select * from entitystore where subject='PostBean" + postid + "'";
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
 					String predicate = rs.getString("predicate");
 					String object = rs.getString("object");
-					ReflexUtil.setAttribute(postBean, predicate, object);
+					ReflexUtil.setAttribute(pb, predicate, object);
 				}
-				postList.add(postBean);
+				postList.add(pb);
 			}
-			
+
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
@@ -140,19 +187,18 @@ public class PostDAO {
 
 		return postList;
 	}
-	
-	public Map<Date, String> getPostActivity(Integer userId){
+
+	public Map<Date, String> getPostActivity(Integer userId) {
 		List<PostBean> postList = null;
-		Map<Date, String> result = new HashMap<Date,String>();
-		Query query2 = getCurrentSession().createQuery
-				("from PostBean where creator.id = :id").setParameter("id", userId);
-		
+		Map<Date, String> result = new HashMap<Date, String>();
+		Query query2 = getCurrentSession().createQuery("from PostBean where creator.id = :id").setParameter("id",
+				userId);
+
 		postList = query2.getResultList();
-		for(PostBean pb: postList) {
+		for (PostBean pb : postList) {
 			result.put(pb.getPosttime(), "writes post:" + pb.getDescription());
 		}
 		return result;
 	}
-
 
 }

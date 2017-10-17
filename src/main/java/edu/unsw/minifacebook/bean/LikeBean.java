@@ -10,36 +10,53 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Likes")
+
 public class LikeBean {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
 	
-	// Like from USER
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinColumn(name = "Like_from", referencedColumnName = "username")
-	private UserBean like_from;
+
+	private UserBean likefrom;
 	
-	// which post
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinColumn(name = "Post", referencedColumnName = "id")
+	public int getLike_from_id() {
+		return like_from_id;
+	}
+
+	public void setLike_from_id(int like_from_id) {
+		this.like_from_id = like_from_id;
+	}
+
+	public int getPostid() {
+		return postid;
+	}
+
+	public void setPostid(int postid) {
+		this.postid = postid;
+	}
+
+	private int like_from_id;
+	
+
 	private PostBean post;
 	
-	@Column(name = "THUMB")
+	private int postid;
+	
 	private int thumb;
 	
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setLikeFrom(UserBean like_from) {
-		this.like_from = like_from;
+	public void setLikefrom(UserBean likefrom) {
+		this.likefrom = likefrom;
 	}
 
-	public void setPostId(PostBean post) {
+	public void setPost(PostBean post) {
 		this.post = post;
+	}
+	
+	public PostBean getPost() {
+		return this.getPost();
 	}
 
 	public void setThumb(int thumb) {
@@ -51,12 +68,10 @@ public class LikeBean {
 	}
 
 	public UserBean getLikeFrom() {
-		return like_from;
+		return likefrom;
 	}
 
-	public PostBean getPostId() {
-		return post;
-	}
+
 
 	public int getThumb() {
 		return thumb;

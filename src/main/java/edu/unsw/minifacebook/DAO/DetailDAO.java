@@ -45,7 +45,7 @@ public class DetailDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			int seq = 0;
-			while (rs.next()) {
+			if (rs.next()) {
 				seq = rs.getInt(1);
 			}
 			detailBean.setId(seq);
@@ -79,11 +79,11 @@ public class DetailDAO {
 		SessionImpl sessionImpl = (SessionImpl) session;
 		session.beginTransaction();
 		Connection conn = sessionImpl.connection();
-
+		DetailBean db = (DetailBean) obj;
 		try {
 			Statement stmt = conn.createStatement();
-
-			int seq = ((UserBean) obj).getUserid();
+			DetailBean exitedbean = this.getUserByUsername(db.getUsername());
+			int seq = exitedbean.getId();
 			String deleteSql = ReflexUtil.getDeletes(obj);
 			List<String> insertSqls = ReflexUtil.getInserts(obj, seq);
 			stmt.addBatch(deleteSql);
@@ -133,8 +133,7 @@ public class DetailDAO {
 			}
 			if (id == null)
 				return null;
-
-			
+			Integer realid = Integer.parseInt(id.replaceAll("DetailBean", ""));
 			sql = "select * from entitystore where subject='" + id + "'";
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -142,7 +141,7 @@ public class DetailDAO {
 				String object = rs.getString("object");
 				ReflexUtil.setAttribute(detailBean, predicate, object);
 			}
-
+			detailBean.setId(realid.intValue());
 			conn.commit();
 		} catch (SQLException e) {
 			try {
@@ -176,23 +175,26 @@ public class DetailDAO {
 			String sql = "select subject from entitystore where subject like 'DetailBean%'"
 					+ " and predicate='Name' and object='" + name + "'";
 			ResultSet rs = stmt.executeQuery(sql);
-			String id = null;
+
+			List<String> ids = new ArrayList<String>();
 			while (rs.next()) {
-				id = rs.getString("subject");
+				String id = rs.getString("subject");
+				ids.add(id);
 			}
-			if (id == null)
+
+			if (ids.isEmpty())
 				return null;
-
-			sql = "select * from entitystore where subject='" + id + "'";
-
-			while (rs.next()) {
+			for (String id : ids) {
 				DetailBean detailBean = new DetailBean();
-				String predicate = rs.getString("predicate");
-				String object = rs.getString("object");
-				ReflexUtil.setAttribute(detailBean, predicate, object);
+				sql = "select * from entitystore where subject='" + id + "'";
+				rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					String predicate = rs.getString("predicate");
+					String object = rs.getString("object");
+					ReflexUtil.setAttribute(detailBean, predicate, object);
+				}
 				list.add(detailBean);
 			}
-
 			conn.commit();
 		} catch (SQLException e) {
 			try {
@@ -216,18 +218,7 @@ public class DetailDAO {
 
 	public List<DetailBean> getFriendByname(String name) {
 
-		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<DetailBean> query = builder.createQuery(DetailBean.class);
-		Root<DetailBean> root = query.from(DetailBean.class);
-		query.select(root).where(builder.equal(root.get("name"), name));
-		ArrayList<DetailBean> list = new ArrayList<DetailBean>();
-		Query q = this.getCurrentSession().createQuery(query);
-		try {
-			list = (ArrayList<DetailBean>) q.getResultList();
-		} catch (NoResultException nre) {
-			nre.printStackTrace();
-		}
-		return list;
+		return this.getDetailByname(name);
 	}
 
 	public ArrayList<DetailBean> getFriendByGender(String gender) {

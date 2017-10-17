@@ -22,7 +22,17 @@ public class PostBean {
 
 	private String description;
 	
-	private int creator;
+	private UserBean creator;
+	
+	public UserBean getCreator() {
+		return creator;
+	}
+
+	public void setCreator(UserBean creator) {
+		this.creator = creator;
+	}
+
+	private Integer creatorid;
 	
 	private Date posttime;
 	
@@ -34,13 +44,13 @@ public class PostBean {
 		this.posttime = posttime;
 	}
 
-	private int likenum;
+	private Integer likenum;
 
-	public int getLikenum() {
+	public Integer getLikenum() {
 		return likenum;
 	}
 
-	public void setLikenum(int likenum) {
+	public void setLikenum(Integer likenum) {
 		this.likenum = likenum;
 	}
 
@@ -60,12 +70,12 @@ public class PostBean {
 		this.description = description;
 	}
 
-	public int getCreator() {
-		return creator;
+	public Integer getCreatorid() {
+		return creatorid;
 	}
 
-	public void setCreator(int creator) {
-		this.creator = creator;
+	public void setCreatorid(Integer creator) {
+		this.creatorid = creator;
 	}
 
 }
