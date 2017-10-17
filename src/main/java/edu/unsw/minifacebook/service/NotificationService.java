@@ -30,7 +30,7 @@ import edu.unsw.minifacebook.util.MD5Util;
 @Transactional
 public class NotificationService {
 	@Autowired
-	private NotificationDAO NotificationDao;
+	private NotificationDAO notificationDao;
 	
 	@Autowired
 	private UserDAO userDAO;
@@ -43,7 +43,7 @@ public class NotificationService {
 				.get(ServletActionContext.HTTP_REQUEST);
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userbean");
 		if(userBean == null) return null;
-		List<NotificationBean> notificationList = NotificationDao.getNotificationByUserBean(userBean);
+		List<NotificationBean> notificationList = notificationDao.getNotificationByUserBean(userBean);
 		for(NotificationBean request2: notificationList) {
 			DetailBean db2 = detailDao.getUserByUsername(request2.getFrom2().getUsername());
 			request2.getFrom2().setDetailBean(db2);
@@ -58,15 +58,15 @@ public class NotificationService {
 		NotificationBean nb = new NotificationBean();
 		nb.setType("friend");
 		nb.setFrom2(rfrom);
-		nb.setuserBean(userBean);
+		nb.setUserBean(userBean);
     	Emailer.sendMail(currentUser.getEmail(), detailBean.getName()+ " wants to add you as friend\n", "http://localhost:8080/mini_facebook/acceptFriendRequest?username="+rfrom.getUsername());
-		NotificationDao.insertNotificationByUserBean(userBean, nb);
+		notificationDao.insertNotificationByUserBean(userBean, nb);
 		
 	}
 	
 	public List<NotificationBean> loadAddFriendRequest(String username) {
 		UserBean userBean = userDAO.getUserByUsername(username);
-		List<NotificationBean> result = NotificationDao.getFriendNotificationByUserBean(userBean);
+		List<NotificationBean> result = notificationDao.getFriendNotificationByUserBean(userBean);
 		for(NotificationBean request: result) {
 			DetailBean db = detailDao.getUserByUsername(request.getFrom2().getUsername());
 			request.getFrom2().setDetailBean(db);

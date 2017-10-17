@@ -12,13 +12,20 @@ import javax.transaction.Transactional;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
+import edu.unsw.minifacebook.util.ReflexUtil;
+
 import java.util.Date;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 @Repository
@@ -30,8 +37,45 @@ public class NotificationDAO {
 		return sessionFactory.openSession();
 	}
 
-	public void saveObject(Object obj) throws HibernateException {
-		this.getCurrentSession().save(obj);
+	public void saveObject(NotificationBean obj) throws HibernateException {
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		session.beginTransaction();
+		Connection conn = sessionImpl.connection();
+		try {
+			obj.setUserid(obj.getUserBean().getUserid());
+			obj.setFromid(obj.getFrom2().getUserid());
+			String sql = "select nextval('NotificationSeq')";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			int seq = 0;
+			while (rs.next()) {
+				seq = rs.getInt(1);
+			}
+			obj.setId(seq);
+			List<String> insertSqls = ReflexUtil.getInserts(obj, seq);
+			for (String inserSql : insertSqls) {
+				stmt.addBatch(inserSql);
+			}
+			stmt.executeBatch();
+			conn.commit();
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 
 	public List<NotificationBean> getNotificationByUserBean(UserBean userBean) {
@@ -63,9 +107,9 @@ public class NotificationDAO {
 	public void insertNotificationByUserBean(UserBean userBean, NotificationBean notificationbean) {
 		long N_time = System.currentTimeMillis();
 		Date N_date = new Date(N_time);
-		notificationbean.setuserBean(userBean);
-		notificationbean.setcomment_time(N_date);
-		notificationbean.setnotification_status("unread");
+		notificationbean.setUserBean(userBean);
+		notificationbean.setComment_time(N_date);
+		notificationbean.setNotification_status("unread");
 		this.getCurrentSession().save(notificationbean);
 		return;
 	}
