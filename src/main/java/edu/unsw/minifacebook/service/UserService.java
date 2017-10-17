@@ -1,5 +1,6 @@
 package edu.unsw.minifacebook.service;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class UserService {
 		}
 	}
 	
-	public boolean register(UserForm userForm) throws HibernateException{
+	public boolean register(UserForm userForm) throws HibernateException, SQLException{
 		UserBean userBean =new UserBean();
 		DetailBean detailBean =new DetailBean();
 		userForm.setPassword(MD5Util.getMD5String(userForm.getPassword()));
@@ -135,8 +136,8 @@ public class UserService {
 		DetailBean db = detailDao.getUserByUsername(username);
 		ub.setDetailBean(db);
 		result.put(ub.getRegistTime(), db.getName() + "joined UNSWBook");
-		result.putAll(friendDao.getFriendActivity(ub.getUserId()));
-		result.putAll(postDao.getPostActivity(ub.getUserId()));
+		result.putAll(friendDao.getFriendActivity(ub.getUserid()));
+		result.putAll(postDao.getPostActivity(ub.getUserid()));
 		return result;
 	}
 	

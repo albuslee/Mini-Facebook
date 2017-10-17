@@ -15,6 +15,12 @@ public class DetailBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Column(nullable=false, unique= true)
 	private String username;
 	@Column

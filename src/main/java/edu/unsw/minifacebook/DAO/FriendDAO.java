@@ -1,5 +1,9 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,11 +20,13 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.bean.FriendBean;
 import edu.unsw.minifacebook.bean.UserBean;
+import edu.unsw.minifacebook.util.ReflexUtil;
 
 @Repository
 public class FriendDAO {
@@ -34,22 +40,56 @@ public class FriendDAO {
 		return sessionFactory.openSession();
 	}
 
-	public void saveObject(Object obj) throws HibernateException {
-		this.getCurrentSession().save(obj);
-	}
 
 	public void addFriends(UserBean userBean1, UserBean userBean2) {
-		if (userBean1.getUserId() > userBean2.getUserId()) {
+		if (userBean1.getUserid() > userBean2.getUserid()) {
 			UserBean temp = userBean1;
 			userBean1 = userBean2;
 			userBean2 = temp;
 		}
-		FriendBean friendBean = new FriendBean();
-		friendBean.setFirstUser(userBean1);
-		friendBean.setSecoundUser(userBean2);
-		friendBean.setFriendtime(new Date());
-		if (!existed(userBean1.getUserId(), userBean2.getUserId()))
-			this.getCurrentSession().save(friendBean);
+		
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		session.beginTransaction();
+		Connection conn = sessionImpl.connection();
+		try {
+			int eseq = 0;
+			String sql = "select nextval('EdgeSeq')";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				eseq = rs.getInt(1);
+			}
+			
+			sql = "insert into entitystore (subject,predicate,object) values ('"
+					+ "Edge" + eseq + "', 'label','friend of'";
+			stmt.addBatch(sql);
+			sql = "insert into entitystore (subject,predicate,object) values ('"
+					+ "Edge" + eseq + "', 'FriendTime','" + new Date().toString() + "'";
+
+			sql = "insert into graph (subject,predicate,object) values ('" + 
+			"UserBean" + "UserBean"+userBean1.getUserid() + "', 'Edge" + eseq + "','"
+					+ "UserBean"+userBean2.getUserid() + "')" ;
+			stmt.addBatch(sql);
+			stmt.executeBatch();
+			conn.commit();
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 
 	}
 
@@ -59,15 +99,38 @@ public class FriendDAO {
 			user1 = user2;
 			user2 = temp;
 		}
-		Query query1 = getCurrentSession()
-				.createQuery("from FriendBean where firstuser = :user1 and seconduser = :user2")
-				.setParameter("user1", user1).setParameter("user2", user2);
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
 		try {
-			query1.getSingleResult();
-		} catch (NoResultException nre) {
+			String sql = "select from graph where subject = 'UserBean" + user1 + "' and object = '"
+					+ "UserBean" + user2 + "'";
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				return true;
+			}
 			return false;
+			
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
-		return true;
+		return false;
 	}
 
 	public List<UserBean> getAllFriendsByUserid(Integer userId) {
@@ -80,31 +143,51 @@ public class FriendDAO {
 		return userBeanList;
 	}
 
-	public List<Integer> getAllFriendIdsByUsername(String username) {
-		List<Integer> userBeanList = new ArrayList<Integer>();
-
-		// Query query2 = getCurrentSession().createQuery
-		// ("from Friend where firstuser.id = (:id)").setParameter("id", username);
-		//
-		// postList = query2.getResultList();
-		// userBeanList.add(1);
-		return userBeanList;
-	}
 
 	public List<Integer> getAllFriendIdsByUserid(Integer userId) {
 		List<Integer> result = new ArrayList<Integer>();
-		List<FriendBean> friendBeanList = new ArrayList<FriendBean>();
-		Query query1 = getCurrentSession().createQuery("from FriendBean where seconduser = (:id)").setParameter("id",
-				userId);
-		Query query2 = getCurrentSession().createQuery("from FriendBean where firstuser = (:id)").setParameter("id",
-				userId);
-		friendBeanList = query1.getResultList();
-		for (FriendBean fb : friendBeanList) {
-			result.add(fb.getFirstUser().getUserId());
-		}
-		List<FriendBean> tempList2 = query2.getResultList();
-		for (FriendBean fb : tempList2) {
-			result.add(fb.getSecoundUser().getUserId());
+		
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
+		try {
+			String sql = "select from graph where subject = 'UserBean" + userId + "'";
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				String object = rs.getString("object");
+				object = object.replaceAll("UserBean", "");
+				result.add(Integer.parseInt(object));
+			}
+			
+			sql = "select from graph where object = 'UserBean" + userId + "'";
+			
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				String subject = rs.getString("subject");
+				subject = subject.replaceAll("UserBean", "");
+				result.add(Integer.parseInt(subject));
+			}
+			
+
+			
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		return result;
 	}
@@ -118,11 +201,11 @@ public class FriendDAO {
 				userId);
 		friendBeanList = query1.getResultList();
 		for (FriendBean fb : friendBeanList) {
-			result.put(fb.getFriendtime(),"become friends with" + fb.getFirstUser().getUserId().toString());
+			result.put(fb.getFriendtime(),"become friends with" + fb.getFirstUser().getUserid().toString());
 		}
 		List<FriendBean> tempList2 = query2.getResultList();
 		for (FriendBean fb : tempList2) {
-			result.put(fb.getFriendtime(),"become friends with" + fb.getSecoundUser().getUserId().toString());
+			result.put(fb.getFriendtime(),"become friends with" + fb.getSecoundUser().getUserid().toString());
 		}
 		return result;
 	}

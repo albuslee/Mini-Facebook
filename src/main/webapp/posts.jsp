@@ -189,7 +189,6 @@ CKEDITOR.replace( 'postform.description');
 			<% int post = postBean.getId(); %>
 
 			<%
-				UserBean userBean = postBean.getCreator();
 
 				//LikeDAO likeDao = new LikeDAO();
 				int a = postBean.getLikenum();

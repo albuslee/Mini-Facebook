@@ -14,21 +14,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity
-@Table(name = "Post")
+
 public class PostBean {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
 
-	@Column
+
 	private String description;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="creator",referencedColumnName="userid") 
-	private UserBean creator;
+	private int creator;
 	
-	@Column
 	private Date posttime;
 	
 	public Date getPosttime() {
@@ -39,7 +34,6 @@ public class PostBean {
 		this.posttime = posttime;
 	}
 
-	@Transient
 	private int likenum;
 
 	public int getLikenum() {
@@ -66,11 +60,11 @@ public class PostBean {
 		this.description = description;
 	}
 
-	public UserBean getCreator() {
+	public int getCreator() {
 		return creator;
 	}
 
-	public void setCreator(UserBean creator) {
+	public void setCreator(int creator) {
 		this.creator = creator;
 	}
 

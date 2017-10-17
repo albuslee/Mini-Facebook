@@ -18,10 +18,7 @@ import edu.unsw.minifacebook.util.MD5Util;
 @Entity
 @Table(name = "User")
 public class UserBean implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +46,14 @@ public class UserBean implements Serializable{
 		return registTime;
 	}
 
+	public void setRegistTime(Date empty) {
+		Date regTime=new Date();
+        Calendar cl = Calendar.getInstance();  
+        cl.setTime(regTime);  
+        cl.add(Calendar.DATE , 1);
+        this.registTime=cl.getTime();
+	}
+	
 	public void setRegistTime() {
 		Date regTime=new Date();
         Calendar cl = Calendar.getInstance();  
@@ -81,11 +86,11 @@ public class UserBean implements Serializable{
 		this.email = email;
 	}
 
-	public Integer getUserId() {
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserId(Integer id) {
+	public void setUserid(Integer id) {
 		this.userid = id;
 	}
 

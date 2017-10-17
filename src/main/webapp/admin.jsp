@@ -88,7 +88,7 @@
 					<b style="color: blue; font-size: 20px;">
 					<%=detailBean.getName()%></b>
 					<br><%=detailBean.getGender()%>
-					<br><%=userBean.getUserId()%></div>
+					<br><%=userBean.getUserid()%></div>
 				<button id="<%=detailBean.getUsername()%>" class="btn btn-primary"
 					onclick="sendAjaxRequest(event)">BAN</button>
 			</li>

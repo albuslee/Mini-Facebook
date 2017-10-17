@@ -42,6 +42,7 @@ public class NotificationService {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
 				.get(ServletActionContext.HTTP_REQUEST);
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userbean");
+		if(userBean == null) return null;
 		List<NotificationBean> notificationList = NotificationDao.getNotificationByUserBean(userBean);
 		for(NotificationBean request2: notificationList) {
 			DetailBean db2 = detailDao.getUserByUsername(request2.getFrom2().getUsername());

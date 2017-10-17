@@ -38,7 +38,7 @@ public class NotificationDAO {
 		List<NotificationBean> notificationList = new ArrayList<NotificationBean>();
 		
 		Query query1 = getCurrentSession().createQuery
-				("from NotificationBean where userBean.id = (:ids)").setParameter("ids", userBean.getUserId());
+				("from NotificationBean where userBean.id = (:ids)").setParameter("ids", userBean.getUserid());
 		
 		notificationList = query1.getResultList();
 		
@@ -51,7 +51,7 @@ public class NotificationDAO {
 		
 		Query query1 = getCurrentSession().createQuery
 				("from NotificationBean where userBean.id = (:id) and type=(:type)")
-				.setParameter("id", userBean.getUserId())
+				.setParameter("id", userBean.getUserid())
 				.setParameter("type", "friend");
 		
 		notificationList = query1.getResultList();
