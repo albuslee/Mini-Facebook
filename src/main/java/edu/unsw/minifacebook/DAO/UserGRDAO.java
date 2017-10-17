@@ -1,5 +1,11 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,11 +19,15 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.unsw.minifacebook.bean.DetailBean;
+import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
+import edu.unsw.minifacebook.bean.graphBean;
+import edu.unsw.minifacebook.util.ReflexUtil;
 
 @Repository
 public class UserGRDAO {
@@ -73,5 +83,53 @@ public class UserGRDAO {
 		result = query.getResultList();
 		return result;
 		
+	}
+	
+	public List<graphBean> getgraphByRequest(String request) {
+		List<graphBean> relationList = new ArrayList<graphBean>();
+
+		
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
+
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "select * from graph";
+			ResultSet rs = stmt.executeQuery(sql);
+			List<String> ids = new ArrayList<String>();
+			while(rs.next()){
+				ids.add(rs.getString(1));
+			}
+			
+			
+			for(String id: ids) {
+				graphBean graphBean = new graphBean();
+				sql = "select * from entitystore where subject='" + id+ "'";
+				rs = stmt.executeQuery(sql);
+				String predicate = rs.getString("predicate");
+				String object = rs.getString("object");
+				ReflexUtil.setAttribute(graphBean, predicate, object);
+				relationList.add(graphBean);
+			}
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return relationList;
 	}
 }

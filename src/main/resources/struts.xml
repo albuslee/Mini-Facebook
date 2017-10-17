@@ -142,6 +142,12 @@
 			<result name="input">/index.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		<action name="graphSearch" class="edu.unsw.minifacebook.action.graphSearch">
+			<result name="success">/graph.jsp</result>
+			<result name="input">/graph.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
+		
 	</package>
 
 
