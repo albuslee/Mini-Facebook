@@ -13,33 +13,31 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "Notification")
 public class NotificationBean {
 
 	private int id;
 	
 	private UserBean userBean;
 	
-	private Integer userid;
+	private Integer userid2;
 	
-	public Integer getUserid() {
-		return userid;
+	public Integer getUserid2() {
+		return userid2;
 	}
 
-	public void setUserid(Integer userid) {
-		this.userid = userid;
+	public void setUserid2(Integer userid) {
+		this.userid2 = userid;
 	}
 
-	public Integer getFromid() {
-		return fromid;
+	public Integer getFromid2() {
+		return fromid2;
 	}
 
-	public void setFromid(Integer fromid) {
-		this.fromid = fromid;
+	public void setFromid2(Integer fromid) {
+		this.fromid2 = fromid;
 	}
 
-	private Integer fromid;
+	private Integer fromid2;
 	
 	private UserBean from2;
 	

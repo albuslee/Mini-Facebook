@@ -105,7 +105,7 @@ if(detail!=null){
 		List<NotificationBean> notificationlist = (List<NotificationBean>) request.getSession().getAttribute("notificationList");
 		int nl_size_int = 0;
 		for(NotificationBean fr: notificationlist){
-			if (fr.getnotification_status().equals("unread")) {
+			if (fr.getNotification_status().equals("unread")) {
 				nl_size_int = nl_size_int + 1;
 			}
 		}

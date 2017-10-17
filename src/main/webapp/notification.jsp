@@ -23,7 +23,7 @@ if(detail!=null){
 		String comment = new String();
 		
 		for(NotificationBean fr: notificationlist){
-			if (fr.getnotification_status().equals("unread")) {
+			if (fr.getNotification_status().equals("unread")) {
 				nl_size = nl_size + 1;
 			}
 			String nlstr=String.valueOf(nl_size);
@@ -31,7 +31,7 @@ if(detail!=null){
 			UserBean nfrom = fr.getFrom2();
 			DetailBean dBean = nfrom.getDetailBean();
 			if (fr.getType().equals("like")) {
-				comment = fr.getcommented_record();
+				comment = fr.getCommented_record();
 				//out.println("[" + fr.getnotification_status() + "]");
 
 				if (comment.contains("<img") && comment.contains("height") && comment.contains("width")) {

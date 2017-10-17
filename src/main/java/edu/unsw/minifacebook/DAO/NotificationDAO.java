@@ -16,6 +16,7 @@ import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
@@ -32,6 +33,9 @@ import java.util.ArrayList;
 public class NotificationDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private UserDAO userDao;
 
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
@@ -43,8 +47,8 @@ public class NotificationDAO {
 		session.beginTransaction();
 		Connection conn = sessionImpl.connection();
 		try {
-			obj.setUserid(obj.getUserBean().getUserid());
-			obj.setFromid(obj.getFrom2().getUserid());
+			obj.setUserid2(obj.getUserBean().getUserid());
+			obj.setFromid2(obj.getFrom2().getUserid());
 			String sql = "select nextval('NotificationSeq')";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -79,26 +83,67 @@ public class NotificationDAO {
 	}
 
 	public List<NotificationBean> getNotificationByUserBean(UserBean userBean) {
-		List<NotificationBean> notificationList = new ArrayList<NotificationBean>();
-		
-		Query query1 = getCurrentSession().createQuery
-				("from NotificationBean where userBean.id = (:ids)").setParameter("ids", userBean.getUserid());
-		
-		notificationList = query1.getResultList();
-		
-		return notificationList;
+		List<NotificationBean> list = new ArrayList<NotificationBean>();
+
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		session.beginTransaction();
+		Connection conn = sessionImpl.connection();
+
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "select distinct(subject) from entitystore where subject like 'NotificationBean%'"
+					+ " and predicate='Userid2' and object='" + userBean.getUserid() + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+
+			List<String> ids = new ArrayList<String>();
+			while (rs.next()) {
+				String id = rs.getString("subject");
+				ids.add(id);
+			}
+
+			if (ids.isEmpty())
+				return list;
+			for (String id : ids) {
+				NotificationBean nb = new NotificationBean();
+				sql = "select * from entitystore where subject='" + id + "'";
+				rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					String predicate = rs.getString("predicate");
+					String object = rs.getString("object");
+					ReflexUtil.setAttribute(nb, predicate, object);
+				}
+				nb.setUserBean(userDao.getUserByUserid(nb.getUserid2()));
+				nb.setFrom2(userDao.getUserByUserid(nb.getFromid2()));
+				list.add(nb);
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}	
+		return list;
 	}
 	
 	public List getFriendNotificationByUserBean(UserBean userBean) {
 		
-		List<NotificationBean> notificationList = new ArrayList<NotificationBean>();
-		
-		Query query1 = getCurrentSession().createQuery
-				("from NotificationBean where userBean.id = (:id) and type=(:type)")
-				.setParameter("id", userBean.getUserid())
-				.setParameter("type", "friend");
-		
-		notificationList = query1.getResultList();
+		List<NotificationBean> notificationList = this.getNotificationByUserBean(userBean);
+		for(NotificationBean nb: notificationList) {
+			if(!nb.getType().equals("friend")) {
+				notificationList.remove(nb);
+			}
+		}
 		
 		return notificationList;
 	}
@@ -110,7 +155,7 @@ public class NotificationDAO {
 		notificationbean.setUserBean(userBean);
 		notificationbean.setComment_time(N_date);
 		notificationbean.setNotification_status("unread");
-		this.getCurrentSession().save(notificationbean);
+		this.saveObject(notificationbean);
 		return;
 	}
 	
