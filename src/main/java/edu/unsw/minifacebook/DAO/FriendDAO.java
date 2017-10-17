@@ -62,13 +62,13 @@ public class FriendDAO {
 			}
 			
 			sql = "insert into entitystore (subject,predicate,object) values ('"
-					+ "Edge" + eseq + "', 'label','friend of'";
+					+ "Edge" + eseq + "', 'label','friend of')";
 			stmt.addBatch(sql);
 			sql = "insert into entitystore (subject,predicate,object) values ('"
-					+ "Edge" + eseq + "', 'FriendTime','" + new Date().toString() + "'";
-
+					+ "Edge" + eseq + "', 'FriendTime','" + new Date().toString() + "')";
+			stmt.addBatch(sql);
 			sql = "insert into graph (subject,predicate,object) values ('" + 
-			"UserBean" + "UserBean"+userBean1.getUserid() + "', 'Edge" + eseq + "','"
+			"UserBean" +userBean1.getUserid() + "', 'Edge" + eseq + "','"
 					+ "UserBean"+userBean2.getUserid() + "')" ;
 			stmt.addBatch(sql);
 			stmt.executeBatch();

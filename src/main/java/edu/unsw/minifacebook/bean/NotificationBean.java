@@ -13,21 +13,32 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "Notification")
 public class NotificationBean {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade= CascadeType.MERGE)
-	@JoinColumn(name = "userBean", referencedColumnName="userid")
 	private UserBean userBean;
 	
+	private Integer userid2;
 	
-	@ManyToOne(cascade= CascadeType.MERGE)
-	@JoinColumn(name = "nfrom", referencedColumnName="userid")
+	public Integer getUserid2() {
+		return userid2;
+	}
+
+	public void setUserid2(Integer userid) {
+		this.userid2 = userid;
+	}
+
+	public Integer getFromid2() {
+		return fromid2;
+	}
+
+	public void setFromid2(Integer fromid) {
+		this.fromid2 = fromid;
+	}
+
+	private Integer fromid2;
+	
 	private UserBean from2;
 	
 	public UserBean getFrom2() {
@@ -38,7 +49,6 @@ public class NotificationBean {
 		this.from2 = from;
 	}
 
-	@Column
 	private String type;
 	
 	public String getType() {
@@ -66,35 +76,35 @@ public class NotificationBean {
 		this.id = id;
 	}
 
-	public UserBean getuserBean() {
+	public UserBean getUserBean() {
 		return userBean;
 	}
 
-	public void setuserBean(UserBean userBean) {
+	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
 	}
 	
-	public String getcommented_record() {
+	public String getCommented_record() {
 		return commented_record;
 	}
 
-	public void setcommented_record(String commented_record) {
+	public void setCommented_record(String commented_record) {
 		this.commented_record = commented_record;
 	}
 
-	public Date getcomment_time() {
+	public Date getComment_time() {
 		return comment_time;
 	}
 
-	public void setcomment_time(Date comment_time) {
+	public void setComment_time(Date comment_time) {
 		this.comment_time = comment_time;
 	}
 	
-	public String getnotification_status() {
+	public String getNotification_status() {
 		return notification_status;
 	}
 
-	public void setnotification_status(String notification_status) {
+	public void setNotification_status(String notification_status) {
 		this.notification_status = notification_status;
 	}
 

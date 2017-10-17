@@ -68,13 +68,13 @@
             
                 DROP TABLE IF EXISTS entitystore;  
     CREATE TABLE entitystore (  
-             subject VARCHAR(45),  
-             predicate VARCHAR(45),  
-             object VARCHAR(45)
+             subject VARCHAR(100),  
+             predicate VARCHAR(100),  
+             object VARCHAR(100)
     ) ENGINE=InnoDB;  
                     DROP TABLE IF EXISTS graph;  
     CREATE TABLE graph (  
-             subject VARCHAR(45),  
-             predicate VARCHAR(45),  
-             object VARCHAR(45)
+             subject VARCHAR(100),  
+             predicate VARCHAR(100),  
+             object VARCHAR(100)
     ) ENGINE=InnoDB;  

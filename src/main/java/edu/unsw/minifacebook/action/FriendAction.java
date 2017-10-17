@@ -105,7 +105,7 @@ public class FriendAction extends ActionSupport{
         	NotificationBean nb = new NotificationBean();
     		nb.setType("accept");
     		nb.setFrom2(rfrom);
-    		nb.setuserBean(userBean);
+    		nb.setUserBean(userBean);
     		NotificationDao.insertNotificationByUserBean(userBean, nb);
         	
         	return SUCCESS;
