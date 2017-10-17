@@ -1,6 +1,8 @@
 package edu.unsw.minifacebook.util;
 
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -238,8 +240,9 @@ public class ReflexUtil {
 					String name = fields[j].getName();
 					name = name.substring(0, 1).toUpperCase() + name.substring(1); // 获取get方法，取值
 					String type = fields[j].getGenericType().toString();
-					if(name.endsWith("id")) {
-						continue;
+					if(name.endsWith("id") || name.endsWith("Id")) {
+						if(!name.equals("Creatorid"))
+							continue;
 					}
 					if (type.equals("class java.lang.String")) {
 						Method m = obj.getClass().getDeclaredMethod("get" + name);
@@ -317,6 +320,18 @@ public class ReflexUtil {
 			Method m = obj.getClass().getDeclaredMethod("set" + attributename, field.getType());
 			if(field.getType().getName().equals("java.lang.Integer")) {
 				value = Integer.parseInt((String)value);
+			}else if(attributename.contains("time") || attributename.contains("Time")) {
+					String dateString = (String)value;
+					Date parsed;
+					try {
+					    SimpleDateFormat format =
+					        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+					    parsed = format.parse(dateString);
+					}
+					catch(ParseException pe) {
+					    throw new IllegalArgumentException(pe);
+					}
+					value = parsed;
 			}
 			m.invoke(obj,value);
 		} catch (Exception e) {

@@ -1,5 +1,9 @@
 package edu.unsw.minifacebook.DAO;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +29,7 @@ import edu.unsw.minifacebook.bean.LikeBean;
 import edu.unsw.minifacebook.bean.NotificationBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
+import edu.unsw.minifacebook.util.ReflexUtil;
 
 @Repository
 public class LikeDAO {
@@ -34,27 +40,84 @@ public class LikeDAO {
 	private UserDAO userDao;
 	
 	@Autowired
+	private PostDAO postDao;
+	
+	@Autowired
 	private NotificationDAO NotificationDao;
 	
 	private Session getCurrentSession() {
 		return sessionFactory.openSession();
 	}
 	
-	public void saveObject(Object obj) throws HibernateException{
-		this.getCurrentSession().save(obj);
+	public void saveObject(LikeBean obj) throws HibernateException{
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		session.beginTransaction();
+		Connection conn = sessionImpl.connection();
+		try {
+
+			String sql = "select nextval('LikeSeq')";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			int seq = 0;
+			while (rs.next()) {
+				seq = rs.getInt(1);
+			}
+			int eseq = 0;
+			sql = "select nextval('EdgeSeq')";
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				eseq = rs.getInt(1);
+			}
+			obj.setId(seq);
+			List<String> insertSqls = ReflexUtil.getInserts(obj, seq);
+			for (String inserSql : insertSqls) {
+				stmt.addBatch(inserSql);
+			}
+			sql = "insert into entitystore(subject,predicate,object) values ('"
+					+ "Edge" + eseq + "', 'label','like'";
+			stmt.addBatch(sql);
+			
+			
+			sql = "insert into graph (subject,predicate,object) values ('" + 
+			"UserBean" + obj.getLikeFrom().getUserid() + "', 'Edge" + eseq + "','"
+					+ "PostBean" + obj.getPost().getId() + "')" ;
+			stmt.addBatch(sql);
+			stmt.executeBatch();
+			conn.commit();
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 	
 	public LikeBean addLikes(String username, int postid, int thumb) {
+
+		
 		UserBean like_from = null;
 		like_from = userDao.getUserByUsername(username);
 		PostBean post = null;
-		post = this.getCurrentSession().get(PostBean.class, postid);
+		post = postDao.getPostByid(postid);
 		
 		LikeBean likeBean = new LikeBean();
-		likeBean.setLikeFrom(like_from);
-		likeBean.setPostId(post);
+		likeBean.setLikefrom(like_from);
+		likeBean.setLike_from_id(like_from.getUserid());
+		likeBean.setPostid(post.getId());
 		likeBean.setThumb(thumb);
-		this.getCurrentSession().save(likeBean);
+		this.saveObject(likeBean);
 		
 		//add like to notification
 		UserBean userBean = post.getCreator();
@@ -71,95 +134,128 @@ public class LikeDAO {
 	}
 	
 	public void deleteLikes(String username, int postid) {
-		LikeBean likeBean = this.getLikeBean(username, postid);
-		int id = likeBean.getId();
-		likeBean.setThumb(0);
 		Session session = this.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.update(likeBean);
-		tx.commit();
-		session.close();
-		
-//		String sid = String.valueOf(id);
-//		this.getCurrentSession().beginTransaction();
-//		this.getCurrentSession().createQuery("delete from edu.unsw.minifacebook.bean.LikeBean where id =" + sid).executeUpdate();
-		
-//		try {
-//			sessionFactory.openSession().beginTransaction();
-//			//LikeBean unlikeBean = (LikeBean) this.getCurrentSession().get(LikeBean.class, id);
-//			sessionFactory.openSession().delete(likeBean);
-//			// commit only, if tx still hasn't been committed yet by Hibernate
-//			if (sessionFactory.openSession().getTransaction().getStatus().equals(TransactionStatus.ACTIVE)) { 
-//				sessionFactory.openSession().getTransaction().commit();
-//			}
-//			//this.getCurrentSession().getTransaction().commit();
-//			
-//			//this.getCurrentSession().close();
-//		} catch (HibernateException e) {
-//			e.printStackTrace();
-//			this.getCurrentSession().getTransaction().rollback();
-//		}
+		SessionImpl sessionImpl = (SessionImpl) session;
+		session.beginTransaction();
+		Connection conn = sessionImpl.connection();
+		try {
+			UserBean ub = userDao.getUserByUsername(username);
+			String sql = "select * from entitystore e, graph g where e.subject = g.predicate and e.object='like'"
+					+ " and g.subject='UserBean" + ub.getUserid() + "' and g.object='PostBean" + postid + "'" ;
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			String likeid = null;
+			while (rs.next()) {
+				likeid = rs.getString("e.subject");
+			}
+			sql = "delete * from entitystore where subject = '" + likeid + "'";
+			stmt.addBatch(sql);
+			sql = "delete * from graph where predicatte = '" + likeid + "'";
+			stmt.addBatch(sql);
+			stmt.executeBatch();
+			conn.commit();
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public LikeBean getLikeBean(String username, int postid) {
-		UserBean like_from = null;
-		like_from = userDao.getUserByUsername(username);
-		PostBean post = null;
-		post = this.getCurrentSession().get(PostBean.class, postid);
-		
-		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<LikeBean> query = builder.createQuery(LikeBean.class);
-		Root<LikeBean> root = query.from(LikeBean.class);
-		query.select(root).where(builder.equal(root.get("like_from"), like_from), builder.equal(root.get("post"), post));
-		LikeBean likeBean = null;
-		Query q = this.getCurrentSession().createQuery(query);
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
+		LikeBean likeBean = new LikeBean();
 		try {
-			 likeBean = (LikeBean) q.getSingleResult();
-			 System.out.println(likeBean.getId());
-		}catch(NoResultException nre) {
-			nre.printStackTrace();
+			UserBean ub = userDao.getUserByUsername(username);
+			String sql = "select * from entitystore e, graph g where e.subject = g.predicate and e.object='like'"
+					+ " and g.subject='UserBean" + ub.getUserid() + "' and g.object='PostBean" + postid + "'" ;
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			String likeid = null;
+			while (rs.next()) {
+				likeid = rs.getString("e.subject");
+			}
+			sql = "select * from entitystore where subject = '" + likeid + "'";
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String predicate = rs.getString("predicate");
+				String object = rs.getString("object");
+				ReflexUtil.setAttribute(likeBean, predicate, object);
+			}
+			
+			likeBean.setLikefrom(userDao.getUserByUserid(likeBean.getLike_from_id()));
+			likeBean.setPost(postDao.getPostByid(likeBean.getPostid()));
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
-		
-//		CriteriaDelete<LikeBean> delete = builder.createCriteriaDelete(LikeBean.class);
-//
-//		// set the root class
-//		Root<LikeBean> e = delete.from(LikeBean.class);
-//
-//		// set where clause
-//		delete.where(builder.equal(e.get("like_from"), like_from), builder.equal(e.get("post"), post));
-//
-//		// perform update
-//		this.em.createQuery(delete).executeUpdate();
 		return likeBean;
 	}
 	
 	public int numLikes(int postid) {
-		PostBean post = null;
-		post = this.getCurrentSession().get(PostBean.class, postid);
 		
-		List<LikeBean> likeList = new ArrayList<LikeBean>();
-		CriteriaBuilder builder = this.getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<LikeBean> query = builder.createQuery(LikeBean.class);
-		Root<LikeBean> root = query.from(LikeBean.class);
-		query.select(root);
-		Query query1 = getCurrentSession().createQuery
-				(query);
-		try {
-		likeList = (List<LikeBean>)query1.getResultList();
-		}catch(NoResultException nre) {
-			nre.printStackTrace();
-		}
+		Session session = this.getCurrentSession();
+		SessionImpl sessionImpl = (SessionImpl) session;
+		Connection conn = sessionImpl.connection();
 		int count = 0;
-		LikeBean l = null;
-		Iterator<LikeBean> i = likeList.iterator();
-		while(i.hasNext()) {
-			l = i.next();
-			if (l.getPostId().getId() == postid) {
-				count += l.getThumb();
+		try {
+			//UserBean ub = userDao.getUserByUsername(username);
+			String sql = "select distinct(e.subject) from entitystore e, graph g where e.subject = g.predicate and e.object='like'"
+					 + " and g.object='PostBean" + postid + "'" ;
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				count ++;
+			}
+		
+		} catch (SQLException se) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				conn.close();
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
-		System.out.println(count);
+		
+		
 		return count;
 	}
 

@@ -141,23 +141,8 @@ public class UserDAO {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String predicate = rs.getString("predicate");
-				if (predicate.contains("Time")) {
-					String dateString = rs.getString("object");
-					Date parsed;
-					try {
-					    SimpleDateFormat format =
-					        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-					    parsed = format.parse(dateString);
-					}
-					catch(ParseException pe) {
-					    throw new IllegalArgumentException(pe);
-					}
-					ReflexUtil.setAttribute(userBean, predicate, parsed);
-				} else {
-					String object = rs.getString("object");
-					ReflexUtil.setAttribute(userBean, predicate, object);
-				}
-				
+				String object = rs.getString("object");
+				ReflexUtil.setAttribute(userBean, predicate, object);
 			}
 
 			conn.commit();
@@ -189,7 +174,7 @@ public class UserDAO {
 
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "select * from entitystore where subject='" + userId + "'";
+			String sql = "select * from entitystore where subject='UserBean" + userId + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String predicate = rs.getString("predicate");

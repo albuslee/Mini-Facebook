@@ -66,7 +66,7 @@ public class PostService {
 		PostBean postBean = new PostBean();
 		UserBean creator = userDao.getUserByUsername(creatorUsername);
 		BeanUtils.copyProperties(postForm, postBean);
-		postBean.setCreator(creator.getUserid());
+		postBean.setCreatorid(creator.getUserid());
 		postBean.setPosttime(new Date());
 		postDao.saveObject(postBean);
 	}
