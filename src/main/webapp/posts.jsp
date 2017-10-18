@@ -17,7 +17,6 @@
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 
 
-<%@ page import="edu.unsw.minifacebook.service.LikeService"%>
 
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
