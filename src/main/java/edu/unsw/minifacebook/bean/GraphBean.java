@@ -12,16 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "graph")
-public class graphBean {
-	@Column
+
+public class GraphBean {
+
 	private String Subject;
 
-	@Column
+
 	private String Predicate;
 
-	@Column
+
 	private String Object;
 	
 	public String getSubject() {

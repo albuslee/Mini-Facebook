@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
 import edu.unsw.minifacebook.bean.DetailBean;
 import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.bean.UserBean;
-import edu.unsw.minifacebook.bean.graphBean;
+import edu.unsw.minifacebook.bean.GraphBean;
 import edu.unsw.minifacebook.util.ReflexUtil;
 
 @Repository
@@ -85,8 +85,8 @@ public class UserGRDAO {
 		
 	}
 	
-	public List<graphBean> getgraphByRequest(String request) {
-		List<graphBean> relationList = new ArrayList<graphBean>();
+	public List<GraphBean> getgraphByRequest(String request) {
+		List<GraphBean> relationList = new ArrayList<GraphBean>();
 
 		
 		Session session = this.getCurrentSession();
@@ -99,17 +99,13 @@ public class UserGRDAO {
 			ResultSet rs = stmt.executeQuery(sql);
 			List<String> ids = new ArrayList<String>();
 			while(rs.next()){
-				ids.add(rs.getString(1));
-			}
-			
-			
-			for(String id: ids) {
-				graphBean graphBean = new graphBean();
-				sql = "select * from entitystore where subject='" + id+ "'";
-				rs = stmt.executeQuery(sql);
+				GraphBean graphBean = new GraphBean();
+				String subject = rs.getString("subject");
 				String predicate = rs.getString("predicate");
 				String object = rs.getString("object");
-				ReflexUtil.setAttribute(graphBean, predicate, object);
+				graphBean.setSubject(subject);
+				graphBean.setPredicate(predicate);
+				graphBean.setObject(object);
 				relationList.add(graphBean);
 			}
 			
