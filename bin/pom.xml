@@ -130,6 +130,15 @@
 			<version>2.2.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>TextAPI</groupId>
+			<artifactId>unsw.curation.api</artifactId>
+			<version>0.0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/TextAPI-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+
+
 
 	</dependencies>
 	<build>
