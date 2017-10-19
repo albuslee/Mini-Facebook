@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.lang.reflect.Field;
 
 public class ReflexUtil {
@@ -325,7 +326,7 @@ public class ReflexUtil {
 					Date parsed;
 					try {
 					    SimpleDateFormat format =
-					        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+					        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy",Locale.ENGLISH);
 					    parsed = format.parse(dateString);
 					}
 					catch(ParseException pe) {

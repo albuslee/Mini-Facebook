@@ -14,18 +14,26 @@
     <style type="text/css">
         html, body, #main { height: 100%; width: 100%; margin: 0; padding: 0 }
     </style>
+    <jsp:include page="headerreg.jsp"></jsp:include>
 </head>
 <body>
+
 		   <s:form style="float:right" class="form-inline navbar-form" action="graphSearch">
 				<div class="input-group">
-                   <s:textfield name="detailform.name" type="text" class="form-control" placeholder="freindSearch"></s:textfield>
+                   <s:textfield name="searchField" type="text" class="form-control" placeholder="Search"></s:textfield>
+                    <select name="choose" class="form-control">
+                    <option value="people" selected="selected">people</option>
+                    <option value="message">post</option>
+                    <option value="friend">friend</option>
+                	</select>
                     <span class="input-group-btn">
                      <s:submit value="search" class="btn btn-default"></s:submit>
                     </span>
                   </div>
 		   </s:form>
-    <div id="main" style="height: 500px; width: 500px; margin: 0; padding: 0"></div>
-    <div style="displat:none" id="jsonData"><%=request.getSession().getAttribute("graphlist")%></div>
+    <div id="main" style="height: 400px; width: 800px; margin: 0; padding: 0"></div>
+    <div style="display:none" id="jsonLink"><%=request.getSession().getAttribute("graphlist")%></div>
+    <div style="display:none" id="jsonData"><%=request.getSession().getAttribute("entitylist")%></div>
 </body>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="echarts.min.js"></script>
@@ -33,7 +41,8 @@
     
     function draw(){
     var myChart = echarts.init(document.getElementById('main'));
-    var array=eval('(' + $('#jsonData').html() + ')');
+    var linkarray=eval('(' + $('#jsonLink').html() + ')');
+    var dataarray=eval('(' + $('#jsonData').html() + ')');
     option = {
             title: { text: 'relationship graph' },
             tooltip: {
@@ -58,7 +67,7 @@
                     },
                     force: {
                         repulsion: 2500,
-                        edgeLength: [10, 50]
+                        edgeLength: [10, 100]
                     },
                     draggable: true,
                     itemStyle: {
@@ -88,27 +97,13 @@
                             }
                         }
                     },
-                    data: [
-                        {
-                            name: 'p1',
-                            des: '1',
-                            symbolSize: 50,
-                            itemStyle: {
-                                normal: {
-                                    color: 'red'
-                                }
-                            }
-                        },{
-                            name: 'p2',
-                            des: '2',
-                            symbolSize: 50
-                        }
-                    ],
-                    links: array
+                    data:dataarray,
+                    links:linkarray
                 }
             ]
         };
     myChart.setOption(option);
+    myChart.resize()
     }
     draw();
     </script>

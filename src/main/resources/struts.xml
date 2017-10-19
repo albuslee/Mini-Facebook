@@ -147,6 +147,11 @@
 			<result name="input">/graph.jsp</result>
 			<result name="error">/fail.jsp</result>
 		</action>
+		<action name="logout" class="edu.unsw.minifacebook.action.ExitAction">
+			<result name="success">/login.jsp</result>
+			<result name="input">/graph.jsp</result>
+			<result name="error">/fail.jsp</result>
+		</action>
 		
 	</package>
 

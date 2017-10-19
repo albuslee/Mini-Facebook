@@ -152,11 +152,17 @@ if(detail!=null){
                     </span>
                   </div>
 		   </s:form>
+		   <s:form style="float:right" class="form-inline navbar-form" action="graphSearch">
+                     <s:submit value="searchGraph" class="btn btn-default"></s:submit>
+		   </s:form>
 		   
 		   		       <form style="float:right" class="form-inline navbar-form"   action ="advancedSearch.jsp" >
 		   		       <div class = "input-group">
                       <input type = "submit" value = "AdvancedSearch" class = "btn btn-default">
                       </div>
+                      </form>
+                      <form style="float:right" class="form-inline navbar-form"   action ="logout" >
+                      <input type = "submit" value = "logout" class = "btn btn-default">
                       </form>
         </div>
    </nav>
