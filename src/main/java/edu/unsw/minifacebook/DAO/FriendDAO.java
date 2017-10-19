@@ -151,7 +151,8 @@ public class FriendDAO {
 		SessionImpl sessionImpl = (SessionImpl) session;
 		Connection conn = sessionImpl.connection();
 		try {
-			String sql = "select * from graph where subject = 'UserBean" + userId + "'";
+			String sql = "select * from graph where subject = 'UserBean" + userId + "'"
+					+ " and object like 'UserBean%'";
 			
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -161,7 +162,8 @@ public class FriendDAO {
 				result.add(Integer.parseInt(object));
 			}
 			
-			sql = "select * from graph where object = 'UserBean" + userId + "'";
+			sql = "select * from graph where object = 'UserBean" + userId + "'"
+					+ " and object like 'UserBean%'";
 			
 			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
