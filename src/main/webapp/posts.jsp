@@ -10,13 +10,12 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.UserBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.LikeBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.DetailBean"%>
 <%@ page import="edu.unsw.minifacebook.bean.NotificationBean"%>
 
-
+<%@ page import="edu.unsw.minifacebook.bean.PostBean"%>
 
 <%@ page import="edu.unsw.minifacebook.DAO.NotificationDAO"%>
 <%@ page import="edu.unsw.minifacebook.DAO.DetailDAO"%>
