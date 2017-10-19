@@ -32,8 +32,9 @@ import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.forms.PostForm;
 import edu.unsw.minifacebook.service.PostService;
 import edu.unsw.minifacebook.service.UserService;
-//import unsw.curation.api.extractnamedentity.ExtractEntitySentence;
-//import unsw.curation.api.tokenization.ExtractionKeywordImpl;
+import edu.unsw.minifacebook.util.Emailer;
+import unsw.curation.api.extractnamedentity.ExtractEntitySentence;
+import unsw.curation.api.tokenization.ExtractionKeywordImpl;
 
 public class PostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 	private static final long serialVersionUID = 1L;
@@ -82,8 +83,17 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 
 			DetailBean detailBean = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
 			postService.createNewPost(detailBean.getUsername(), postform);
-			//ExtractionKeywordImpl ek = new ExtractionKeywordImpl();
-			
+			HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+					.get(ServletActionContext.HTTP_REQUEST);
+            ExtractionKeywordImpl ek = new ExtractionKeywordImpl();
+            String stoplist = request.getRealPath("stoplist.txt") ;
+            String key1 = ek.ExtractSentenceKeyword(postform.getDescription(), new File(stoplist));
+            if(key1 != null && !key1.isEmpty()) {
+            	Emailer.sendMail("zcy19920424@gmail.com", detailBean.getName() + " send bully post",
+            			detailBean.getName() + " send bully post, content:" + postform.getDescription());
+            }
+            
+            
 			return SUCCESS;
 
 		} catch (Exception e) {

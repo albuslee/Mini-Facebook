@@ -57,6 +57,7 @@ public class PostDAO {
 				String object = rs.getString("object");
 				ReflexUtil.setAttribute(postBean, predicate, object);
 			}
+			postBean.setId(id);
 
 		} catch (SQLException e) {
 			try {
@@ -165,6 +166,7 @@ public class PostDAO {
 					String object = rs.getString("object");
 					ReflexUtil.setAttribute(pb, predicate, object);
 				}
+				pb.setId(postid);
 				postList.add(pb);
 			}
 

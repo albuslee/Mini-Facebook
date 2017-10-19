@@ -75,7 +75,7 @@ public class LikeDAO {
 				stmt.addBatch(inserSql);
 			}
 			sql = "insert into entitystore(subject,predicate,object) values ('"
-					+ "Edge" + eseq + "', 'label','like'";
+					+ "Edge" + eseq + "', 'label','like)'";
 			stmt.addBatch(sql);
 			
 			
@@ -117,6 +117,7 @@ public class LikeDAO {
 		likeBean.setLike_from_id(like_from.getUserid());
 		likeBean.setPostid(post.getId());
 		likeBean.setThumb(thumb);
+		likeBean.setPost(post);
 		this.saveObject(likeBean);
 		
 		//add like to notification

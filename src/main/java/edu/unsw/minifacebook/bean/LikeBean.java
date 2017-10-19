@@ -56,7 +56,7 @@ public class LikeBean {
 	}
 	
 	public PostBean getPost() {
-		return this.getPost();
+		return this.post;
 	}
 
 	public void setThumb(int thumb) {
