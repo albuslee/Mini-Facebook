@@ -32,6 +32,8 @@ import edu.unsw.minifacebook.bean.PostBean;
 import edu.unsw.minifacebook.forms.PostForm;
 import edu.unsw.minifacebook.service.PostService;
 import edu.unsw.minifacebook.service.UserService;
+//import unsw.curation.api.extractnamedentity.ExtractEntitySentence;
+//import unsw.curation.api.tokenization.ExtractionKeywordImpl;
 
 public class PostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 	private static final long serialVersionUID = 1L;
@@ -80,6 +82,8 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 
 			DetailBean detailBean = (DetailBean) ActionContext.getContext().getSession().get("detailbean");
 			postService.createNewPost(detailBean.getUsername(), postform);
+			//ExtractionKeywordImpl ek = new ExtractionKeywordImpl();
+			
 			return SUCCESS;
 
 		} catch (Exception e) {
