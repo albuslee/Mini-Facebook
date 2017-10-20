@@ -33,7 +33,6 @@ import edu.unsw.minifacebook.forms.PostForm;
 import edu.unsw.minifacebook.service.PostService;
 import edu.unsw.minifacebook.service.UserService;
 import edu.unsw.minifacebook.util.Emailer;
-import unsw.curation.api.extractnamedentity.ExtractEntitySentence;
 import unsw.curation.api.tokenization.ExtractionKeywordImpl;
 
 public class PostAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
@@ -103,9 +102,9 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
 	}
 	
 	   
-    private File upload; // �ļ�  
-    private String uploadContentType; // �ļ�����  
-    private String uploadFileName; // �ļ���  
+    private File upload; // 锟侥硷拷  
+    private String uploadContentType; // 锟侥硷拷锟斤拷锟斤拷  
+    private String uploadFileName; // 锟侥硷拷锟斤拷  
     
     public File getUpload() {  
         return upload;  
@@ -132,22 +131,22 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
     }  
 	
 	public String uploadpostimage() throws IOException {
-		  // ���response,request  
+		  // 锟斤拷锟絩esponse,request  
         HttpServletResponse response = ServletActionContext.getResponse();  
         HttpServletRequest request = ServletActionContext.getRequest();  
   
         response.setCharacterEncoding("utf-8");  
         PrintWriter out = response.getWriter();  
-        // CKEditor�ύ�ĺ���Ҫ��һ������  
+        // CKEditor锟结交锟侥猴拷锟斤拷要锟斤拷一锟斤拷锟斤拷锟斤拷  
         String callback = request.getParameter("CKEditorFuncNum");  
-        String expandedName = ""; // �ļ���չ��  
+        String expandedName = ""; // 锟侥硷拷锟斤拷展锟斤拷  
         if (uploadContentType.equals("image/pjpeg")  
                 || uploadContentType.equals("image/jpeg")) {  
-            // IE6�ϴ�jpgͼƬ��headimageContentType��image/pjpeg����IE9�Լ�����ϴ���jpgͼƬ��image/jpeg  
+            // IE6锟较达拷jpg图片锟斤拷headimageContentType锟斤拷image/pjpeg锟斤拷锟斤拷IE9锟皆硷拷锟斤拷锟斤拷洗锟斤拷锟絡pg图片锟斤拷image/jpeg  
             expandedName = ".jpg";  
         } else if (uploadContentType.equals("image/png")  
                 || uploadContentType.equals("image/x-png")) {  
-            // IE6�ϴ���pngͼƬ��headimageContentType��"image/x-png"  
+            // IE6锟较达拷锟斤拷png图片锟斤拷headimageContentType锟斤拷"image/x-png"  
             expandedName = ".png";  
         } else if (uploadContentType.equals("image/gif")) {  
             expandedName = ".gif";  
@@ -156,7 +155,7 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
         } else {  
             out.println("<script type=\"text/javascript\">");  
             out.println("window.parent.CKEDITOR.tools.callFunction(" + callback  
-                    + ",''," + "'Format not correct(Must be.jpg/.gif/.bmp/.png�ļ�)');");  
+                    + ",''," + "'Format not correct(Must be.jpg/.gif/.bmp/.png锟侥硷拷)');");  
             out.println("</script>");  
             return null;  
         }  
@@ -169,12 +168,12 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
         }  
   
         InputStream is = new FileInputStream(upload);  
-        //ͼƬ�ϴ�·��  
+        //图片锟较达拷路锟斤拷  
         String uploadPath = ServletActionContext.getServletContext().getRealPath("postimage");  
-        String fileName = java.util.UUID.randomUUID().toString(); // ����ʱ��+UUID�ķ�ʽ�漴����  
+        String fileName = java.util.UUID.randomUUID().toString(); // 锟斤拷锟斤拷时锟斤拷+UUID锟侥凤拷式锟芥即锟斤拷锟斤拷  
         fileName += expandedName;  
         File file = new File(uploadPath);  
-        if (!file.exists()) { // ���·�������ڣ�����  
+        if (!file.exists()) { // 锟斤拷锟铰凤拷锟斤拷锟斤拷锟斤拷冢锟斤拷锟斤拷锟�  
             file.mkdirs();  
         }  
         File toFile = new File(uploadPath, fileName);  
@@ -187,7 +186,7 @@ public class PostAction extends ActionSupport implements RequestAware, SessionAw
         is.close();  
         os.close();  
   
-        // ����"ͼ��"ѡ�����ʾͼƬ  request.getContextPath()Ϊweb��Ŀ��   
+        // 锟斤拷锟斤拷"图锟斤拷"选锟筋卡锟斤拷锟斤拷示图片  request.getContextPath()为web锟斤拷目锟斤拷   
         out.println("<script type=\"text/javascript\">");  
         out.println("window.parent.CKEDITOR.tools.callFunction(" + callback  
                 + ",'" + "postimage/" + fileName + "','')");  
